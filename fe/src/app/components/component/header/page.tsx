@@ -19,7 +19,7 @@ export default function Header() {
 
             {/* search */}
             <Search />
-            {'hihihihiihihi'}
+            {'hhHhHhHhHhhHhHH'}
 
             {/* avt */}
             <Avt />
