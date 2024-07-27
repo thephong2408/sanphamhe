@@ -24,7 +24,7 @@ export const Logo = () => {
                     <BreadcrumbList className="text-white lg:text-[15px] text-[12px]">
                         <BreadcrumbItem>
                             <BreadcrumbLink
-                                className="hover:text-[#ccc] flex items-center"
+                                className=" flex items-center hover:bg-[#a8a8a8] p-4 rounded-sm"
                                 href="/"
                             >
                                 <FontAwesomeIcon
