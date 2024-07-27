@@ -19,15 +19,16 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                <div className="min-h-screen bg-white sm:text-[15px] text-[12px]">
+                <div className="flex flex-col min-h-[100vh] bg-white sm:text-[15px] text-[12px]">
                     <header>
                         <Header />
                     </header>
-                    <div className=" xl:px-[150px] lg:px-[40px] px-[10px]">
-                        {' '}
+                    <div className="flex-grow xl:px-[150px] lg:px-[40px] px-[10px]">
                         {children}
                     </div>
-                    <Footer />
+                    <footer>
+                        <Footer />
+                    </footer>
                 </div>
             </body>
         </html>
