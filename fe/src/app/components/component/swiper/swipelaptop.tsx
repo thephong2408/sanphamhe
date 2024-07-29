@@ -9,6 +9,7 @@ import "swiper/css/autoplay";
 import "./styles.scss";
 import { Navigation, Autoplay } from "swiper/modules";
 import classNames from "classnames";
+import Link from "next/link";
 
 interface SwiperLaptopProps {
   text?: string;
@@ -80,43 +81,45 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
                 key={index}
                 className="pl-0 min-w-[130px] max-w-[350px]"
               >
-                <div
-                  className={classNames(
-                    "w-full h-full hover:shadow-md border-[1px] cursor-pointer"
-                  )}
-                >
+                <Link href={"/card"}>
                   <div
-                    className="w-full h-[70%] bg-slate-400 bg-cover bg-center"
-                    style={{
-                      backgroundImage:
-                        "url('https://mega.com.vn/media/news/2905_hinh-nen-may-tinh-sieu-de-thuong.jpg')",
-                    }}
+                    className={classNames(
+                      "w-full h-full hover:shadow-md border-[1px] cursor-pointer"
+                    )}
                   >
-                    <img
-                      className="hover:opacity-0"
-                      alt="img"
-                      src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
-                    />
+                    <div
+                      className="w-full h-[70%] bg-slate-400 bg-cover bg-center"
+                      style={{
+                        backgroundImage:
+                          "url('https://mega.com.vn/media/news/2905_hinh-nen-may-tinh-sieu-de-thuong.jpg')",
+                      }}
+                    >
+                      <img
+                        className="hover:opacity-0"
+                        alt="img"
+                        src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
+                      />
+                    </div>
+                    <div className="bg-white p-2">
+                      <span className="block text-ellipsis line-clamp-2 w-full mb-5">
+                        Laptop Gaming Asus TUF A15 FA507NU LP131W R5 7
+                      </span>
+                      <span className={`text-red-600 w-full text-center`}>
+                        14 000 000
+                      </span>
+                      <nav className="flex justify-between w-full mt-3">
+                        <ul>
+                          <li>thông số 1</li>
+                          <li>thông số 1</li>
+                        </ul>
+                        <ul>
+                          <li>thông số 1</li>
+                          <li>thông số 1</li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
-                  <div className="bg-white p-2">
-                    <span className="block text-ellipsis line-clamp-2 w-full mb-5">
-                      Laptop Gaming Asus TUF A15 FA507NU LP131W R5 7
-                    </span>
-                    <span className={`text-red-600 w-full text-center`}>
-                      14 000 000
-                    </span>
-                    <nav className="flex justify-between w-full mt-3">
-                      <ul>
-                        <li>thông số 1</li>
-                        <li>thông số 1</li>
-                      </ul>
-                      <ul>
-                        <li>thông số 1</li>
-                        <li>thông số 1</li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>

@@ -28,7 +28,7 @@ function Home() {
               slidesPerView4={3}
               slidesPerView5={3}
               width="100%"
-              show={true}
+              show={false}
             />
           </div>
           <div className="sm:w-[49%] w-full">
@@ -40,7 +40,7 @@ function Home() {
               slidesPerView4={3}
               slidesPerView5={3}
               width="100%"
-              show={true}
+              show={false}
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 export const Logo = () => {
   return (
@@ -14,10 +15,12 @@ export const Logo = () => {
       <span className="sm:h-[80px] h-[60px] flex items-center">
         {/* Logo */}
         <div className="h-full sm:w-[180px] w-[70px]">
-          <img
-            src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
-            alt="logo"
-          />
+          <Link href={"/"}>
+            <img
+              src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
+              alt="logo"
+            />
+          </Link>
         </div>
         {/* breadcrumb */}
         <Breadcrumb className="xl:block hidden ml-10 ">

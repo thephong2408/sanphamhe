@@ -3,6 +3,7 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 function Search() {
   const [value, setValue] = useState<string>("");
@@ -26,12 +27,14 @@ function Search() {
           value={value}
           onChange={handleValueChange}
         />
-        <button className="absolute top-0 right-0 sm:w-[45px] w-[30px] sm:h-[45px] h-[35px] bg-[#959595] text-white rounded-r-full">
-          <FontAwesomeIcon
-            className="sm:size-[20px] size-[15px]"
-            icon={faMagnifyingGlass}
-          />
-        </button>
+        <Link href={"/listsearch"}>
+          <button className="absolute top-0 right-0 sm:w-[45px] w-[30px] sm:h-[45px] h-[35px] bg-[#959595] text-white rounded-r-full">
+            <FontAwesomeIcon
+              className="sm:size-[20px] size-[15px]"
+              icon={faMagnifyingGlass}
+            />
+          </button>
+        </Link>
 
         {/* show results */}
         {showResults && (
