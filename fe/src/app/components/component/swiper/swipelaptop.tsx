@@ -21,6 +21,7 @@ interface SwiperLaptopProps {
   slidesPerView4?: number;
   slidesPerView5?: number;
   width?: string;
+  show?: boolean;
 }
 
 const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
@@ -33,6 +34,7 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
   slidesPerView3 = 3,
   slidesPerView4 = 4,
   slidesPerView5 = 5,
+  show = false,
   width = "100%",
 }) => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 1, 1, 1, 1];
@@ -120,9 +122,11 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
           </Swiper>
         </div>
       </div>
-      <button className="w-[150px] py-2 text-red-600 hover:text-white border-[1px] hover:border-[red] bg-white hover:bg-[red] m-auto rounded-md">
-        Xem Tất cả
-      </button>
+      {show && (
+        <button className="w-[150px] py-2 text-red-600 hover:text-white border-[1px] hover:border-[red] bg-white hover:bg-[red] m-auto rounded-md">
+          Xem Tất cả
+        </button>
+      )}
     </div>
   );
 };
