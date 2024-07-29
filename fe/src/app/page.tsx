@@ -16,6 +16,7 @@ function Home() {
           slidesPerView4={4}
           slidesPerView5={5}
           width="100%"
+          show={true}
         />
         <div className="sm:flex justify-between">
           <div className="sm:w-[49%] w-full">
@@ -27,6 +28,7 @@ function Home() {
               slidesPerView4={3}
               slidesPerView5={3}
               width="100%"
+              show={true}
             />
           </div>
           <div className="sm:w-[49%] w-full">
@@ -38,6 +40,7 @@ function Home() {
               slidesPerView4={3}
               slidesPerView5={3}
               width="100%"
+              show={true}
             />
           </div>
         </div>
