@@ -4,8 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
-import { Navigation, Autoplay } from "swiper/modules";
 import "./styles.scss";
+import { Navigation, Autoplay } from "swiper/modules";
 
 export default function Advertisement() {
   return (
@@ -23,13 +23,28 @@ export default function Advertisement() {
           modules={[Navigation, Autoplay]}
           className="mySwiper h-full"
         >
-          <SwiperSlide>Slide 1</SwiperSlide>
-          <SwiperSlide>Slide 2</SwiperSlide>
-          <SwiperSlide>Slide 3</SwiperSlide>
+          <SwiperSlide>
+            <img
+              src="https://mega.com.vn/media/news/2905_hinh-nen-studio-ghibli-desktop.jpg"
+              alt=""
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img
+              src="https://mega.com.vn/media/news/2905_hinh-nen-may-tinh-xinh-cuc-chill.jpg"
+              alt=""
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img
+              src="https://mega.com.vn/media/news/2905_hinh-nen-may-tinh-totoro-sieu-de-thuong.jpg"
+              alt=""
+            />
+          </SwiperSlide>
         </Swiper>
       </div>
       {/* quảng cáo 2 + 3 */}
-      <div className="bg-red-600 sm:h-[300px] h-[200px] flex flex-col overflow-hidden">
+      <div className="bg-red-600 sm:h-[300px] h-[200px] flex flex-1 flex-col overflow-hidden">
         {/* quảng cáo 2 */}
         <div className="sm:h-[50%] h-[100px] bg-slate-100 overflow-hidden">
           <Swiper
@@ -43,9 +58,24 @@ export default function Advertisement() {
             modules={[Navigation, Autoplay]}
             className="mySwiper h-full"
           >
-            <SwiperSlide>Slide 1</SwiperSlide>
-            <SwiperSlide>Slide 2</SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
+            <SwiperSlide>
+              <img
+                src="https://mega.com.vn/media/news/2905_hinh-nen-may-tinh-sieu-yeu-sieu-net.jpg"
+                alt=""
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src="https://mega.com.vn/media/news/2905_hinh-nen-may-tinh-totoro-chat-luong-cuc-chill.jpg"
+                alt=""
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src="https://mega.com.vn/media/news/2905_hinh-nen-may-tinh-xinh-anime-nho-phu-thuy.jpg"
+                alt=""
+              />
+            </SwiperSlide>
           </Swiper>
         </div>
         {/* quảng cáo 3 */}
@@ -61,9 +91,24 @@ export default function Advertisement() {
             modules={[Navigation, Autoplay]}
             className="mySwiper h-full"
           >
-            <SwiperSlide>Slide 1</SwiperSlide>
-            <SwiperSlide>Slide 2</SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
+            <SwiperSlide>
+              <img
+                src="https://mega.com.vn/media/news/2905_hinh-nen-totoro-anime-sieu-cung-danh-cho-may-tinh.jpg"
+                alt=""
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src="https://mega.com.vn/media/news/2905_hinh-nen-may-tinh-sieu-xinh-anime-ghibli.jpg"
+                alt=""
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src="https://mega.com.vn/media/news/2905_hinh-nen-may-tinh-sieu-de-thuong-danh-cho-may-tinh.jpg"
+                alt=""
+              />
+            </SwiperSlide>
           </Swiper>
         </div>
       </div>
