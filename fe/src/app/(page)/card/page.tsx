@@ -1,3 +1,5 @@
+"use client";
+import "boxicons/css/boxicons.min.css";
 import LayoutCard from "@/app/Layouts/LayoutCard";
 import SwiperLaptop from "@/app/components/component/swiper/swipelaptop";
 function Card() {
@@ -17,10 +19,16 @@ function Card() {
               12450H/8GB/512GB/15.6F 144Hz/RTX2050 4GB/Win11
             </h1>
             <h1 className=" sm:text-3xl text-2xl ">Thương hiệu : HP</h1>
-            <h1 className="text-red-600 text-4xl font-bold ">
-              {" "}
-              GIÁ : 14 000 000
-            </h1>
+            <div className="flex justify-start items-center space-x-10">
+              <h1 className="text-red-600 sm:text-4xl text-3xl font-bold ">
+                {" "}
+                GIÁ : 14 000 000
+              </h1>
+              <button className="border-[1px] border-[red] text-[red] p-4 rounded-lg hover:bg-[red] hover:text-white">
+                <i className="bx bxs-cart-add sm:text-[30px] text-[20px] mr-4 "></i>
+                Thêm giỏ hàng
+              </button>
+            </div>
             <div className="sm:flex flex-row justify-between">
               <div className="sm:text-2xl text-xl p-3 rounded-lg bg-red-600 text-white text-center sm:w-[300px] w-full">
                 Đã bao gồm phí VAT
