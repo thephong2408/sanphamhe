@@ -14,8 +14,8 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center sm:mb-0 mb-10">
-      <div className="w-full max-w-xl p-8 bg-white rounded-lg shadow-md border-[1px]">
+    <div className="flex items-center justify-center sm:mb-10">
+      <div className="w-full max-w-xl p-8 bg-white rounded-lg shadow-md border-[1px] mb-10">
         <h2 className="sm:text-4xl text-2xl font-bold mb-4 text-center ">
           Login
         </h2>
@@ -23,7 +23,7 @@ const Login: React.FC = () => {
           <div className="mb-4  space-y-5">
             <label
               htmlFor="email"
-              className="block text-sm sm:text-[18px] text-[17px]"
+              className="block  font-semibold sm:text-[18px] text-[15px]"
             >
               Email
             </label>
@@ -35,14 +35,14 @@ const Login: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
-                className=" block w-full px-3 py-2 border-[5px] border-[#000] focus:outline-none focus:bg-slate-200 sm:text-[15px] text-[12px]"
+                className=" block w-full px-3 sm:py-3 py-2  border-[5px] border-[#000] focus:outline-none focus:bg-slate-200  sm:sm:text-[15px] text-[12px]"
               />
             </div>
           </div>
           <div className="mb-6 space-y-5">
             <label
               htmlFor="password"
-              className="block text-sm sm:text-[18px] text-[17px]"
+              className="block  sm:text-[18px] font-semibold text-[15px]"
             >
               Password
             </label>
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 required
-                className="w-full px-3 py-2 focus:outline-none focus:bg-slate-200 sm:text-[15px] text-[12px]"
+                className="w-full px-3 sm:py-3 py-2  focus:outline-none focus:bg-slate-200 sm:text-[15px] text-[12px]"
               />
             </div>
           </div>
