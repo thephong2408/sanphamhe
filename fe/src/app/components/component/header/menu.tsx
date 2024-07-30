@@ -1,4 +1,10 @@
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faCartShopping,
+  faHouse,
+  faPlus,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
@@ -24,40 +30,48 @@ function Menu() {
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="sm:w-[200px] w-[150px] sm:text-[18px]">
-          <DropdownMenuLabel className="sm:text-[18px] hover:bg-transparent">
-            Danh sách
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem className="sm:text-[18px] ">
-              Home
+              <FontAwesomeIcon
+                className="text-[#ccc] text-[12px] mr-2"
+                icon={faHouse}
+              />{" "}
+              Trang chủ
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem className="sm:text-[18px] ">
+              <FontAwesomeIcon
+                className="text-[#ccc] text-[12px] mr-2"
+                icon={faCartShopping}
+              />{" "}
               Giỏ hàng
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem className="sm:text-[18px] ">
-              Vị trí
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
+
           <DropdownMenuItem className="sm:text-[18px] ">
-            Chính sách bảo hành
+            <FontAwesomeIcon
+              className="text-[#ccc] text-[12px] mr-2"
+              icon={faPlus}
+            />
+            Thêm tài khoản
           </DropdownMenuItem>
           <DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="sm:text-[18px] ">
-              Phạm Thế Phong
+              <i className="bx bx-user-plus text-[#ccc] text-[12px] mr-2"></i>{" "}
+              Đăng kí
             </DropdownMenuItem>
             <DropdownMenuSeparator />
           </DropdownMenuGroup>
 
           <DropdownMenuItem className="sm:text-[18px] ">
+            <FontAwesomeIcon
+              className="text-[#ccc] text-[12px] mr-2"
+              icon={faRightFromBracket}
+            />{" "}
             Đăng xuất
           </DropdownMenuItem>
         </DropdownMenuContent>
