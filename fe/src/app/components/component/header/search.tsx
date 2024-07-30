@@ -21,16 +21,16 @@ function Search() {
     <div className="sm:h-[35px] h-[25px] flex items-center">
       <div className="relative rounded-full">
         <input
-          className="px-10 md:w-[500px] w-[230px] sm:h-[45px] h-[35px] text-[#323232] lg:text-[15px] text-[12px] border-none rounded-full bg-white"
+          className="px-10 md:w-[550px] w-[230px] sm:h-[45px] h-[35px] text-[#323232] lg:text-[20px] text-[12px] border-none rounded-full bg-white"
           type="text"
           placeholder="Nhập tên sản phẩm"
           value={value}
           onChange={handleValueChange}
         />
         <Link href={"/listsearch"}>
-          <button className="absolute top-0 right-0 sm:w-[45px] w-[30px] sm:h-[45px] h-[35px] bg-[#959595] text-white rounded-r-full">
+          <button className="absolute top-0 right-0 sm:w-[55px] w-[30px] sm:h-[45px] h-[35px] bg-[#959595] text-white rounded-r-full hover:bg-slate-200">
             <FontAwesomeIcon
-              className="sm:size-[20px] size-[15px]"
+              className="sm:size-[30px] size-[15px]"
               icon={faMagnifyingGlass}
             />
           </button>
