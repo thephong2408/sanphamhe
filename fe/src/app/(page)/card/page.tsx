@@ -6,14 +6,30 @@ function Card() {
   return (
     <div>
       <LayoutCard>
-        <div className="w-full sm:flex flex-row">
-          <div className="md:w-[50%] w-full sm:mb-0 mb-5">
-            <img
-              src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
-              alt=""
-            />
+        <div className="w-full lg:flex flex-row">
+          <div className="lg:w-[50%] w-full lg:mb-0 mb-5">
+            <div className="w-full flex flex-col">
+              <img
+                src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
+                alt=""
+              />
+            </div>
+            <div className=" hidden lg:flex lg:justify-between mt-10 space-x-10">
+              <div className="w-[50%]">
+                <img
+                  src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
+                  alt=""
+                />
+              </div>
+              <div className="w-[50%]">
+                <img
+                  src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
+                  alt=""
+                />
+              </div>
+            </div>
           </div>
-          <div className="md:w-[50%] w-full sm:ml-10 ml-0 space-y-5 sm:text-3xl text-xl">
+          <div className="lg:w-[50%] w-full lg:ml-10 ml-0 space-y-5 sm:text-3xl text-xl">
             <h1 className="sm:text-4xl text-3xl font-bold ">
               Laptop Gaming HP VICTUS 15 fa1155TX 952R1PA i5
               12450H/8GB/512GB/15.6F 144Hz/RTX2050 4GB/Win11
