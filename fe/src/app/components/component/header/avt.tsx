@@ -44,30 +44,30 @@ function Avt() {
                 {/* nếu giở hàng có sản phẩm */}
                 {arr.map((item, index) => (
                   <div key={index}>
-                    <Link href={"/card"}>
-                      <div
-                        onClick={() => setShowShopping(false)}
-                        className="relative w-full sm:h-[100px] h-[70px]  py-2 flex justify-between"
-                      >
-                        <div className="h-full sm:w-[80px] w-[50px] ">
+                    <div
+                      onClick={() => setShowShopping(false)}
+                      className="relative w-full sm:h-[100px] h-[70px]  py-2 flex justify-between"
+                    >
+                      <div className="h-full sm:w-[80px] w-[50px] ">
+                        <Link href={"/card"}>
                           <img
                             src="https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/08/Hinh-nen-anime-cute-5-1.jpg.webp"
                             alt="sp"
                           />
-                        </div>
-                        <div className="flex-1 flex flex-col overflow-y-auto px-4">
-                          <span className="w-full break-words font-bold">
-                            Ten san pham
-                          </span>
-                          <span className="w-full break-words">
-                            Gia : 12 000 000
-                          </span>
-                        </div>
-                        <button className="absolute bottom-2 right-0 text-[#ff4343] w-[60px] py-2 border-[1px] border-[#ff4343] hover:bg-[#ff4343] hover:text-[#ffffff]">
-                          Xóa
-                        </button>
+                        </Link>
                       </div>
-                    </Link>
+                      <div className="flex-1 flex flex-col overflow-y-auto px-4">
+                        <span className="w-full break-words font-bold">
+                          Ten san pham
+                        </span>
+                        <span className="w-full break-words">
+                          Gia : 12 000 000
+                        </span>
+                      </div>
+                      <button className="absolute bottom-2 right-0 text-[#ff4343] w-[60px] py-2 border-[1px] border-[#ff4343] hover:bg-[#ff4343] hover:text-[#ffffff]">
+                        Xóa
+                      </button>
+                    </div>
                   </div>
                 ))}
                 {/* kết thúc giỏ hàng có ản phẩm */}
@@ -97,15 +97,21 @@ function Avt() {
             <div className="rounded-sm w-[200px] sm:max-h-[400px] max-h-[200px] overflow-y-auto border-[1px] border-[#959595] bg-[#ffffff] text-[#000] ">
               <div className="relative w-full   flex justify-between">
                 <ul className="w-full">
-                  <li className="p-4 border-b-[1px] hover:bg-[#ccc]">
-                    Đăng nhập
-                  </li>
-                  <li className="p-4 border-b-[1px] hover:bg-[#ccc]">
-                    Đăng kí
-                  </li>
-                  <li className="p-4 border-b-[1px] hover:bg-[#ccc]">
-                    Đăng xuất
-                  </li>
+                  <Link href={"/login"}>
+                    <li className="p-4 border-b-[1px] hover:bg-[#ccc]">
+                      Đăng nhập
+                    </li>
+                  </Link>
+                  <Link href={"/signuppage"}>
+                    <li className="p-4 border-b-[1px] hover:bg-[#ccc]">
+                      Đăng kí
+                    </li>
+                  </Link>
+                  <Link href={"/"}>
+                    <li className="p-4 border-b-[1px] hover:bg-[#ccc]">
+                      Đăng xuất
+                    </li>
+                  </Link>
                 </ul>
               </div>
             </div>
