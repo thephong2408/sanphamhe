@@ -16,6 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 function Menu() {
   return (
@@ -31,49 +32,59 @@ function Menu() {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="sm:w-[200px] w-[150px] sm:text-[18px]">
           <DropdownMenuGroup>
-            <DropdownMenuItem className="sm:text-[18px] ">
-              <FontAwesomeIcon
-                className="text-[#ccc] text-[12px] mr-2"
-                icon={faHouse}
-              />{" "}
-              Trang chủ
-            </DropdownMenuItem>
+            <Link href={"/"}>
+              <DropdownMenuItem className="sm:text-[18px] ">
+                <FontAwesomeIcon
+                  className="text-[#ccc] text-[12px] mr-2"
+                  icon={faHouse}
+                />{" "}
+                Trang chủ
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem className="sm:text-[18px] ">
-              <FontAwesomeIcon
-                className="text-[#ccc] text-[12px] mr-2"
-                icon={faCartShopping}
-              />{" "}
-              Giỏ hàng
-            </DropdownMenuItem>
+            <Link href={"/cart"}>
+              <DropdownMenuItem className="sm:text-[18px] ">
+                <FontAwesomeIcon
+                  className="text-[#ccc] text-[12px] mr-2"
+                  icon={faCartShopping}
+                />{" "}
+                Giỏ hàng
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem className="sm:text-[18px] ">
-            <FontAwesomeIcon
-              className="text-[#ccc] text-[12px] mr-2"
-              icon={faPlus}
-            />
-            Thêm tài khoản
-          </DropdownMenuItem>
+          <Link href={"/login"}>
+            <DropdownMenuItem className="sm:text-[18px] ">
+              <FontAwesomeIcon
+                className="text-[#ccc] text-[12px] mr-2"
+                icon={faPlus}
+              />
+              Thêm tài khoản
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="sm:text-[18px] ">
-              <i className="bx bx-user-plus text-[#ccc] text-[12px] mr-2"></i>{" "}
-              Đăng kí
-            </DropdownMenuItem>
+            <Link href={"/signuppage"}>
+              <DropdownMenuItem className="sm:text-[18px] ">
+                <i className="bx bx-user-plus text-[#ccc] text-[12px] mr-2"></i>{" "}
+                Đăng kí
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuSeparator />
           </DropdownMenuGroup>
 
-          <DropdownMenuItem className="sm:text-[18px] ">
-            <FontAwesomeIcon
-              className="text-[#ccc] text-[12px] mr-2"
-              icon={faRightFromBracket}
-            />{" "}
-            Đăng xuất
-          </DropdownMenuItem>
+          <Link href={"/"}>
+            <DropdownMenuItem className="sm:text-[18px] ">
+              <FontAwesomeIcon
+                className="text-[#ccc] text-[12px] mr-2"
+                icon={faRightFromBracket}
+              />{" "}
+              Đăng xuất
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuContent>
       </DropdownMenu>
     </span>
