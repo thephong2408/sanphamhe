@@ -24,6 +24,7 @@ export default function Card() {
           <span className="block text-ellipsis line-clamp-2 w-full mb-5">
             Laptop Gaming Asus TUF A15 FA507NU LP131W R5 7
           </span>
+
           <span className="text-red-600 w-full text-center sm:text-3xl text-xl ">
             14 000 000
           </span>

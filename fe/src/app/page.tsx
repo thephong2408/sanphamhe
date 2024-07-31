@@ -25,8 +25,8 @@ function Home() {
               slidesPerView={2}
               slidesPerView2={2}
               slidesPerView3={2}
-              slidesPerView4={3}
-              slidesPerView5={3}
+              slidesPerView4={2}
+              slidesPerView5={2}
               width="100%"
               show={false}
             />
@@ -37,8 +37,8 @@ function Home() {
               slidesPerView={2}
               slidesPerView2={2}
               slidesPerView3={2}
-              slidesPerView4={3}
-              slidesPerView5={3}
+              slidesPerView4={2}
+              slidesPerView5={2}
               width="100%"
               show={false}
             />
