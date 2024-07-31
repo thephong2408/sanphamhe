@@ -3,6 +3,7 @@ Fe: cần một API gôm các dữ liệu:
 name: string,
 giá tiền:number,
 thương hiệu : string,
+chọn lọc theo nhu cầu ng sử dụng : văn phòng, gameming, đồ họa
 
 // thông số kĩ thuật
 CPU: string,
