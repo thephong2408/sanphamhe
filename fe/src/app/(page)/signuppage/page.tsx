@@ -6,6 +6,7 @@ interface SignUpFormData {
   email: string;
   password: string;
   confirmPassword: string;
+  phoneNumber: string;
 }
 
 const SignUp: React.FC = () => {
@@ -14,6 +15,7 @@ const SignUp: React.FC = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    phoneNumber: "",
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -36,16 +38,22 @@ const SignUp: React.FC = () => {
     if (formData.password !== formData.confirmPassword) {
       setError("Mật khẩu nhập lại không chính xác!");
       return;
+    } else if (formData.password.length < 6) {
+      setError("Mật khẩu phải có ít nhất 6 ký tự");
+      return;
+    } else if (formData.phoneNumber.length < 10) {
+      setError("Số điện thoại phải có ít nhất 10 ký tự");
+      return;
     }
 
     // Simulate API call
     setTimeout(() => {
-      setSuccess("Registration successful!");
+      setSuccess("Đăng ký thành công!");
     }, 1000);
   };
 
   return (
-    <div className="sm:max-w-[600px] sm:w-[600px] max-w-xl mx-auto  p-8 border border-gray-300 rounded-lg shadow-md mb-10">
+    <div className="sm:max-w-[600px] sm:w-[600px] max-w-xl mx-auto p-8 border border-gray-300 rounded-lg shadow-md mb-10">
       <h1 className="sm:text-4xl text-3xl font-bold mb-6">Sign Up</h1>
 
       {success && <p className="text-green-500 mb-4">{success}</p>}
@@ -53,7 +61,7 @@ const SignUp: React.FC = () => {
         <div className="mb-4">
           <label
             htmlFor="username"
-            className="block sm:text-[18px] text-[15px]  font-medium text-gray-700"
+            className="block sm:text-[18px] text-[15px] font-medium text-gray-700"
           >
             Username:
           </label>
@@ -64,15 +72,36 @@ const SignUp: React.FC = () => {
               name="username"
               value={formData.username}
               onChange={handleChange}
+              placeholder="Enter your username"
               required
-              className=" block w-full px-3 py-2 border border-gray-300  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:sm:text-[18px] text-[15px] "
+              className="block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-[18px] text-[15px]"
+            />
+          </div>
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="phoneNumber"
+            className="block sm:text-[18px] text-[15px] font-medium text-gray-700"
+          >
+            Phone Number:
+          </label>
+          <div className="border-[1px] rounded-md shadow-sm">
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              placeholder="Enter your phone number"
+              required
+              className=" block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-[18px] text-[15px]"
             />
           </div>
         </div>
         <div className="mb-4">
           <label
             htmlFor="email"
-            className="block sm:text-[18px] text-[15px]  font-medium text-gray-700"
+            className="block sm:text-[18px] text-[15px] font-medium text-gray-700"
           >
             Email:
           </label>
@@ -83,15 +112,16 @@ const SignUp: React.FC = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              placeholder="Enter your email"
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:sm:text-[18px] text-[15px] "
+              className=" block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-[18px] text-[15px]"
             />
           </div>
         </div>
         <div className="mb-4">
           <label
             htmlFor="password"
-            className="block sm:text-[18px] text-[15px]  font-medium text-gray-700"
+            className="block sm:text-[18px] text-[15px] font-medium text-gray-700"
           >
             Password:
           </label>
@@ -102,15 +132,16 @@ const SignUp: React.FC = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
+              placeholder="Enter your password"
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:sm:text-[18px] text-[15px] "
+              className=" block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-[18px] text-[15px]"
             />
           </div>
         </div>
         <div className="mb-4">
           <label
             htmlFor="confirmPassword"
-            className="block sm:text-[18px] text-[15px]  font-medium text-gray-700"
+            className="block sm:text-[18px] text-[15px] font-medium text-gray-700"
           >
             Confirm Password:
           </label>
@@ -121,8 +152,9 @@ const SignUp: React.FC = () => {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
+              placeholder="Confirm your password"
               required
-              className="mt-1 block w-full px-3 py-2  sm:sm:text-[18px] text-[15px] "
+              className=" block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-[18px] text-[15px]"
             />
           </div>
         </div>
