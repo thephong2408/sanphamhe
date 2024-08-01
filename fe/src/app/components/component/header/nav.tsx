@@ -9,9 +9,7 @@ export default function Nav() {
           <li>Trang chủ</li>
         </Link>
         <FaChevronRight />
-        <Link href={"/laptop"}>Khuyến mại</Link>
-        <FaChevronRight />
-        <Link href={"/laptop"}>Khách hàng</Link>
+        <Link href={"/sale"}>Khuyến mại</Link>
       </ul>
     </div>
   );
