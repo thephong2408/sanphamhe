@@ -1,5 +1,18 @@
 "use client";
 import "boxicons/css/boxicons.min.css";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +25,7 @@ function Avt() {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
-    <span className="items-center xl:flex hidden z-50">
+    <span className="items-center xl:flex hidden z-50 h-full">
       <span
         onMouseEnter={() => setShowShopping(true)}
         onMouseLeave={() => setShowShopping(false)}
@@ -79,24 +92,50 @@ function Avt() {
       <span
         onMouseEnter={() => setShowUser(true)}
         onMouseLeave={() => setShowUser(false)}
-        className=" relative flex items-center"
+        className=" relative flex items-center h-full"
       >
-        <i className="bx bx-user-plus text-[40px]"></i> {/* Sử dụng Boxicons */}
-        <span className="ml-2 mt-3 text-4xl">Tài khoản</span>
-        {/* <Avatar className="size-[30px]  ">
-                    <AvatarImage
-                        src="https://github.com/shadcn.png"
-                        alt="@shadcn"
-                    />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <span className="ml-2">Phạm Thế Phong</span> */}
+        {/* <i className="bx bx-user-plus text-[40px]"></i>
+        <span className="ml-2 mt-3 text-4xl">Tài khoản</span> */}
+        <Avatar className="size-[30px]  ">
+          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+        <span className="ml-2">Phạm Thế Phong</span>
         {/* div thảo tác */}
         {showUser && (
-          <div className="absolute sm:bottom-[0px] top-[35px] right-1/2 translate-x-1/2 pt-5 text-3xl">
+          <div className="absolute sm:bottom-[0px] top-[55px] right-1/2 translate-x-1/2 pt-5 text-3xl">
             <div className="rounded-sm w-[200px] sm:max-h-[400px] max-h-[200px] overflow-y-auto border-[1px] border-[#959595] bg-[#ffffff] text-[#000] ">
               <div className="relative w-full   flex justify-between">
                 <ul className="w-full">
+                  <li className="p-4 border-b-[1px] hover:bg-[#ccc]">
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <span className="text-3xl text-black">
+                          Thông tin cái nhân
+                        </span>
+                      </AlertDialogTrigger>
+
+                      <AlertDialogContent className="p-0 m-0 overflow-hidden">
+                        <h1 className="p-5 text-3xl bg-blue-600 text-white">
+                          {" "}
+                          Name: Thông tin cá nhân
+                        </h1>
+                        <ul>
+                          <li className="p-5 border-b-[1px]">Phạm Thế Phong</li>
+                          <li className="p-5 border-b-[1px]">
+                            Gmail: phong@gmail.com
+                          </li>
+                          <li className="p-5 border-b-[1px]">
+                            SDT: 0869039628
+                          </li>
+                        </ul>
+                        <AlertDialogFooter className="p-5">
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </li>
+
                   <Link href={"/login"}>
                     <li className="p-4 border-b-[1px] hover:bg-[#ccc]">
                       Đăng nhập
