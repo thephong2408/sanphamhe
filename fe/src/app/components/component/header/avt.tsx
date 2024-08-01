@@ -39,14 +39,14 @@ function Avt() {
         {showShopping && (
           <div className="absolute sm:bottom-[0px] top-[35px] right-0 pt-5">
             <div className="border-[1px] border-[#959595]">
-              <div
-                onClick={() => setShowShopping(false)}
-                className=" h-[40px] text-3xl w-full bg-[rgb(255,93,93)] flex pl-2 items-center"
-              >
-                <Link href={"/cart"}>
+              <Link href={"/cart"}>
+                <div
+                  onClick={() => setShowShopping(false)}
+                  className=" h-[40px] text-3xl w-full bg-[rgb(255,93,93)] flex pl-2 items-center"
+                >
                   <button className="w-full">Xem tất cả </button>
-                </Link>
-              </div>
+                </div>
+              </Link>
               <div className="relative rounded-sm w-[400px] sm:max-h-[400px] max-h-[200px] overflow-y-auto  border-[#959595] bg-[#ffffff] text-[#000] px-2 ">
                 {/* giỏ hàng không có sản phẩm */}
                 {/* <div className="w-full h-[300px] flex items-center justify-center">

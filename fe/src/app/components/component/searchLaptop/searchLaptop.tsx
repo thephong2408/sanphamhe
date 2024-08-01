@@ -23,14 +23,14 @@ export default function SearchLaptop() {
         <div className="w-full  sm:border-[1px]  flex items-center space-x-5 sm:pl-10 pl-0 sm:py-[20px] py-[10px] sm:bg-[#c3c7d0]">
           {/* lọc sản phẩm  theo hãng */}
           <Select>
-            <SelectTrigger className="sm:w-[250px] w-[145px] h-[40px] sm:text-[15px] text-[12px] border-[1px] ">
+            <SelectTrigger className="sm:w-[250px] w-[145px] h-[40px] sm:text-[15px] text-[12px] border-[1px]  ">
               <SelectValue placeholder=" HÃNG LOPTOP" />
             </SelectTrigger>
             <SelectContent>
-              <SelectGroup>
+              <SelectGroup className="">
                 {laptop.map((item, index) => (
                   <SelectItem
-                    className="sm:text-[15px] text-[12px]"
+                    className="sm:text-[15px] text-[12px] "
                     key={index}
                     value={item}
                   >
