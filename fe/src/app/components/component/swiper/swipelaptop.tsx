@@ -84,9 +84,7 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
                 key={index}
                 className="pl-0 min-w-[130px] max-w-[350px]"
               >
-                <Link href={"/card"}>
-                  <Card sale={sale} />
-                </Link>
+                <Card sale={sale} />
               </SwiperSlide>
             ))}
           </Swiper>
