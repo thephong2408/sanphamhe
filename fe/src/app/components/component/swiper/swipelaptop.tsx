@@ -25,6 +25,7 @@ interface SwiperLaptopProps {
   width?: string;
   show?: boolean;
   sale?: boolean;
+  data?: any;
 }
 
 const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
@@ -40,6 +41,7 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
   show = false,
   width = "100%",
   sale = false,
+  data = [],
 }) => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 1, 1, 1, 1];
   return (
@@ -79,12 +81,12 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
             modules={[Navigation, Autoplay]}
             className="mySwiper h-full"
           >
-            {arr.map((item, index) => (
+            {data.map((item: any, index: number) => (
               <SwiperSlide
                 key={index}
                 className="pl-0 min-w-[130px] max-w-[350px]"
               >
-                <Card sale={sale} />
+                <Card sale={sale} data={item} />
               </SwiperSlide>
             ))}
           </Swiper>

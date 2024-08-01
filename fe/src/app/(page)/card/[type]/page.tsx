@@ -1,8 +1,24 @@
 "use client";
+import { useParams } from "next/navigation";
+import { useState, useEffect } from "react";
 import "boxicons/css/boxicons.min.css";
 import LayoutCard from "@/app/Layouts/LayoutCard";
 import SwiperLaptop from "@/app/components/component/swiper/swipelaptop";
+import APILAPTOP from "@/app/API/APILAPTOP";
 function Card() {
+  const params = useParams();
+  const encodedType = params.type as string;
+
+  // Giải mã URL
+  const type = decodeURIComponent(encodedType);
+
+  const [laptop, setLaptop] = useState(APILAPTOP);
+
+  useEffect(() => {
+    setLaptop(APILAPTOP.filter((item) => item.name === type));
+  }, [APILAPTOP]);
+
+  console.log(type + ": " + laptop); // Kết quả: HP Omen 15
   return (
     <div>
       <LayoutCard>
@@ -31,14 +47,14 @@ function Card() {
           </div>
           <div className="lg:w-[50%] w-full lg:ml-10 ml-0 space-y-5 sm:text-3xl text-xl">
             <h1 className="sm:text-4xl text-3xl font-bold ">
-              Laptop Gaming HP VICTUS 15 fa1155TX 952R1PA i5
-              12450H/8GB/512GB/15.6F 144Hz/RTX2050 4GB/Win11
+              {laptop[0].name}
             </h1>
-            <h1 className=" sm:text-3xl text-2xl ">Thương hiệu : HP</h1>
+            <h1 className=" sm:text-3xl text-2xl ">
+              Thương hiệu : {laptop[0].brand}
+            </h1>
             <div className="flex justify-start items-center space-x-10">
               <h1 className="text-red-600 sm:text-4xl text-3xl font-bold ">
-                {" "}
-                GIÁ : 14 000 000
+                {laptop[0].price}
               </h1>
               <button className="border-[1px] border-[#2f7adf] text-[#2f7adf] p-4 rounded-lg hover:bg-[#2f7adf] hover:text-white">
                 Mua ngay
@@ -62,41 +78,39 @@ function Card() {
                 <tbody>
                   <tr>
                     <td className="border-[2px] p-2">CPU</td>
-                    <td className="border-[2px] p-2">Intel Core i7-13700K</td>
+                    <td className="border-[2px] p-2">{laptop[0].CPU}</td>
                   </tr>
                   <tr>
                     <td className="border-[2px] p-2">RAM</td>
-                    <td className="border-[2px] p-2">16GB DDR5</td>
+                    <td className="border-[2px] p-2">{laptop[0].RAM}</td>
                   </tr>
                   <tr>
                     <td className="border-[2px] p-2">GPU</td>
-                    <td className="border-[2px] p-2">
-                      NVIDIA GeForce RTX 3060
-                    </td>
+                    <td className="border-[2px] p-2">{laptop[0].GPU}</td>
                   </tr>
                   <tr>
                     <td className="border-[2px] p-2">Storage</td>
-                    <td className="border-[2px] p-2">1TB SSD</td>
+                    <td className="border-[2px] p-2">{laptop[0].Storage}</td>
                   </tr>
                   <tr>
                     <td className="border-[2px] p-2">Screen Size</td>
-                    <td className="border-[2px] p-2">15.6 inches</td>
+                    <td className="border-[2px] p-2">{laptop[0].Screen}</td>
                   </tr>
                   <tr>
                     <td className="border-[2px] p-2">Resolution</td>
-                    <td className="border-[2px] p-2">1920 x 1080</td>
+                    <td className="border-[2px] p-2">{laptop[0].Resolution}</td>
                   </tr>
                   <tr>
-                    <td className="border-[2px] p-2">Battery Life</td>
-                    <td className="border-[2px] p-2">8 hours</td>
+                    <td className="border-[2px] p-2">Time</td>
+                    <td className="border-[2px] p-2">{laptop[0].time}</td>
                   </tr>
                   <tr>
                     <td className="border-[2px] p-2">Weight</td>
-                    <td className="border-[2px] p-2">2.2 kg</td>
+                    <td className="border-[2px] p-2">{laptop[0].Weight}</td>
                   </tr>
                   <tr>
-                    <td className="border-[2px] p-2">Operating System</td>
-                    <td className="border-[2px] p-2">Windows 11</td>
+                    <td className="border-[2px] p-2">Nhu cầu</td>
+                    <td className="border-[2px] p-2">{laptop[0].category}</td>
                   </tr>
                 </tbody>
               </table>
