@@ -24,6 +24,7 @@ interface SwiperLaptopProps {
   slidesPerView5?: number;
   width?: string;
   show?: boolean;
+  sale?: boolean;
 }
 
 const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
@@ -38,6 +39,7 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
   slidesPerView5 = 5,
   show = false,
   width = "100%",
+  sale = false,
 }) => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 1, 1, 1, 1];
   return (
@@ -83,7 +85,7 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
                 className="pl-0 min-w-[130px] max-w-[350px]"
               >
                 <Link href={"/card"}>
-                  <Card />
+                  <Card sale={sale} />
                 </Link>
               </SwiperSlide>
             ))}
@@ -91,9 +93,11 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
         </div>
       </div>
       {show && (
-        <button className="w-[150px] py-2 text-red-600 hover:text-white border-[1px] hover:border-[red] bg-white hover:bg-[red] m-auto rounded-md">
-          Xem Tất cả
-        </button>
+        <Link href={"/sale"}>
+          <button className="w-[150px] py-2 text-red-600 hover:text-white border-[1px] hover:border-[red] bg-white hover:bg-[red] m-auto rounded-md">
+            Xem Tất cả
+          </button>
+        </Link>
       )}
     </div>
   );
