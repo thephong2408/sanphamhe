@@ -52,18 +52,18 @@ function Card() {
             <h1 className=" sm:text-3xl text-2xl ">
               Thương hiệu : {laptop[0].brand}
             </h1>
+            <h1 className="text-red-600 sm:text-4xl text-3xl font-bold ">
+              {laptop[0].price}
+            </h1>
             <div className="flex justify-start items-center space-x-10">
-              <h1 className="text-red-600 sm:text-4xl text-3xl font-bold ">
-                {laptop[0].price}
-              </h1>
-              <button className="border-[1px] border-[#2f7adf] text-[#2f7adf] p-4 rounded-lg hover:bg-[#2f7adf] hover:text-white">
+              <button className="border-[1px] border-[red] text-[red] px-4 sm:h-[50px] h-[35px] rounded-lg hover:bg-[red] hover:text-white">
+                <i className="bx bxs-cart-add sm:text-[30px] text-[20px] mr-4 "></i>
+                Thêm giỏ hàng
+              </button>
+              <button className="border-[1px] border-[#2f7adf] text-[#2f7adf] px-4 sm:h-[50px] h-[35px] rounded-lg hover:bg-[#2f7adf] hover:text-white">
                 Mua ngay
               </button>
             </div>
-            <button className="border-[1px] border-[red] text-[red] p-4 rounded-lg hover:bg-[red] hover:text-white">
-              <i className="bx bxs-cart-add sm:text-[30px] text-[20px] mr-4 "></i>
-              Thêm giỏ hàng
-            </button>
             <div className="sm:flex flex-row justify-between">
               <div className="sm:text-2xl text-xl p-3 rounded-lg bg-red-600 text-white text-center sm:w-[300px] w-full">
                 Đã bao gồm phí VAT
