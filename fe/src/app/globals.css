@@ -137,7 +137,17 @@ html *::-webkit-scrollbar-track {
   border-radius: 0;
   background-color: rgba(0, 0, 0, 0);
 }
-
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Số dòng bạn muốn hiển thị */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.placeholder-sm::placeholder {
+  font-size: 12px; /* Điều chỉnh kích thước chữ của placeholder */
+  color: #888; /* Tùy chọn: thay đổi màu sắc của placeholder */
+}
 @layer base {
   * {
     @apply border-border;

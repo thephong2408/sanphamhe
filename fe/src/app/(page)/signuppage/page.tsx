@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { FaUser, FaPhone, FaEnvelope, FaLock, FaKey } from "react-icons/fa";
 
 interface SignUpFormData {
   username: string;
@@ -53,19 +54,14 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="sm:max-w-[600px] sm:w-[600px] max-w-xl mx-auto p-8 border border-gray-300 rounded-lg shadow-md mb-10">
-      <h1 className="sm:text-4xl text-3xl font-bold mb-6">Sign Up</h1>
+    <div className="flex items-center justify-center">
+      <div className="sm:max-w-[600px] sm:w-[600px] w-[350px] mx-auto p-8 border border-gray-300 bg-[#f4f7fe] rounded-lg shadow-md mb-10">
+        <h1 className="sm:text-4xl text-3xl font-bold mb-6">Đăng ký</h1>
 
-      {success && <p className="text-green-500 mb-4">{success}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label
-            htmlFor="username"
-            className="block sm:text-[18px] text-[15px] font-medium text-gray-700"
-          >
-            Username:
-          </label>
-          <div className="border-[1px] rounded-md shadow-sm">
+        {success && <p className="text-green-500 mb-4">{success}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4 flex items-center border-[1px] rounded-md shadow-sm bg-white">
+            <FaUser className="text-gray-500 ml-3" />
             <input
               type="text"
               id="username"
@@ -73,19 +69,12 @@ const SignUp: React.FC = () => {
               value={formData.username}
               onChange={handleChange}
               placeholder="Enter your username"
-              required
-              className="block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-[18px] text-[15px]"
+              className="block w-full sm:p-5 p-3 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
             />
           </div>
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="phoneNumber"
-            className="block sm:text-[18px] text-[15px] font-medium text-gray-700"
-          >
-            Phone Number:
-          </label>
-          <div className="border-[1px] rounded-md shadow-sm">
+
+          <div className="mb-4 flex items-center border-[1px] rounded-md shadow-sm bg-white">
+            <FaPhone className="text-gray-500 ml-3" />
             <input
               type="text"
               id="phoneNumber"
@@ -93,19 +82,12 @@ const SignUp: React.FC = () => {
               value={formData.phoneNumber}
               onChange={handleChange}
               placeholder="Enter your phone number"
-              required
-              className=" block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-[18px] text-[15px]"
+              className="block w-full sm:p-5 p-3 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
             />
           </div>
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block sm:text-[18px] text-[15px] font-medium text-gray-700"
-          >
-            Email:
-          </label>
-          <div className="border-[1px] rounded-md shadow-sm">
+
+          <div className="mb-4 flex items-center border-[1px] rounded-md shadow-sm bg-white">
+            <FaEnvelope className="text-gray-500 ml-3" />
             <input
               type="email"
               id="email"
@@ -113,19 +95,12 @@ const SignUp: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
-              required
-              className=" block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-[18px] text-[15px]"
+              className="block w-full sm:p-5 p-3 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
             />
           </div>
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="password"
-            className="block sm:text-[18px] text-[15px] font-medium text-gray-700"
-          >
-            Password:
-          </label>
-          <div className="border-[1px] rounded-md shadow-sm">
+
+          <div className="mb-4 flex items-center border-[1px] rounded-md shadow-sm bg-white">
+            <FaLock className="text-gray-500 ml-3" />
             <input
               type="password"
               id="password"
@@ -133,19 +108,12 @@ const SignUp: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter your password"
-              required
-              className=" block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-[18px] text-[15px]"
+              className="block w-full sm:p-5 p-3 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
             />
           </div>
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="confirmPassword"
-            className="block sm:text-[18px] text-[15px] font-medium text-gray-700"
-          >
-            Confirm Password:
-          </label>
-          <div className="border-[1px] rounded-md shadow-sm">
+
+          <div className="mb-4 flex items-center border-[1px] rounded-md shadow-sm bg-white">
+            <FaKey className="text-gray-500 ml-3" />
             <input
               type="password"
               id="confirmPassword"
@@ -153,19 +121,19 @@ const SignUp: React.FC = () => {
               value={formData.confirmPassword}
               onChange={handleChange}
               placeholder="Confirm your password"
-              required
-              className=" block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-[18px] text-[15px]"
+              className="block w-full sm:p-5 p-3 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
             />
           </div>
-        </div>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        <button
-          type="submit"
-          className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700"
-        >
-          Register
-        </button>
-      </form>
+
+          {error && <p className="text-red-500 mb-4">{error}</p>}
+          <button
+            type="submit"
+            className="w-[120px] py-5 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700"
+          >
+            Đăng Kí
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

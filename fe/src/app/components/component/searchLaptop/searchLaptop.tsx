@@ -91,10 +91,10 @@ export default function SearchLaptop() {
   };
 
   return (
-    <div className="border-[1px] mb-10">
-      <div className="py-10 border-[1px] p-5">
-        <h2 className="text-4xl font-bold mb-10">Lọc sản phẩm</h2>
-        <div className="w-full sm:border-[1px] flex items-center space-x-5 sm:pl-10 pl-0 sm:py-[20px] py-[10px] sm:bg-[#c3c7d0]">
+    <div className=" mb-10">
+      <div className="py-10">
+        {/* <h2 className="text-4xl font-bold mb-10">Lọc sản phẩm</h2> */}
+        <div className="w-full sm:border-[1px] flex items-center space-x-5 sm:pl-10 pl-0 sm:py-[20px] py-[10px] sm:bg-[#c3c7d0] rounded-xl">
           {/* Filter by brand */}
           <Select onValueChange={(value) => setSelectedBrand(value)}>
             <SelectTrigger className="sm:w-[250px] w-[145px] h-[40px] sm:text-[15px] text-[12px] border-[1px]">

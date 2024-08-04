@@ -29,7 +29,7 @@ function Home() {
           sale={true}
           data={data.slice(0, 10)}
         />
-        <div className="sm:flex justify-between">
+        {/* <div className="sm:flex justify-between">
           <div className="sm:w-[49%] w-full">
             <SwiperLaptop
               text="SẢN PHẨM MỚI NHẤT"
@@ -58,7 +58,7 @@ function Home() {
               data={data.slice(4, 9)}
             />
           </div>
-        </div>
+        </div> */}
         <SearchLaptop />
       </Layout1>
     </div>

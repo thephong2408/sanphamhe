@@ -46,13 +46,11 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 1, 1, 1, 1];
   return (
     <div
-      className={` transform-allow sm:p-10 p-5 rounded-xl  my-10 border-${bgood} border-[1px]`}
-      style={{ backgroundColor: bgood, width: widthCard }}
+      className={` transform-allow  rounded-xl  my-10 `}
+      style={{ width: widthCard }}
     >
       <div className="pb-10">
-        <span className={`text-${text_white} sm:text-4xl text-2xl font-bold`}>
-          {text}
-        </span>
+        <span className={` sm:text-4xl text-2xl font-bold`}>{text}</span>
         <div className="mt-5">
           <Swiper
             spaceBetween={10}
@@ -75,7 +73,7 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
             }}
             navigation
             autoplay={{
-              delay: 3000,
+              delay: 6000,
               disableOnInteraction: false,
             }}
             modules={[Navigation, Autoplay]}

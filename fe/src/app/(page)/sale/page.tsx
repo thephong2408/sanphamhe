@@ -15,11 +15,9 @@ export default function Sale() {
       <LayoutCard>
         <div className="w-full mb-10">
           <div className="w-full flex justify-between items-center sm:text-4xl text-2xl">
-            <span className="p-5 bg-red-500 text-white rounded-lg">
-              Sản phẩm khuyến mãi
-            </span>
+            <span className="p-5 font-medium">Sản phẩm khuyến mãi</span>
           </div>
-          <div className="bg-white mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+          <div className="bg-white grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
             {data.map((item: any, index: number) => (
               <Card key={index} sale={true} data={item} />
             ))}

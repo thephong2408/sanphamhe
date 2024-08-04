@@ -3,13 +3,19 @@ import Link from "next/link";
 import { FaChevronRight } from "react-icons/fa";
 export default function Nav() {
   return (
-    <div className="text-black sm:h-[50px] h-[30px]  flex items-center mt-2 sm:text-[20px] text-[15px] font-medium xl:mx-[150px] lg:mx-[40px] mx-[5px]">
-      <ul className="flex space-x-5 items-center ">
+    <div className="text-black sm:h-[50px] xl:mr-3 h-[30px] hidden sm:flex items-center mt-2 sm:text-[20px] text-[15px] font-medium ">
+      <ul className="flex space-x-10 items-center ">
         <Link href={"/"}>
-          <li>Trang chủ</li>
+          <li className="ml-10 md:block hidden">Trang chủ</li>
         </Link>
-        <FaChevronRight />
-        <Link href={"/sale"}>Khuyến mại</Link>
+
+        <Link href={"/sale"}>
+          <li className="xl:block hidden">Khuyến mại</li>
+        </Link>
+
+        <Link href={"/history"}>
+          <li className="xl:block hidden">Lịch sử</li>
+        </Link>
       </ul>
     </div>
   );

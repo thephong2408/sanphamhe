@@ -12,9 +12,9 @@ import Link from "next/link";
 export const Logo = () => {
   return (
     <div>
-      <span className="sm:h-[80px] h-[60px] flex items-center">
+      <span className="sm:h-[65px] h-[60px] flex items-center">
         {/* Logo */}
-        <div className="h-full sm:w-[180px] w-[70px]">
+        <div className="h-full py-3 ">
           <Link href={"/"}>
             <img
               src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"

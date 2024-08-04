@@ -25,7 +25,7 @@ export default function RootLayout({
             <header>
               <Header />
             </header>
-            <div className="flex-grow justify-center flex flex-col xl:px-[150px] lg:px-[40px] px-[10px] mt-10">
+            <div className="flex-grow  flex  flex-col xl:px-[150px] lg:px-[40px] px-[10px] mt-5">
               {children}
             </div>
             <footer>
