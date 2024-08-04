@@ -25,6 +25,7 @@ interface SwiperLaptopProps {
   width?: string;
   show?: boolean;
   sale?: boolean;
+  data?: any;
 }
 
 const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
@@ -40,17 +41,16 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
   show = false,
   width = "100%",
   sale = false,
+  data = [],
 }) => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 1, 1, 1, 1];
   return (
     <div
-      className={` transform-allow sm:p-10 p-5 rounded-xl  my-10 border-${bgood} border-[1px]`}
-      style={{ backgroundColor: bgood, width: widthCard }}
+      className={` transform-allow  rounded-xl  my-10 `}
+      style={{ width: widthCard }}
     >
       <div className="pb-10">
-        <span className={`text-${text_white} sm:text-4xl text-2xl font-bold`}>
-          {text}
-        </span>
+        <span className={` sm:text-4xl text-2xl font-bold`}>{text}</span>
         <div className="mt-5">
           <Swiper
             spaceBetween={10}
@@ -73,18 +73,18 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
             }}
             navigation
             autoplay={{
-              delay: 3000,
+              delay: 6000,
               disableOnInteraction: false,
             }}
             modules={[Navigation, Autoplay]}
             className="mySwiper h-full"
           >
-            {arr.map((item, index) => (
+            {data.map((item: any, index: number) => (
               <SwiperSlide
                 key={index}
                 className="pl-0 min-w-[130px] max-w-[350px]"
               >
-                <Card sale={sale} />
+                <Card sale={sale} data={item} />
               </SwiperSlide>
             ))}
           </Swiper>

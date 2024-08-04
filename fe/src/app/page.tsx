@@ -1,7 +1,16 @@
+"use client";
 import Layout1 from "./Layouts/Layout1";
 import SwiperLaptop from "./components/component/swiper/swipelaptop";
 import SearchLaptop from "./components/component/searchLaptop/searchLaptop";
+import APILAPTOP from "./API/APILAPTOP";
+import { useState, useEffect } from "react";
 function Home() {
+  const [data, setData] = useState<any>([]);
+
+  useEffect(() => {
+    setData(APILAPTOP);
+  }, []);
+
   return (
     <div>
       <Layout1>
@@ -18,8 +27,9 @@ function Home() {
           width="100%"
           show={true}
           sale={true}
+          data={data.slice(0, 10)}
         />
-        <div className="sm:flex justify-between">
+        {/* <div className="sm:flex justify-between">
           <div className="sm:w-[49%] w-full">
             <SwiperLaptop
               text="SẢN PHẨM MỚI NHẤT"
@@ -31,6 +41,7 @@ function Home() {
               width="100%"
               show={false}
               sale={false}
+              data={data.slice(5, 10)}
             />
           </div>
           <div className="sm:w-[49%] w-full">
@@ -44,9 +55,10 @@ function Home() {
               width="100%"
               show={false}
               sale={false}
+              data={data.slice(4, 9)}
             />
           </div>
-        </div>
+        </div> */}
         <SearchLaptop />
       </Layout1>
     </div>

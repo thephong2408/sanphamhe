@@ -174,7 +174,7 @@ const User: React.FC = () => {
         >
           Tên
         </label>
-        <div className="p-2 border-[1px] shadow-sm rounded-lg">
+        <div className="p-5 border-[1px] shadow-sm rounded-lg bg-white">
           <input
             type="text"
             id="name"
@@ -198,7 +198,7 @@ const User: React.FC = () => {
         >
           Số điện thoại
         </label>
-        <div className="p-2 border-[1px] shadow-sm rounded-lg">
+        <div className="p-5 border-[1px] shadow-sm rounded-lg bg-white">
           <input
             type="tel"
             id="phone"
@@ -222,7 +222,7 @@ const User: React.FC = () => {
         >
           Email
         </label>
-        <div className="p-2 border-[1px] shadow-sm rounded-lg">
+        <div className="p-5 border-[1px] shadow-sm rounded-lg bg-white">
           <input
             type="text"
             id="email"
@@ -247,7 +247,7 @@ const User: React.FC = () => {
           Thành phố
         </label>
         <Select onValueChange={handleCityChange}>
-          <SelectTrigger className="w-full sm:text-[18px] text-[12px] ">
+          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ">
             <SelectValue placeholder="Chọn thành phố" />
           </SelectTrigger>
           <SelectContent>
@@ -279,7 +279,7 @@ const User: React.FC = () => {
           Quận huyện
         </label>
         <Select onValueChange={handleDistrictChange} disabled={!selectedCity}>
-          <SelectTrigger className="w-full sm:text-[18px] text-[12px] ">
+          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ">
             <SelectValue placeholder="Chọn quận huyện" />
           </SelectTrigger>
           <SelectContent>
@@ -314,7 +314,7 @@ const User: React.FC = () => {
           onValueChange={(value) => setSelectedWard(value)}
           disabled={!selectedDistrict}
         >
-          <SelectTrigger className="w-full sm:text-[18px] text-[12px] ">
+          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ">
             <SelectValue placeholder="Chọn xã" />
           </SelectTrigger>
           <SelectContent>
@@ -345,14 +345,14 @@ const User: React.FC = () => {
         >
           Số nhà
         </label>
-        <div className="p-2 border-[1px] shadow-sm rounded-lg">
+        <div className="p-5 border-[1px] shadow-sm rounded-lg bg-white">
           <input
             type="text"
             id="houseNumber"
             value={houseNumber}
             onChange={(e) => setHouseNumber(e.target.value)}
             placeholder="Nhập số nhà"
-            className="block w-full text-[15px]"
+            className="w-full sm:text-[15px] h-[30px] text-[12px]"
           />
         </div>
         {houseNumberError && (
@@ -361,11 +361,11 @@ const User: React.FC = () => {
           </span>
         )}
       </div>
-      <div className="w-full border-[1px] rounded-lg shadow-sm h-[100px] flex justify-center items-center sm:text-4xl text-2xl bg-red-600 text-white">
-        Tổng hóa đơn : 14 000 000 VND
+      <div className="w-full border-[1px] rounded-lg shadow-sm h-[50px] bg-white flex justify-center items-center text-2xl  ">
+        Tổng hóa đơn : 14.000.000 VND
       </div>
       {/* phương thức thanh toán */}
-      <div className="sm:flex sm:space-x-10 sm:space-y-0 space-y-10 sm:px-0 px-[40px] text-white bg-[#000000] py-[20px] justify-center items-center">
+      <div className="sm:flex sm:space-x-10 sm:space-y-0 space-y-10 sm:px-0 px-[40px]  py-[20px] justify-center items-center">
         <div className="flex items-center space-x-2">
           <input
             type="radio"
@@ -378,9 +378,9 @@ const User: React.FC = () => {
           />
           <label
             htmlFor="onlinePayment"
-            className="text-[15px] font-medium leading-none"
+            className="text-[12px] font-medium leading-none"
           >
-            Thanh toán online
+            Thanh toán luôn
           </label>
         </div>
         <div className="flex items-center space-x-2">
@@ -393,7 +393,7 @@ const User: React.FC = () => {
             onChange={handlePaymentMethodChange}
             className="size-[15px] bg-white border-none"
           />
-          <label htmlFor="cod" className="text-[15px] font-medium leading-none">
+          <label htmlFor="cod" className="text-[12px] font-medium leading-none">
             Nhận hàng rồi thanh toán
           </label>
         </div>
@@ -403,7 +403,7 @@ const User: React.FC = () => {
           <AlertDialogTrigger asChild>
             <Button
               type="submit"
-              className="p-10 text-3xl text-blue-600 border-[1px] border-blue-600 hover:text-white hover:bg-blue-600"
+              className="p-8 text-2xl text-blue-600 border-[1px] border-blue-600 hover:text-white hover:bg-blue-600"
               variant="outline"
             >
               Thanh toán
@@ -431,7 +431,7 @@ const User: React.FC = () => {
           <AlertDialogTrigger asChild>
             <Button
               type="submit"
-              className="p-10 text-3xl text-blue-600 border-[1px] border-blue-600 hover:text-white hover:bg-blue-600"
+              className="p-8 text-2xl text-blue-600 border-[1px] border-blue-600 hover:text-white hover:bg-blue-600"
               variant="outline"
             >
               Xác nhận

@@ -48,54 +48,56 @@ export default function Cart() {
 
   return (
     <LayoutCard>
-      <div className="lg:flex justify-between lg:space-x-10">
-        <div className="mb-10 lg-w-[50%] w-full">
-          <h1 className="text-4xl font-bold bg-red-600 p-4 text-white text-[15px]">
+      <div className="lg:flex justify-between lg:space-x-20 sm:text-[15px] text-[10px] mb-10">
+        <div className="mb-10 md:w-[70%] w-full">
+          <h1 className="sm:text-[30px] text-[20px] font-medium p-4 ">
             Giỏ hàng
           </h1>
-          <div className="space-y-10 overflow-y-auto max-h-[300px] sm:max-h-[800px]">
+          <div className=" overflow-y-auto max-h-[300px] sm:max-h-[800px]">
             {arr.map((item, index) => (
               <div key={index}>
-                <div className="w-full sm:h-[150px] h-auto sm:flex flex-row text-xl my-10 ">
+                <div className="w-full sm:h-[180px] h-auto flex py-10 border-b-[1px] ">
                   <Link href="/card">
-                    <div className="sm:w-[200px] w-full h-full bg-slate-500">
+                    <div className="sm:w-[150px] sm:h-full w-[50px] h-[50px] bg-slate-500">
                       <img
                         src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
                         alt="Product image"
                       />
                     </div>
                   </Link>
-                  <div className="flex-1 h-full px-5 flex flex-col justify-between sm:space-y-0 space-y-5 sm:mt-0 mt-5">
-                    <h1 className="font-medium">
+                  <div className=" h-full px-5 flex justify-between  flex-1  ">
+                    <span className="font-medium sm:w-[300px] w-[120px]">
                       Laptop Gaming Lenovo LOQ 15IAX9 83GS001RVN i5
                       12450HX/12GB/512GB/15.6 FHD 144Hz/RTX3050 6GB/Win11
+                    </span>
+
+                    <h1 className=" font-bold">
+                      {formatPrice(14000000 * quantities[item])}
                     </h1>
 
-                    <h1 className="text-red-600 font-bold">
-                      GIÁ: {formatPrice(14000000 * quantities[item])} VND
-                    </h1>
-
-                    <div className="flex items-center text-[12px] space-x-8">
-                      <button
-                        className="border-[1px] border-blue-500 text-blue-500 px-4 py-2 hover:bg-blue-500 hover:text-white rounded-lg transition-colors"
-                        onClick={() => handleDecrease(item)}
-                      >
-                        <FaMinus className="sm:text-[20px] text-[15px]" />
-                      </button>
-                      <div className="border-[1px] border-blue-500 text-blue-500 font-bold px-5 py-2 text-[15px] flex justify-center items-center">
+                    <div className="flex bg-[#f5f5fd] sm:h-[80px] sm:w-[65px]  w-[30px] h-[40px] rounded-lg justify-center items-center  sm:space-x-5 space-x-2 ">
+                      <div className="sm:w-[10px] flex justify-center sm:text-[18px] text-[10px] font-medium">
                         {quantities[item]}
                       </div>
-                      <button
-                        className="border-[1px] border-blue-500 text-blue-500 px-4 py-2 hover:bg-blue-500 hover:text-white rounded-lg transition-colors"
-                        onClick={() => handleIncrease(item)}
-                      >
-                        <RiAddLargeLine className="sm:text-[20px] text-[15px]" />
-                      </button>
+                      <div className="space-y-5 ">
+                        <button
+                          onClick={() => handleIncrease(item)}
+                          className=""
+                        >
+                          <i className="bx text-[#ccc] sm:text-[25px] hover:text-[#979797] bxs-chevron-up-square"></i>
+                        </button>
+                        <button
+                          className=""
+                          onClick={() => handleDecrease(item)}
+                        >
+                          <i className="bx text-[#ccc] sm:text-[25px] hover:text-[#979797] bxs-chevron-down-square"></i>
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="flex justify-start items-center space-x-10 sm:text-[15px] text-[12px]">
-                      <button className="sm:text-[20px] text-[15px] border-[1px] border-red-600 text-red-600 p-3 rounded-lg hover:bg-red-600 hover:text-white">
-                        <i className="bx bx-trash"></i>
+                    <div>
+                      <button className="">
+                        <i className="bx bx-trash sm:text-[30px] text-[20px] text-[#ccc] hover:text-red-500 "></i>
                       </button>
                     </div>
                   </div>
@@ -104,10 +106,8 @@ export default function Cart() {
             ))}
           </div>
         </div>
-        <div className=" lg-w-[50%] w-full justify-center">
-          <h1 className="text-4xl font-bold bg-blue-500 p-4 text-white text-[15px]">
-            Thông tin người dùng
-          </h1>
+        <div className=" md:w-[30%] w-full justify-center bg-[#f5f5fd] p-8">
+          <h1 className="text-4xl font-bold  ">Thông tin người nhận</h1>
           <User />
         </div>
       </div>
