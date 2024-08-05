@@ -34,9 +34,6 @@ function Search() {
       setShowResults(false);
       // Chuyển hướng đến trang tìm kiếm
     }
-  };
-  useEffect(() => {
-    setShowResults(value.trim().length > 0);
     if (value.trim().length > 0) {
       const filtered = APILAPTOP.filter((item) =>
         item.name.toLowerCase().includes(value.toLowerCase())
@@ -47,6 +44,9 @@ function Search() {
       console.log("dữ liệu chuyền vào", filtered);
       setData(filtered);
     }
+  };
+  useEffect(() => {
+    setShowResults(value.trim().length > 0);
   }, [value]);
   // console.log(data, showInput);
 
@@ -84,17 +84,17 @@ function Search() {
           />
         </div>
 
-        <Link href={`/listsearch/${value}`}>
-          <button
-            onClick={handleItemClick}
-            className=" sm:w-[55px] w-[30px] md:h-[45px] h-[30px] bg-[#070707] border-[1px] text-white rounded-r-full force:text-[#ccc]"
-          >
-            <FontAwesomeIcon
-              className="sm:size-[25px] size-[15px]"
-              icon={faMagnifyingGlass}
-            />
-          </button>
-        </Link>
+        {/* <Link href={`/listsearch/${value}`}> */}
+        <button
+          onClick={handleItemClick}
+          className=" sm:w-[55px] w-[30px] md:h-[45px] h-[30px] bg-[#070707] border-[1px] text-white rounded-r-full force:text-[#ccc]"
+        >
+          <FontAwesomeIcon
+            className="sm:size-[25px] size-[15px]"
+            icon={faMagnifyingGlass}
+          />
+        </button>
+        {/* </Link> */}
         {/* show results */}
 
         {showResults && showInput && (

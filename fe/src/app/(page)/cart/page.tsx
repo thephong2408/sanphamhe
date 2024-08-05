@@ -1,12 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LayoutCard from "@/app/Layouts/LayoutCard";
 import Link from "next/link";
 import User from "./user";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "@/app/redux/slices/dataCart";
 
 export default function Cart() {
+  const dispatch = useDispatch();
   const dataCart = useSelector((state: any) => state.dataCart.dataCart);
+  const [data, setData] = useState(dataCart);
+
+  useEffect(() => {
+    setData(dataCart);
+  }, [dataCart]);
 
   // Khởi tạo state quantities với id của mỗi item làm khóa
   const [quantities, setQuantities] = useState<{ [key: number]: number }>(
@@ -18,7 +26,13 @@ export default function Cart() {
       {} as { [key: number]: number }
     )
   );
+  //xóa sản phẩm khỏi giở hàng
+  const handleRemove = (item: any) => {
+    dispatch(removeFromCart(item.id));
+    console.log("id", item);
+  };
 
+  // tăng số lượng sản phẩm
   const handleIncrease = (id: number) => {
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
@@ -26,7 +40,7 @@ export default function Cart() {
         prevQuantities[id] < 5 ? prevQuantities[id] + 1 : prevQuantities[id],
     }));
   };
-
+  // giảm số lượng sản phẩm
   const handleDecrease = (id: number) => {
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
@@ -34,7 +48,7 @@ export default function Cart() {
         prevQuantities[id] > 1 ? prevQuantities[id] - 1 : prevQuantities[id],
     }));
   };
-
+  //
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-GB", {
       minimumFractionDigits: 0,
@@ -46,6 +60,32 @@ export default function Cart() {
     0
   );
   const mony = formatPrice(totalPrice);
+  // danh sách sản phẩm số lượng và tiền
+  const getProductDetails = () => {
+    return data.map((item: any) => ({
+      name: item.name,
+      quantity: quantities[item.id],
+      price: item.price * quantities[item.id],
+    }));
+  };
+  const productDetails = getProductDetails();
+  // thời gian
+  const getCurrentTime = () => {
+    const now = new Date();
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZoneName: "short",
+    };
+    return now.toLocaleDateString("en-GB", options).replace(",", "");
+  };
+
+  const currentTime = getCurrentTime();
+  console.log(currentTime);
 
   return (
     <LayoutCard>
@@ -55,7 +95,7 @@ export default function Cart() {
             Giỏ hàng
           </h1>
           <div className=" overflow-y-auto max-h-[300px] sm:max-h-[800px]">
-            {dataCart.map((item: any) => (
+            {data.map((item: any) => (
               <div key={item.id}>
                 <div className="w-full sm:h-[180px] h-auto flex py-10 border-b-[1px] ">
                   <Link href="/card">
@@ -99,7 +139,7 @@ export default function Cart() {
                     </div>
 
                     <div>
-                      <button className="">
+                      <button onClick={() => handleRemove(item)} className="">
                         <i className="bx bx-trash sm:text-[30px] text-[20px] text-[#ccc] hover:text-red-500 "></i>
                       </button>
                     </div>
@@ -111,7 +151,11 @@ export default function Cart() {
         </div>
         <div className=" md:w-[30%] w-full justify-center bg-[#f5f5fd] p-8">
           <h1 className="text-4xl font-bold  ">Thông tin người nhận</h1>
-          <User totalPrice={mony} />
+          <User
+            totalPrice={mony}
+            productDetails={productDetails}
+            currentTime={currentTime}
+          />
         </div>
       </div>
     </LayoutCard>

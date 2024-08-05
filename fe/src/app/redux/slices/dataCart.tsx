@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface CartItem {
   name: string;
   price: number;
+  id: number;
   // Thêm các thuộc tính khác nếu cần
 }
 
@@ -22,18 +23,32 @@ const dataCartSlice = createSlice({
   reducers: {
     // Định nghĩa hành động để thêm dữ liệu vào giỏ hàng
     addToCart: (state, action: PayloadAction<CartItem>) => {
-      // Thêm mục mới vào mảng hiện tại
-      state.dataCart.push(action.payload);
-    },
-    removeFromCart: (state, action: PayloadAction<string>) => {
-      // Xóa mục khỏi mảng dựa trên tên của mục
-      state.dataCart = state.dataCart.filter(
-        (item) => item.name !== action.payload
+      const newItem = action.payload;
+      // Kiểm tra xem mục đã tồn tại chưa dựa trên id
+      const existingItem = state.dataCart.find(
+        (item) => item.id === newItem.id
       );
+      if (!existingItem) {
+        state.dataCart.push(newItem);
+      } else {
+        // Có thể thêm logic để cập nhật mục nếu cần
+        // Ví dụ: nếu bạn muốn cập nhật giá hoặc số lượng của mục đã tồn tại
+        // existingItem.price = newItem.price;
+      }
+    },
+    removeFromCart: (state, action: PayloadAction<number>) => {
+      // Xóa mục khỏi mảng dựa trên id của mục
+      state.dataCart = state.dataCart.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+    // Hành động để xóa toàn bộ giỏ hàng
+    clearCart: (state) => {
+      state.dataCart = [];
     },
   },
 });
 
-export const { addToCart, removeFromCart } = dataCartSlice.actions;
+export const { addToCart, removeFromCart, clearCart } = dataCartSlice.actions;
 
 export default dataCartSlice.reducer;

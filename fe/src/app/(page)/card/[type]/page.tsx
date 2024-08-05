@@ -5,36 +5,38 @@ import "boxicons/css/boxicons.min.css";
 import { FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
-import { addToCart } from "@/app/redux/slices/dataCart";
+import { addToCart, removeFromCart } from "@/app/redux/slices/dataCart";
 import LayoutCard from "@/app/Layouts/LayoutCard";
 import SwiperLaptop from "@/app/components/component/swiper/swipelaptop";
 import APILAPTOP from "@/app/API/APILAPTOP";
-import { removeFromCart } from "@/app/redux/slices/dataCart";
 
 function Card() {
   const dispatch = useDispatch();
-
-  const [isActive, setIsActive] = useState<boolean>(true);
   const data = useSelector((state: any) => state.dataCard.dataCard);
   const dataCart = useSelector((state: any) => state.dataCart.dataCart);
-  console.log("reduxcard", data);
+
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   useEffect(() => {
-    if (
-      dataCart.length > 0 &&
-      dataCart.some((item: any) => item.name === data.name)
-    ) {
-      setIsActive(false);
+    if (data) {
+      setIsActive(dataCart.some((item: any) => item.name === data.name));
     }
-  }, [dataCart]);
+  }, [dataCart, data]);
 
   const handleDispatchCard = () => {
-    setIsActive(!isActive);
-    if (isActive === true) {
-      dispatch(addToCart(data));
-    } else {
+    if (isActive) {
       dispatch(removeFromCart(data));
+    } else {
+      dispatch(addToCart(data));
     }
+    setIsActive(!isActive);
+  };
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat("en-GB", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
   };
 
   return (
@@ -67,7 +69,7 @@ function Card() {
                 Thương hiệu: {data.brand}
               </h1>
               <h1 className="sm:text-3xl text-2xl font-bold">
-                Giá: 16.000.000
+                {formatPrice(data.price)}
               </h1>
               <div className="flex justify-start items-center space-x-10">
                 <button
@@ -75,17 +77,17 @@ function Card() {
                   className={classNames(
                     "border-[1px] px-4 sm:h-[50px] h-[35px] rounded-full text-[18px]",
                     isActive
-                      ? "border-[#006aff] text-[#006aff] hover:bg-[#006aff] hover:text-white"
-                      : "border-[#cf0000] text-[#cf0000] bg-white hover:bg-[#cf0000] hover:text-white"
+                      ? "border-[#188b10] bg-[#188b10] text-white"
+                      : "border-[#006aff] text-[#006aff] hover:bg-[#006aff] hover:text-white"
                   )}
                 >
                   <span className="flex items-center">
                     {isActive ? (
-                      <i className="bx bxs-cart-add sm:text-[25px] text-[20px] mr-4"></i>
-                    ) : (
                       <i className="bx bx-cart sm:text-[25px] text-[20px] mr-4"></i>
+                    ) : (
+                      <i className="bx bxs-cart-add sm:text-[25px] text-[20px] mr-4"></i>
                     )}
-                    {isActive ? "Thêm vào giỏ hàng" : "Xóa"}
+                    {isActive ? "Đã thêm" : "Thêm vào giỏ hàng"}
                   </span>
                 </button>
               </div>
