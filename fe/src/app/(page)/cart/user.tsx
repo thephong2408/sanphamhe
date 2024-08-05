@@ -22,13 +22,25 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import { addToBill } from "@/app/redux/slices/dataBill";
+import { clearCart } from "@/app/redux/slices/dataCart";
 
 interface UserProps {
   totalPrice: string;
+  productDetails: any;
+  currentTime: string;
 }
 
-const User: React.FC<UserProps> = ({ totalPrice }) => {
-  console.log(totalPrice, "tổng tiền cần thanh toán");
+const User: React.FC<UserProps> = ({
+  totalPrice,
+  productDetails,
+  currentTime,
+}) => {
+  console.log(totalPrice, productDetails, "tổng tiền cần thanh toán");
+
+  const dispatch = useDispatch();
+
   // Trạng thái của các trường nhập liệu
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -150,6 +162,21 @@ const User: React.FC<UserProps> = ({ totalPrice }) => {
       const laptop = {
         name: "Laptop",
       };
+      console.log("Form Data Submitted:", [
+        formData,
+        totalPrice,
+        productDetails,
+      ]);
+      const payload = {
+        formData,
+        totalPrice,
+        productDetails,
+        currentTime,
+      };
+
+      // Xử lý thanh toán
+      dispatch(addToBill(payload));
+      dispatch(clearCart());
 
       // hiện thông báo khi thanh toán khi tất cả các trường đều úng
       setIsPaymentMethodOpen(true);
@@ -414,7 +441,7 @@ const User: React.FC<UserProps> = ({ totalPrice }) => {
               Thanh toán
             </Button>
           </AlertDialogTrigger>
-          {isPaymentMethodOpen && (
+          {/* {isPaymentMethodOpen && (
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Quét mã QR thanh toán</AlertDialogTitle>
@@ -426,7 +453,7 @@ const User: React.FC<UserProps> = ({ totalPrice }) => {
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
               </AlertDialogFooter>
             </AlertDialogContent>
-          )}
+          )} */}
         </AlertDialog>
       )}
 

@@ -17,7 +17,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { FaUserPlus } from "react-icons/fa";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -31,10 +31,17 @@ import {
 import { useSelector } from "react-redux";
 
 import Link from "next/link";
-import APILAPTOP from "@/app/API/APILAPTOP";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "@/app/redux/slices/dataCart";
+import { setDataCard } from "@/app/redux/slices/dataCard";
 
 function Avt() {
+  const dispatch = useDispatch();
   const dataCart = useSelector((state: any) => state.dataCart.dataCart);
+  const [data, setData] = useState<any>(dataCart);
+  useEffect(() => {
+    setData(dataCart);
+  }, [dataCart]);
 
   console.log("dataCart", dataCart);
   const [showShopping, setShowShopping] = useState<boolean>(false);
@@ -44,6 +51,13 @@ function Avt() {
       return ""; // hoặc giá trị mặc định khác
     }
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+  const handleCard = (index: number) => {
+    dispatch(setDataCard(dataCart[index]));
+  };
+  const handleRemove = (item: any) => {
+    dispatch(removeFromCart(item.id));
+    setData(dataCart);
   };
 
   return (
@@ -58,7 +72,7 @@ function Avt() {
         {/* Giỏ hàng */}
         {showShopping && (
           <div className="absolute sm:bottom-[0px] top-[35px] right-0 pt-5">
-            {dataCart.length > 0 ? (
+            {data.length > 0 ? (
               <div className="rounded-lg overflow-hidden shadow-md bg-[#1a243d]  text-white p-5">
                 <Link href={"/cart"}>
                   <div
@@ -75,7 +89,10 @@ function Avt() {
                         onClick={() => setShowShopping(false)}
                         className="relative w-full sm:h-[100px] h-[70px] py-2 flex justify-between pr-20 "
                       >
-                        <div className="h-full sm:w-[80px] w-[50px] ">
+                        <div
+                          onClick={() => handleCard(index)}
+                          className="h-full sm:w-[80px] w-[50px] "
+                        >
                           <Link href={`/card/${item.name}`}>
                             <img
                               src="https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/08/Hinh-nen-anime-cute-5-1.jpg.webp"
@@ -95,7 +112,10 @@ function Avt() {
                             {formatPrice(item.price)}
                           </span>
                         </div>
-                        <button className="absolute text-[12px] w-[45px] border-none py-1 bg-white border-[1px] bottom-2 right-0 text-[#ff4343]  hover:bg-[#ff4343] hover:text-[#ffffff] rounded-lg">
+                        <button
+                          onClick={() => handleRemove(item)}
+                          className="absolute text-[12px] w-[45px] border-none py-1 bg-white border-[1px] bottom-2 right-0 text-[#ff4343]  hover:bg-[#ff4343] hover:text-[#ffffff] rounded-lg"
+                        >
                           Xóa
                         </button>
                       </div>
