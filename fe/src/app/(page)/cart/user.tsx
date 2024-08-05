@@ -23,7 +23,12 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
-const User: React.FC = () => {
+interface UserProps {
+  totalPrice: string;
+}
+
+const User: React.FC<UserProps> = ({ totalPrice }) => {
+  console.log(totalPrice, "tổng tiền cần thanh toán");
   // Trạng thái của các trường nhập liệu
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -150,7 +155,7 @@ const User: React.FC = () => {
       setIsPaymentMethodOpen(true);
 
       // Log form data or perform an action (e.g., send to API)
-      console.log("Form Data Submitted:", [formData, laptop]);
+      // console.log("Form Data Submitted:", [formData, laptop]);
     } else {
       setIsPaymentMethodOpen(false);
     }
@@ -362,7 +367,7 @@ const User: React.FC = () => {
         )}
       </div>
       <div className="w-full border-[1px] rounded-lg shadow-sm h-[50px] bg-white flex justify-center items-center text-2xl  ">
-        Tổng hóa đơn : 14.000.000 VND
+        Tổng hóa đơn : {totalPrice} VND
       </div>
       {/* phương thức thanh toán */}
       <div className="sm:flex sm:space-x-10 sm:space-y-0 space-y-10 sm:px-0 px-[40px]  py-[20px] justify-center items-center">

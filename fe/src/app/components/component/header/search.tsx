@@ -4,11 +4,15 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import APILAPTOP from "@/app/API/APILAPTOP";
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
+import { setDataSearch } from "@/app/redux/slices/dataSearch";
+import { useDispatch } from "react-redux";
+
+import APILAPTOP from "@/app/API/APILAPTOP";
 function Search() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [value, setValue] = useState<string>("");
   const [showResults, setShowResults] = useState<boolean>(false);
   const [showInput, setShowInput] = useState<boolean>(false);
@@ -33,15 +37,18 @@ function Search() {
   };
   useEffect(() => {
     setShowResults(value.trim().length > 0);
-
     if (value.trim().length > 0) {
       const filtered = APILAPTOP.filter((item) =>
         item.name.toLowerCase().includes(value.toLowerCase())
       );
+
+      dispatch(setDataSearch(filtered));
+
+      console.log("dữ liệu chuyền vào", filtered);
       setData(filtered);
     }
   }, [value]);
-  console.log(data, showInput);
+  // console.log(data, showInput);
 
   return (
     <div
