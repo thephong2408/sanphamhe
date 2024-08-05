@@ -1,41 +1,37 @@
 "use client";
 import React, { useState } from "react";
 import LayoutCard from "@/app/Layouts/LayoutCard";
-import { RiAddLargeLine } from "react-icons/ri";
-import { FaMinus } from "react-icons/fa";
 import Link from "next/link";
-import User from "./user"; // Kiểm tra đường dẫn chính xác
+import User from "./user";
+import { useSelector } from "react-redux";
 
 export default function Cart() {
-  const arr = [1, 2, 3, 4];
+  const dataCart = useSelector((state: any) => state.dataCart.dataCart);
 
+  // Khởi tạo state quantities với id của mỗi item làm khóa
   const [quantities, setQuantities] = useState<{ [key: number]: number }>(
-    arr.reduce(
-      (acc, curr) => {
-        acc[curr] = 1;
+    dataCart.reduce(
+      (acc: { [key: number]: number }, curr: any) => {
+        acc[curr.id] = 1; // Sử dụng curr.id làm khóa
         return acc;
       },
       {} as { [key: number]: number }
     )
   );
 
-  const handleIncrease = (item: number) => {
+  const handleIncrease = (id: number) => {
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
-      [item]:
-        prevQuantities[item] < 5
-          ? prevQuantities[item] + 1
-          : prevQuantities[item],
+      [id]:
+        prevQuantities[id] < 5 ? prevQuantities[id] + 1 : prevQuantities[id],
     }));
   };
 
-  const handleDecrease = (item: number) => {
+  const handleDecrease = (id: number) => {
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
-      [item]:
-        prevQuantities[item] > 1
-          ? prevQuantities[item] - 1
-          : prevQuantities[item],
+      [id]:
+        prevQuantities[id] > 1 ? prevQuantities[id] - 1 : prevQuantities[id],
     }));
   };
 
@@ -45,6 +41,11 @@ export default function Cart() {
       maximumFractionDigits: 0,
     }).format(price);
   };
+  const totalPrice = dataCart.reduce(
+    (acc: number, item: any) => acc + item.price * quantities[item.id],
+    0
+  );
+  const mony = formatPrice(totalPrice);
 
   return (
     <LayoutCard>
@@ -54,8 +55,8 @@ export default function Cart() {
             Giỏ hàng
           </h1>
           <div className=" overflow-y-auto max-h-[300px] sm:max-h-[800px]">
-            {arr.map((item, index) => (
-              <div key={index}>
+            {dataCart.map((item: any) => (
+              <div key={item.id}>
                 <div className="w-full sm:h-[180px] h-auto flex py-10 border-b-[1px] ">
                   <Link href="/card">
                     <div className="sm:w-[150px] sm:h-full w-[50px] h-[50px] bg-slate-500">
@@ -67,28 +68,30 @@ export default function Cart() {
                   </Link>
                   <div className=" h-full px-5 flex justify-between  flex-1  ">
                     <span className="font-medium sm:w-[300px] w-[120px]">
-                      Laptop Gaming Lenovo LOQ 15IAX9 83GS001RVN i5
-                      12450HX/12GB/512GB/15.6 FHD 144Hz/RTX3050 6GB/Win11
+                      {item.name} / {item.brand} / {item.CPU} / {item.RAM} /
+                      {item.GPU} / {item.Storage} / {item.Screen} /
+                      {item.Resolution} / {item.Battery} / {item.Weight} /
+                      {item.category}
                     </span>
 
                     <h1 className=" font-bold">
-                      {formatPrice(14000000 * quantities[item])}
+                      {formatPrice(item.price * quantities[item.id])}
                     </h1>
 
                     <div className="flex bg-[#f5f5fd] sm:h-[80px] sm:w-[65px]  w-[30px] h-[40px] rounded-lg justify-center items-center  sm:space-x-5 space-x-2 ">
                       <div className="sm:w-[10px] flex justify-center sm:text-[18px] text-[10px] font-medium">
-                        {quantities[item]}
+                        {quantities[item.id]}
                       </div>
                       <div className="space-y-5 ">
                         <button
-                          onClick={() => handleIncrease(item)}
+                          onClick={() => handleIncrease(item.id)}
                           className=""
                         >
                           <i className="bx text-[#ccc] sm:text-[25px] hover:text-[#979797] bxs-chevron-up-square"></i>
                         </button>
                         <button
                           className=""
-                          onClick={() => handleDecrease(item)}
+                          onClick={() => handleDecrease(item.id)}
                         >
                           <i className="bx text-[#ccc] sm:text-[25px] hover:text-[#979797] bxs-chevron-down-square"></i>
                         </button>
@@ -108,7 +111,7 @@ export default function Cart() {
         </div>
         <div className=" md:w-[30%] w-full justify-center bg-[#f5f5fd] p-8">
           <h1 className="text-4xl font-bold  ">Thông tin người nhận</h1>
-          <User />
+          <User totalPrice={mony} />
         </div>
       </div>
     </LayoutCard>

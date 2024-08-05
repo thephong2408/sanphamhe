@@ -1,5 +1,6 @@
 // Định nghĩa interface Laptop
 interface Laptop {
+  id: number;
   name: string;
   price: number;
   brand: string;
@@ -18,6 +19,7 @@ interface Laptop {
 // Dữ liệu laptop theo các yêu cầu
 const APILAPTOP: Laptop[] = [
   {
+    id: 1,
     name: "Apple MacBook Air M2",
     price: 19000000,
     brand: "Apple",
@@ -33,6 +35,7 @@ const APILAPTOP: Laptop[] = [
     time: "2024-08-01T10:00:00Z", // Ví dụ giá trị thời gian
   },
   {
+    id: 2,
     name: "Dell Inspiron 15 3000",
     price: 16000000,
     brand: "Dell",
@@ -48,6 +51,7 @@ const APILAPTOP: Laptop[] = [
     time: "2024-08-01T11:00:00Z",
   },
   {
+    id: 3,
     name: "HP Pavilion 15",
     price: 15000000,
     brand: "HP",
@@ -63,6 +67,7 @@ const APILAPTOP: Laptop[] = [
     time: "2024-08-01T12:00:00Z",
   },
   {
+    id: 4,
     name: "Lenovo IdeaPad 3",
     price: 14000000,
     brand: "Lenovo",
@@ -78,6 +83,7 @@ const APILAPTOP: Laptop[] = [
     time: "2024-08-01T13:00:00Z",
   },
   {
+    id: 5,
     name: "Asus VivoBook 15",
     price: 18000000,
     brand: "Asus",
@@ -93,6 +99,7 @@ const APILAPTOP: Laptop[] = [
     time: "2024-08-01T14:00:00Z",
   },
   {
+    id: 6,
     name: "HP Omen 15",
     price: 20000000,
     brand: "HP",
@@ -108,6 +115,7 @@ const APILAPTOP: Laptop[] = [
     time: "2024-08-01T15:00:00Z",
   },
   {
+    id: 7,
     name: "Lenovo Legion 5",
     price: 19000000,
     brand: "Lenovo",
@@ -123,6 +131,7 @@ const APILAPTOP: Laptop[] = [
     time: "2024-08-01T16:00:00Z",
   },
   {
+    id: 8,
     name: "Asus TUF Gaming F15",
     price: 17000000,
     brand: "Asus",
@@ -138,6 +147,7 @@ const APILAPTOP: Laptop[] = [
     time: "2024-08-01T17:00:00Z",
   },
   {
+    id: 9,
     name: "Dell Inspiron 14",
     price: 4500000,
     brand: "Dell",
@@ -153,6 +163,7 @@ const APILAPTOP: Laptop[] = [
     time: "2024-08-01T18:00:00Z",
   },
   {
+    id: 10,
     name: "Lenovo IdeaPad Gaming 3",
     price: 9500000,
     brand: "Lenovo",
@@ -168,6 +179,7 @@ const APILAPTOP: Laptop[] = [
     time: "2024-08-01T19:00:00Z",
   },
   {
+    id: 11,
     name: "HP Pavilion 15",
     price: 8500000,
     brand: "HP",
@@ -183,6 +195,7 @@ const APILAPTOP: Laptop[] = [
     time: "2024-08-01T20:00:00Z",
   },
   {
+    id: 12,
     name: "Asus ZenBook 14",
     price: 11500000,
     brand: "Asus",

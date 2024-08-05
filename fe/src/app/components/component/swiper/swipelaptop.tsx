@@ -50,7 +50,9 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
       style={{ width: widthCard }}
     >
       <div className="pb-10">
-        <span className={` sm:text-4xl text-2xl font-bold`}>{text}</span>
+        <Link href={"/sale"}>
+          <span className={` sm:text-4xl text-2xl font-bold`}>{text}</span>
+        </Link>
         <div className="mt-5">
           <Swiper
             spaceBetween={10}
@@ -90,13 +92,13 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
           </Swiper>
         </div>
       </div>
-      {show && (
+      {/* {show && (
         <Link href={"/sale"}>
           <button className="w-[150px] py-2 text-red-600 hover:text-white border-[1px] hover:border-[red] bg-white hover:bg-[red] m-auto rounded-md">
             Xem Tất cả
           </button>
         </Link>
-      )}
+      )} */}
     </div>
   );
 };

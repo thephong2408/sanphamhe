@@ -4,6 +4,8 @@ import Link from "next/link";
 import { BsCpuFill } from "react-icons/bs";
 import classNames from "classnames";
 import { FaStar } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { setDataCard } from "@/app/redux/slices/dataCard";
 
 interface CardProps {
   sale?: boolean;
@@ -16,24 +18,34 @@ const formatPrice = (price: number) => {
 
 export default function Card({
   sale = false,
-  data = {
-    name: "Dell XPS 15",
-    price: 25000000,
-    brand: "Dell",
-    CPU: "i7-13700H", // rút ngắn
-    RAM: "16GB",
-    GPU: "RTX 4050", // rút ngắn
-    Storage: "1TB SSD",
-    Screen: '15.6"', // rút ngắn
-    Resolution: "3840x2400",
-    Battery: "86Wh",
-    Weight: "2.0 kg",
-    category: "graphics",
-  },
+  data = [
+    {
+      name: "Dell XPS 15",
+      price: 25000000,
+      brand: "Dell",
+      CPU: "i7-13700H", // rút ngắn
+      RAM: "16GB",
+      GPU: "RTX 4050", // rút ngắn
+      Storage: "1TB SSD",
+      Screen: '15.6"', // rút ngắn
+      Resolution: "3840x2400",
+      Battery: "86Wh",
+      Weight: "2.0 kg",
+      category: "graphics",
+    },
+  ],
 }: CardProps) {
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(setDataCard(data));
+  };
+  // console.log("data nhận được", data);
   return (
     <Link href={`/card/${data.name}`}>
-      <div className="min-w-[130px] max-w-[300px] sm:p-5  hover:shadow-md border-[1px] cursor-pointer relative overflow-hidden rounded-xl border-none mb-2">
+      <div
+        onClick={handleClick}
+        className="min-w-[130px] max-w-[300px] sm:p-5  hover:shadow-md border-[1px] cursor-pointer relative overflow-hidden rounded-xl border-none mb-2"
+      >
         <div
           className="w-full bg-slate-400 bg-cover bg-center sm:h-[200px] h-[150px] rounded-xl overflow-hidden "
           style={{

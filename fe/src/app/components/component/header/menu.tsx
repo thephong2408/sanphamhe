@@ -3,6 +3,8 @@ import {
   faCartShopping,
   faHistory,
   faHouse,
+  faKey,
+  faLockOpen,
   faPlus,
   faRightFromBracket,
   faSignInAlt,
@@ -85,6 +87,16 @@ function Menu() {
                   icon={faSignInAlt}
                 />
                 Đăng Nhập
+              </DropdownMenuItem>
+            </Link>
+            <DropdownMenuSeparator />
+            <Link href={"/changepassword"}>
+              <DropdownMenuItem className="sm:text-[18px] ">
+                <FontAwesomeIcon
+                  className="text-[#ccc] text-[12px] mr-2"
+                  icon={faKey}
+                />
+                Đổi mật khẩu
               </DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
