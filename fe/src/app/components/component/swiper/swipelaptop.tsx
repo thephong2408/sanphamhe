@@ -43,7 +43,6 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
   sale = false,
   data = [],
 }) => {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 1, 1, 1, 1];
   return (
     <div
       className={` transform-allow  rounded-xl  my-10 `}
@@ -51,7 +50,7 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
     >
       <div className="sm:pb-10">
         <Link href={"/sale"}>
-          <span className={` sm:text-4xl text-2xl font-bold`}>{text}</span>
+          <span className={` sm:text-4xl text-2xl font-medium`}>{text}</span>
         </Link>
         <div className="mt-5">
           <Swiper

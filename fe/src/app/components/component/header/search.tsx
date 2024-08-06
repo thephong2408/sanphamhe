@@ -41,9 +41,14 @@ function Search() {
         dispatch(setDataSearch(filtered));
 
         console.log("dữ liệu chuyền vào", filtered);
-        setData(filtered);
       }
     }
+
+    const filtered = APILAPTOP.filter((item) =>
+      item.name.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setData(filtered);
   };
   useEffect(() => {
     setShowResults(value.trim().length > 0);

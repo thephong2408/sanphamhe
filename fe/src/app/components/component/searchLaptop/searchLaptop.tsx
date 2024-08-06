@@ -97,7 +97,7 @@ export default function SearchLaptop() {
         <div className="w-full sm:border-[1px] flex items-center space-x-5 sm:pl-10 pl-0 sm:py-[20px] py-[10px] sm:bg-[#c3c7d0] rounded-xl">
           {/* Filter by brand */}
           <Select onValueChange={(value) => setSelectedBrand(value)}>
-            <SelectTrigger className="sm:w-[250px] w-[145px] h-[40px] sm:text-[15px] text-[12px] ring-0 focus:ring-0 border-none focus-visible:ring-offset-0 focus-visible:ring-0">
+            <SelectTrigger className="sm:w-[250px] w-[145px] sm:h-[40px] h-[30px] sm:text-[15px] text-[12px] ring-0 focus:ring-0 sm:border-none border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
               <SelectValue placeholder="HÃNG LAPTOP" />
             </SelectTrigger>
             <SelectContent>
@@ -117,7 +117,7 @@ export default function SearchLaptop() {
 
           {/* Filter by price */}
           <Select onValueChange={(value) => setSelectedPrice(value)}>
-            <SelectTrigger className="sm:w-[200px] w-[145px] h-[40px] sm:text-[15px] text-[12px] ring-0 focus:ring-0 border-none focus-visible:ring-offset-0 focus-visible:ring-0">
+            <SelectTrigger className="sm:w-[200px] w-[145px] sm:h-[40px] h-[30px] sm:text-[15px] text-[12px] ring-0 focus:ring-0 sm:border-none border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
               <SelectValue placeholder="GIÁ" />
             </SelectTrigger>
             <SelectContent>
@@ -137,7 +137,7 @@ export default function SearchLaptop() {
 
           {/* Filter by demand */}
           <Select onValueChange={(value) => setSelectedDemand(value)}>
-            <SelectTrigger className="sm:w-[200px] w-[145px] h-[40px] sm:text-[15px] text-[12px] ring-0 focus:ring-0 border-none focus-visible:ring-offset-0 focus-visible:ring-0">
+            <SelectTrigger className="sm:w-[200px] w-[145px] sm:h-[40px] h-[30px] sm:text-[15px] text-[12px] ring-0 focus:ring-0 sm:border-none border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
               <SelectValue placeholder="NHU CẦU" />
             </SelectTrigger>
             <SelectContent>
@@ -167,7 +167,7 @@ export default function SearchLaptop() {
               <PaginationContent>
                 <PaginationItem>
                   <PaginationPrevious
-                    className="text-[18px]"
+                    className="sm:text-[18px] text-[12px]"
                     onClick={() =>
                       currentPage > 3 && handlePageChange(currentPage - 3)
                     }
@@ -177,7 +177,7 @@ export default function SearchLaptop() {
                   {pagesToDisplay.map((item) => (
                     <PaginationLink
                       key={item}
-                      className={`text-[18px] ${item === currentPage ? "font-bold border-[1px] bg-black text-white" : ""}`}
+                      className={`sm:text-[18px] text-[12px] ${item === currentPage ? "font-bold border-[1px] bg-black text-white" : ""}`}
                       onClick={() => handlePageChange(item)}
                     >
                       {item}
@@ -185,11 +185,11 @@ export default function SearchLaptop() {
                   ))}
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationEllipsis className="text-[18px]" />
+                  <PaginationEllipsis className="sm:text-[18px] text-[12px]" />
                 </PaginationItem>
                 <PaginationItem>
                   <PaginationNext
-                    className="text-[18px]"
+                    className="sm:text-[18px] text-[12px]"
                     onClick={() =>
                       currentPage < pageEnd && handlePageChange(currentPage + 3)
                     }

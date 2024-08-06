@@ -28,6 +28,7 @@ function Card() {
       dispatch(removeFromCart(data));
     } else {
       dispatch(addToCart(data));
+      console.log("data", data);
     }
     setIsActive(!isActive);
   };
@@ -42,12 +43,12 @@ function Card() {
   return (
     <div>
       <LayoutCard>
-        <div className="w-full lg:flex flex-row">
+        <div className="w-full lg:flex flex-row sm:mt-10">
           {/* ảnh laptop */}
-          <div className="lg:w-[50%] w-full lg:mb-0 mb-5">
-            <div className="w-full h-full">
+          <div className="lg:w-[50%] w-full lg:mb-0 mb-5 ">
+            <div className="w-full flex justify-center items-center sm:max-h-[380px] overflow-hidden">
               <img
-                src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
+                src="https://laptop88.vn/media/product/pro_poster_8982.jpg"
                 alt="Laptop"
               />
             </div>
