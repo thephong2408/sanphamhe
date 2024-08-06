@@ -11,7 +11,7 @@ export default function Advertisement() {
   return (
     <div className=" flex flex-col sm:flex-row">
       {/* quảng cáo 1 */}
-      <div className=" w-full bg-slate-400  mr-10">
+      <div className=" w-full rounded-xl overflow-hidden">
         <Swiper
           spaceBetween={50}
           slidesPerView={1}
@@ -25,19 +25,19 @@ export default function Advertisement() {
         >
           <SwiperSlide>
             <img
-              src="https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/asus-gaming-a15-18-07.jpg"
+              src="https://cdn2.fptshop.com.vn/unsafe/768x0/filters:quality(100)/H1_1440x242_aeb25852de.png"
               alt=""
             />
           </SwiperSlide>
           <SwiperSlide>
             <img
-              src="https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/banner-cate-laptop-lenovo-01-08.png"
+              src="https://cdn2.fptshop.com.vn/unsafe/768x0/filters:quality(100)/H1_1440x242_ae6eecfcba.png"
               alt=""
             />
           </SwiperSlide>
           <SwiperSlide>
             <img
-              src="https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/asus-tuf-gaming-nang-ram-18-07.jpg"
+              src="https://cdn2.fptshop.com.vn/unsafe/768x0/filters:quality(100)/H1_1440x242_4f84e97197.png"
               alt=""
             />
           </SwiperSlide>

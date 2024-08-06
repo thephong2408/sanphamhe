@@ -44,19 +44,19 @@ export default function Card({
     <Link href={`/card/${data.name}`}>
       <div
         onClick={handleClick}
-        className="min-w-[130px] max-w-[300px] sm:p-5  hover:shadow-md border-[1px] cursor-pointer relative overflow-hidden rounded-xl border-none mb-2"
+        className="min-w-[130px] max-w-[300px] sm:p-5  hover:shadow-md border-[1px] cursor-pointer relative overflow-hidden rounded-xl  mb-2"
       >
         <div
-          className="w-full bg-slate-400 bg-cover bg-center sm:h-[200px] h-[150px] rounded-xl overflow-hidden "
-          style={{
-            backgroundImage:
-              "url('https://mega.com.vn/media/news/2905_hinh-nen-may-tinh-sieu-de-thuong.jpg')",
-          }}
+          className="w-full  bg-cover bg-center flex items-center justify-center sm:h-[200px] h-[150px] rounded-xl overflow-hidden "
+          // style={{
+          //   backgroundImage:
+          //     "url('https://laptop88.vn/media/product/pro_poster_8977.jpg')",
+          // }}
         >
           <img
-            className="hover:opacity-0"
+            className="hover:scale-110 transition-all duration-300"
             alt="img"
-            src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
+            src="https://laptop88.vn/media/product/pro_poster_8407.jpg"
           />
         </div>
         {/* đánh giá sản phẩm */}

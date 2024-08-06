@@ -8,9 +8,12 @@ const Login: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Xử lý đăng nhập ở đây (ví dụ: gọi API để xác thực người dùng)
-    console.log("Email:", email);
-    console.log("Password:", password);
+    const dataToSend = {
+      email: email,
+      password: password,
+    };
+
+    console.log(dataToSend);
   };
 
   return (

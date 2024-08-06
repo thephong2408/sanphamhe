@@ -99,15 +99,15 @@ export default function Cart() {
               <div key={item.id}>
                 <div className="w-full sm:h-[180px] h-auto flex py-10 border-b-[1px] ">
                   <Link href={`/card/${data.name}`}>
-                    <div className="sm:w-[150px] sm:h-full w-[50px] h-[50px] bg-slate-500">
+                    <div className="sm:w-[150px] sm:h-full flex items-center justify-center w-[50px] h-[50px] bg-slate-500">
                       <img
-                        src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
+                        src="https://laptop88.vn/media/product/pro_poster_8407.jpg"
                         alt="Product image"
                       />
                     </div>
                   </Link>
-                  <div className=" h-full px-5 flex justify-between  flex-1  ">
-                    <span className="font-medium sm:w-[300px] w-[120px]">
+                  <div className=" h-full px-5 flex justify-between items-center  flex-1  ">
+                    <span className="font-medium sm:w-[300px] w-[120px] ">
                       {item.name} / {item.brand} / {item.CPU} / {item.RAM} /
                       {item.GPU} / {item.Storage} / {item.Screen} /
                       {item.Resolution} / {item.Battery} / {item.Weight} /

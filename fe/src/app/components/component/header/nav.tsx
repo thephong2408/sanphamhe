@@ -10,7 +10,7 @@ export default function Nav() {
         </Link>
 
         <Link href={"/sale"}>
-          <li className="xl:block hidden">Khuyến mại</li>
+          <li className="xl:block hidden">Khuyến mãi</li>
         </Link>
 
         <Link href={"/history"}>

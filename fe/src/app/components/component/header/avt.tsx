@@ -97,7 +97,7 @@ function Avt() {
                         >
                           <Link href={`/card/${item.name}`}>
                             <img
-                              src="https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/08/Hinh-nen-anime-cute-5-1.jpg.webp"
+                              src="https://laptop88.vn/media/product/pro_poster_8407.jpg"
                               alt="sp"
                             />
                           </Link>
