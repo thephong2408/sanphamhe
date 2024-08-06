@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/component/header/page";
 import Footer from "./components/component/footer/page";
 import Providers from "./redux/Provider";
+import classNames from "classnames";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,20 +20,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>
-          <div className="flex flex-col min-h-[100vh] bg-white sm:text-[15px] text-[12px]">
-            <header>
-              <Header />
-            </header>
-            <div className="flex-grow  flex  flex-col xl:px-[150px] lg:px-[40px] px-[10px] mt-5">
-              {children}
+      <body
+        className={classNames(inter.className, "w-screen overflow-x-hidden")}
+      >
+        <div className="">
+          <Providers>
+            <div className="flex flex-col min-h-[100vh] bg-white sm:text-[15px] text-[12px]">
+              <header>
+                <Header />
+              </header>
+              <div className="flex-grow  flex  flex-col xl:px-[150px] lg:px-[40px] px-[10px] mt-5">
+                {children}
+              </div>
+              <footer>
+                <Footer />
+              </footer>
             </div>
-            <footer>
-              <Footer />
-            </footer>
-          </div>
-        </Providers>
+          </Providers>
+        </div>
       </body>
     </html>
   );

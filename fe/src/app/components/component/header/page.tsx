@@ -26,7 +26,7 @@ const Header: React.FC = () => {
       className={classNames(
         "transition-all duration-300 ease-in-out shadow-md",
         {
-          " w-full fixed top-0 z-50": isScrolled,
+          " w-screen  fixed top-0 z-50": isScrolled,
         },
         "bg-white"
       )}

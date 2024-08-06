@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { addToBill } from "@/app/redux/slices/dataBill";
 import { clearCart } from "@/app/redux/slices/dataCart";
+import QRCode from "qrcode.react";
 
 interface UserProps {
   totalPrice: string;
@@ -40,6 +41,8 @@ const User: React.FC<UserProps> = ({
   console.log(totalPrice, productDetails, "tổng tiền cần thanh toán");
 
   const dispatch = useDispatch();
+  // dữ liệu QRCode
+  const [qrData, setQrData] = useState<string | null>(null);
 
   // Trạng thái của các trường nhập liệu
   const [name, setName] = useState("");
@@ -65,6 +68,8 @@ const User: React.FC<UserProps> = ({
   const [districtError, setDistrictError] = useState<string | null>(null);
   const [wardError, setWardError] = useState<string | null>(null);
   const [houseNumberError, setHouseNumberError] = useState<string | null>(null);
+
+  // Thanh toán
 
   // hiện thông báo khi thanh toán
   const [isPaymentMethodOpen, setIsPaymentMethodOpen] =
@@ -148,7 +153,8 @@ const User: React.FC<UserProps> = ({
       !newCityError &&
       !newDistrictError &&
       !newWardError &&
-      !newHouseNumberError
+      !newHouseNumberError &&
+      totalPrice !== "0"
     ) {
       const formData = {
         name,
@@ -175,8 +181,12 @@ const User: React.FC<UserProps> = ({
       };
 
       // Xử lý thanh toán
-      dispatch(addToBill(payload));
-      dispatch(clearCart());
+      // dispatch(addToBill(payload));
+      // dispatch(clearCart());
+      const qrCodeData = `https://your-payment-gateway.com/pay?amount=${encodeURIComponent(totalPrice)}`;
+
+      // Xử lý QRCode
+      setQrData(qrCodeData);
 
       // hiện thông báo khi thanh toán khi tất cả các trường đều úng
       setIsPaymentMethodOpen(true);
@@ -198,15 +208,18 @@ const User: React.FC<UserProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-10 mt-10 mb-10">
+    <form
+      onSubmit={handleSubmit}
+      className="sm:space-y-10 space-y-5 mt-10 mb-10"
+    >
       <div className="relative">
         <label
           htmlFor="name"
-          className="block font-medium text-gray-700 text-[18px]"
+          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
           Tên
         </label>
-        <div className="p-5 border-[1px] shadow-sm rounded-lg bg-white">
+        <div className="p-3 border-[1px] shadow-sm rounded-lg bg-white">
           <input
             type="text"
             id="name"
@@ -226,11 +239,11 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="phone"
-          className="block font-medium text-gray-700 text-[18px]"
+          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
           Số điện thoại
         </label>
-        <div className="p-5 border-[1px] shadow-sm rounded-lg bg-white">
+        <div className="p-3 border-[1px] shadow-sm rounded-lg bg-white">
           <input
             type="tel"
             id="phone"
@@ -250,11 +263,11 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="email"
-          className="block font-medium text-gray-700 text-[18px]"
+          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
           Email
         </label>
-        <div className="p-5 border-[1px] shadow-sm rounded-lg bg-white">
+        <div className="p-3 border-[1px] shadow-sm rounded-lg bg-white">
           <input
             type="text"
             id="email"
@@ -274,12 +287,12 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="city"
-          className="block font-medium text-gray-700 text-[18px]"
+          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
           Thành phố
         </label>
         <Select onValueChange={handleCityChange}>
-          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ">
+          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-none focus-visible:ring-offset-0 focus-visible:ring-0">
             <SelectValue placeholder="Chọn thành phố" />
           </SelectTrigger>
           <SelectContent>
@@ -306,12 +319,12 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="district"
-          className="block font-medium text-gray-700 text-[18px]"
+          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
           Quận huyện
         </label>
         <Select onValueChange={handleDistrictChange} disabled={!selectedCity}>
-          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ">
+          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-none focus-visible:ring-offset-0 focus-visible:ring-0">
             <SelectValue placeholder="Chọn quận huyện" />
           </SelectTrigger>
           <SelectContent>
@@ -338,7 +351,7 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="ward"
-          className="block font-medium text-gray-700 text-[18px]"
+          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
           Xã
         </label>
@@ -346,7 +359,7 @@ const User: React.FC<UserProps> = ({
           onValueChange={(value) => setSelectedWard(value)}
           disabled={!selectedDistrict}
         >
-          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ">
+          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-none focus-visible:ring-offset-0 focus-visible:ring-0">
             <SelectValue placeholder="Chọn xã" />
           </SelectTrigger>
           <SelectContent>
@@ -373,11 +386,11 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="houseNumber"
-          className="block font-medium text-gray-700 text-[18px]"
+          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
           Số nhà
         </label>
-        <div className="p-5 border-[1px] shadow-sm rounded-lg bg-white">
+        <div className="px-3 py-2 sm:p-5 border-[1px] shadow-sm rounded-lg bg-white">
           <input
             type="text"
             id="houseNumber"
@@ -441,19 +454,26 @@ const User: React.FC<UserProps> = ({
               Thanh toán
             </Button>
           </AlertDialogTrigger>
-          {/* {isPaymentMethodOpen && (
+          {isPaymentMethodOpen && (
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Quét mã QR thanh toán</AlertDialogTitle>
                 <AlertDialogDescription>
-                  <div className="w-full h-[300px] bg-slate-400"></div>
+                  <span className="w-full h-[300px] bg-slate-400 flex items-center justify-center">
+                    {qrData && (
+                      <QRCode
+                        className="size-[200px] object-contain"
+                        value={qrData}
+                      />
+                    )}
+                  </span>
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
               </AlertDialogFooter>
             </AlertDialogContent>
-          )} */}
+          )}
         </AlertDialog>
       )}
 

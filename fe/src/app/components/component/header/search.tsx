@@ -33,16 +33,16 @@ function Search() {
       setShowInput(false);
       setShowResults(false);
       // Chuyển hướng đến trang tìm kiếm
-    }
-    if (value.trim().length > 0) {
-      const filtered = APILAPTOP.filter((item) =>
-        item.name.toLowerCase().includes(value.toLowerCase())
-      );
+      if (value.trim().length > 0) {
+        const filtered = APILAPTOP.filter((item) =>
+          item.name.toLowerCase().includes(value.toLowerCase())
+        );
 
-      dispatch(setDataSearch(filtered));
+        dispatch(setDataSearch(filtered));
 
-      console.log("dữ liệu chuyền vào", filtered);
-      setData(filtered);
+        console.log("dữ liệu chuyền vào", filtered);
+        setData(filtered);
+      }
     }
   };
   useEffect(() => {
@@ -104,30 +104,36 @@ function Search() {
           >
             {/* san pham */}
 
-            {data.map((item: any, index: number) => (
-              <div key={index}>
-                <Link href={`/card/${item.name}`}>
-                  <div className="w-full sm:h-[100px] h-[60px]  py-2 flex justify-between hover:bg-[#ccc]">
-                    <div className="h-full sm:w-[80px] w-[50px] ">
-                      <img
-                        src="https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/08/Hinh-nen-anime-cute-5-1.jpg.webp"
-                        alt="sp"
-                      />
+            {data.length > 0 ? (
+              data.map((item: any, index: number) => (
+                <div key={index}>
+                  <Link href={`/card/${item.name}`}>
+                    <div className="w-full sm:h-[100px] h-[60px] py-2 flex justify-between hover:bg-[#ccc]">
+                      <div className="h-full sm:w-[80px] w-[50px]">
+                        <img
+                          src="https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/08/Hinh-nen-anime-cute-5-1.jpg.webp"
+                          alt="sp"
+                        />
+                      </div>
+                      <div className="flex-1 flex flex-col overflow-y-auto px-4">
+                        <span className="w-full break-words font-bold">
+                          {item.name}
+                        </span>
+                        <span className="w-full break-words">
+                          Thông số cơ bản: {item.CPU}, {item.RAM}, {item.ROM},{" "}
+                          {item.screen}
+                        </span>
+                        <span className="w-full break-words">{item.price}</span>
+                      </div>
                     </div>
-                    <div className="flex-1 flex flex-col overflow-y-auto px-4">
-                      <span className="w-full break-words font-bold">
-                        {item.name}
-                      </span>
-                      <span className="w-full break-words">
-                        Thong co ban : {item.CPU}, {item.RAM}, {item.ROM},
-                        {item.screen}
-                      </span>
-                      <span className="w-full break-words">{item.price}</span>
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <div className="w-full text-center py-4 text-gray-500">
+                Không có sản phẩm
               </div>
-            ))}
+            )}
           </div>
         )}
       </div>

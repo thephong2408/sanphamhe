@@ -49,7 +49,7 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
       className={` transform-allow  rounded-xl  my-10 `}
       style={{ width: widthCard }}
     >
-      <div className="pb-10">
+      <div className="sm:pb-10">
         <Link href={"/sale"}>
           <span className={` sm:text-4xl text-2xl font-bold`}>{text}</span>
         </Link>

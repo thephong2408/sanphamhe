@@ -67,11 +67,13 @@ function Avt() {
         onMouseLeave={() => setShowShopping(false)}
         className="relative"
       >
-        <FiShoppingCart className="sm:size-[40px] size-[25px] ml-5 sm:block hidden mr-10 hover:text-[#ff3e3e]" />
+        <Link href={"/cart"}>
+          <FiShoppingCart className="sm:size-[40px] size-[25px] ml-5 sm:block hidden mr-10 hover:text-[#ff3e3e]" />
+        </Link>
 
         {/* Giỏ hàng */}
         {showShopping && (
-          <div className="absolute sm:bottom-[0px] top-[35px] right-0 pt-5">
+          <div className="absolute sm:bottom-[0px] top-[35px] z-50 right-0 pt-5">
             {data.length > 0 ? (
               <div className="rounded-lg overflow-hidden shadow-md bg-[#1a243d]  text-white p-5">
                 <Link href={"/cart"}>
