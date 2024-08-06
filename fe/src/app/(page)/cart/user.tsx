@@ -157,9 +157,9 @@ const User: React.FC<UserProps> = ({
       totalPrice !== "0"
     ) {
       const formData = {
-        name,
-        phone,
-        email,
+        name: name,
+        phone: phone,
+        email: email,
         city: selectedCity,
         district: selectedDistrict,
         ward: selectedWard,
@@ -168,11 +168,13 @@ const User: React.FC<UserProps> = ({
       const laptop = {
         name: "Laptop",
       };
-      console.log("Form Data Submitted:", [
-        formData,
-        totalPrice,
-        productDetails,
-      ]);
+      const formDataSubmitted = {
+        userInfo: formData,
+        totalAmount: totalPrice,
+        products: productDetails,
+        paymentTime: currentTime,
+      };
+      console.log("Form Data Submitted:", formDataSubmitted);
       const payload = {
         formData,
         totalPrice,
@@ -181,7 +183,7 @@ const User: React.FC<UserProps> = ({
       };
 
       // Xử lý thanh toán
-      // dispatch(addToBill(payload));
+      dispatch(addToBill(payload));
       // dispatch(clearCart());
       const qrCodeData = `https://your-payment-gateway.com/pay?amount=${encodeURIComponent(totalPrice)}`;
 
@@ -454,7 +456,7 @@ const User: React.FC<UserProps> = ({
               Thanh toán
             </Button>
           </AlertDialogTrigger>
-          {isPaymentMethodOpen && (
+          {/* {isPaymentMethodOpen && (
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Quét mã QR thanh toán</AlertDialogTitle>
@@ -473,7 +475,7 @@ const User: React.FC<UserProps> = ({
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
               </AlertDialogFooter>
             </AlertDialogContent>
-          )}
+          )} */}
         </AlertDialog>
       )}
 
