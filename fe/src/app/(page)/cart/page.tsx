@@ -98,7 +98,7 @@ export default function Cart() {
             {data.map((item: any) => (
               <div key={item.id}>
                 <div className="w-full sm:h-[180px] h-auto flex py-10 border-b-[1px] ">
-                  <Link href="/card">
+                  <Link href={`/card/${data.name}`}>
                     <div className="sm:w-[150px] sm:h-full w-[50px] h-[50px] bg-slate-500">
                       <img
                         src="https://i.pinimg.com/564x/ae/08/0c/ae080c00fe48df5eb9ed6155f853936c.jpg"
@@ -114,9 +114,9 @@ export default function Cart() {
                       {item.category}
                     </span>
 
-                    <h1 className=" font-bold">
+                    <div className=" font-bold md:w-[150px] w-[60px]">
                       {formatPrice(item.price * quantities[item.id])}
-                    </h1>
+                    </div>
 
                     <div className="flex bg-[#f5f5fd] sm:h-[80px] sm:w-[65px]  w-[30px] h-[40px] rounded-lg justify-center items-center  sm:space-x-5 space-x-2 ">
                       <div className="sm:w-[10px] flex justify-center sm:text-[18px] text-[10px] font-medium">
@@ -149,8 +149,10 @@ export default function Cart() {
             ))}
           </div>
         </div>
-        <div className=" md:w-[30%] w-full justify-center bg-[#f5f5fd] p-8">
-          <h1 className="text-4xl font-bold  ">Thông tin người nhận</h1>
+        <div className=" md:w-[30%] w-full justify-center bg-[#f5f5fd] sm:p-8 p-4">
+          <h1 className="sm:text-4xl text-2xl font-bold  ">
+            Thông tin người nhận
+          </h1>
           <User
             totalPrice={mony}
             productDetails={productDetails}

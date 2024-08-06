@@ -11,7 +11,7 @@ export default function Advertisement() {
   return (
     <div className=" flex flex-col sm:flex-row">
       {/* quảng cáo 1 */}
-      <div className=" w-full h-[300px] bg-slate-400 sm:block hidden mr-10">
+      <div className=" w-full bg-slate-400  mr-10">
         <Swiper
           spaceBetween={50}
           slidesPerView={1}
@@ -25,19 +25,19 @@ export default function Advertisement() {
         >
           <SwiperSlide>
             <img
-              src="https://cdn.tgdd.vn/Files/2019/01/31/1147525/laptop-giam-gia_800x450.jpg"
+              src="https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/asus-gaming-a15-18-07.jpg"
               alt=""
             />
           </SwiperSlide>
           <SwiperSlide>
             <img
-              src="https://cdn.tgdd.vn/Files/2020/08/12/1279220/thumb_salelaptop_800x450.png"
+              src="https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/banner-cate-laptop-lenovo-01-08.png"
               alt=""
             />
           </SwiperSlide>
           <SwiperSlide>
             <img
-              src="https://www.phucanh.vn/media/news/2611_sam-dell-tha-ga-mua-la-co-qua.jpg"
+              src="https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/asus-tuf-gaming-nang-ram-18-07.jpg"
               alt=""
             />
           </SwiperSlide>

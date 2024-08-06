@@ -104,7 +104,6 @@ html {
 }
 body {
   overflow-y: overlay;
-  overflow-x: hidden;
   box-sizing: border-box;
   font-size: 15px;
 }
@@ -148,6 +147,12 @@ html *::-webkit-scrollbar-track {
   font-size: 12px; /* Điều chỉnh kích thước chữ của placeholder */
   color: #888; /* Tùy chọn: thay đổi màu sắc của placeholder */
 }
+/* Trong tệp CSS của bạn */
+.no-border:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 @layer base {
   * {
     @apply border-border;
