@@ -4,8 +4,7 @@ interface Laptop {
 
 id:number
 name: string;
-img1: string;
-img2: string; ảnh có nền trắng
+img: string; ảnh có nền trắng
 price: number;
 brand: string;
 CPU: string;
@@ -22,9 +21,8 @@ time: string;// thời gian nhập hàng
 {
 id:number
 name: "",
-img1:""  
- img2:""  
- price: ,
+img:""  
+price: ,
 brand: "",
 CPU: "",
 RAM: "",
