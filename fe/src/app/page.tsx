@@ -4,11 +4,15 @@ import SwiperLaptop from "./components/component/swiper/swipelaptop";
 import SearchLaptop from "./components/component/searchLaptop/searchLaptop";
 import APILAPTOP from "./API/APILAPTOP";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setDataDispart } from "./redux/slices/dataDispart";
 function Home() {
+  const dispatch = useDispatch();
   const [data, setData] = useState<any>([]);
 
   useEffect(() => {
     setData(APILAPTOP);
+    dispatch(setDataDispart(APILAPTOP));
   }, []);
 
   return (

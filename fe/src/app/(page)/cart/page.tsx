@@ -9,9 +9,11 @@ import { removeFromCart } from "@/app/redux/slices/dataCart";
 
 export default function Cart() {
   const dispatch = useDispatch();
+  // lấy ra danh sách các sản phẩm thêm vào giở hàng
   const dataCart = useSelector((state: any) => state.dataCart.dataCart);
   const [data, setData] = useState(dataCart);
 
+  // cập nhập dữ liệu giở hàng khi dữ liệu chuyền vào thay đổi
   useEffect(() => {
     setData(dataCart);
   }, [dataCart]);
@@ -90,66 +92,75 @@ export default function Cart() {
   return (
     <LayoutCard>
       <div className="lg:flex justify-between lg:space-x-20 sm:text-[15px] text-[10px] mb-10">
-        <div className="mb-10 md:w-[70%] w-full">
-          <h1 className="sm:text-[30px] text-[20px] font-medium p-4 ">
+        {/* giỏ hàng và các sant phẩm , điều chỉnh số lượng */}
+        <div className="mb-10 xl:w-[70%] w-full">
+          <h1 className="sm:text-[30px] text-[20px] font-medium py-4 ">
             Giỏ hàng
           </h1>
           <div className=" overflow-y-auto max-h-[300px] sm:max-h-[800px]">
-            {data.map((item: any) => (
-              <div key={item.id}>
-                <div className="w-full sm:h-[180px] h-auto flex py-10 border-b-[1px] ">
-                  <Link href={`/card/${data.name}`}>
-                    <div className="sm:w-[150px] sm:h-full flex items-center justify-center w-[50px] h-[50px] bg-slate-500">
-                      <img
-                        src="https://laptop88.vn/media/product/pro_poster_8407.jpg"
-                        alt="Product image"
-                      />
-                    </div>
-                  </Link>
-                  <div className=" h-full px-5 flex justify-between items-center  flex-1  ">
-                    <span className="font-medium sm:w-[300px] w-[120px] ">
-                      {item.name} / {item.brand} / {item.CPU} / {item.RAM} /
-                      {item.GPU} / {item.Storage} / {item.Screen} /
-                      {item.Resolution} / {item.Battery} / {item.Weight} /
-                      {item.category}
-                    </span>
-
-                    <div className=" font-bold md:w-[150px] w-[60px]">
-                      {formatPrice(item.price * quantities[item.id])}
-                    </div>
-
-                    <div className="flex bg-[#f5f5fd] sm:h-[80px] sm:w-[65px]  w-[30px] h-[40px] rounded-lg justify-center items-center  sm:space-x-5 space-x-2 ">
-                      <div className="sm:w-[10px] flex justify-center sm:text-[18px] text-[10px] font-medium">
-                        {quantities[item.id]}
+            {data.length > 0 &&
+              data.map((item: any) => (
+                <div key={item.id}>
+                  <div className="w-full sm:h-[180px] h-auto flex py-10 border-b-[1px] ">
+                    <Link href={`/card/${data.name}`}>
+                      <div className="sm:w-[150px] sm:h-full flex items-center justify-center w-[50px] h-[50px] bg-slate-500">
+                        <img
+                          src="https://laptop88.vn/media/product/pro_poster_8407.jpg"
+                          alt="Product image"
+                        />
                       </div>
-                      <div className="space-y-5 ">
-                        <button
-                          onClick={() => handleIncrease(item.id)}
-                          className=""
-                        >
-                          <i className="bx text-[#ccc] sm:text-[25px] hover:text-[#979797] bxs-chevron-up-square"></i>
-                        </button>
-                        <button
-                          className=""
-                          onClick={() => handleDecrease(item.id)}
-                        >
-                          <i className="bx text-[#ccc] sm:text-[25px] hover:text-[#979797] bxs-chevron-down-square"></i>
+                    </Link>
+                    <div className=" h-full px-5 flex justify-between items-center  flex-1  ">
+                      <span className="font-medium sm:w-[300px] w-[120px] ">
+                        {item.name} / {item.brand} / {item.CPU} / {item.RAM} /
+                        {item.GPU} / {item.Storage} / {item.Screen} /
+                        {item.Resolution} / {item.Battery} / {item.Weight} /
+                        {item.category}
+                      </span>
+
+                      <div className=" font-bold md:w-[150px] w-[60px]">
+                        {formatPrice(item.price * quantities[item.id])}
+                      </div>
+
+                      <div className="flex bg-[#f5f5fd] sm:h-[80px] sm:w-[65px]  w-[30px] h-[40px] rounded-lg justify-center items-center  sm:space-x-5 space-x-2 ">
+                        <div className="sm:w-[10px] flex justify-center sm:text-[18px] text-[10px] font-medium">
+                          {quantities[item.id]}
+                        </div>
+                        <div className="space-y-5 ">
+                          <button
+                            onClick={() => handleIncrease(item.id)}
+                            className=""
+                          >
+                            <i className="bx text-[#ccc] sm:text-[25px] hover:text-[#979797] bxs-chevron-up-square"></i>
+                          </button>
+                          <button
+                            className=""
+                            onClick={() => handleDecrease(item.id)}
+                          >
+                            <i className="bx text-[#ccc] sm:text-[25px] hover:text-[#979797] bxs-chevron-down-square"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <button onClick={() => handleRemove(item)} className="">
+                          <i className="bx bx-trash sm:text-[30px] text-[20px] text-[#ccc] hover:text-red-500 "></i>
                         </button>
                       </div>
-                    </div>
-
-                    <div>
-                      <button onClick={() => handleRemove(item)} className="">
-                        <i className="bx bx-trash sm:text-[30px] text-[20px] text-[#ccc] hover:text-red-500 "></i>
-                      </button>
                     </div>
                   </div>
                 </div>
+              ))}
+            {data.length === 0 && (
+              <div className="flex-1 py-36 text-center border border-gray-300 rounded-lg fade-out">
+                <span className="text-2xl">Không có sản phẩm</span>
               </div>
-            ))}
+            )}
           </div>
         </div>
-        <div className=" md:w-[30%] w-full justify-center bg-[#f5f5fd] sm:p-8 p-4">
+
+        {/* thông tn người nhận hàng */}
+        <div className=" xl:w-[30%] w-full justify-center bg-[#f5f5fd] sm:p-8 p-4">
           <h1 className="sm:text-4xl text-2xl font-bold  ">
             Thông tin người nhận
           </h1>

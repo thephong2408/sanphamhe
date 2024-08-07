@@ -12,7 +12,7 @@ export default function History() {
     <div className="flex items-center justify-center mb-10">
       <LayoutCard>
         {dataBill.length === 0 ? (
-          <div className="flex-1 flex items-center md:text-4xl text-2xl mt-[100px] justify-center">
+          <div className="flex-1 flex sm:h-auto h-[400px] items-center md:text-4xl text-2xl sm:mt-[100px] justify-center">
             <h1>Bạn chưa thực hiện bất kì giao dịch nào</h1>
           </div>
         ) : (

@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { FaUserPlus } from "react-icons/fa";
 
 import { useState, useEffect } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
@@ -34,6 +34,7 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "@/app/redux/slices/dataCart";
 import { setDataCard } from "@/app/redux/slices/dataCard";
+import classNames from "classnames";
 
 function Avt() {
   const dispatch = useDispatch();
@@ -68,7 +69,12 @@ function Avt() {
         className="relative"
       >
         <Link href={"/cart"}>
-          <FiShoppingCart className="sm:size-[40px] size-[25px] ml-5 sm:block hidden mr-10 hover:text-[#ff3e3e]" />
+          <FiShoppingCart
+            className={classNames(
+              "sm:size-[40px] size-[25px] ml-5 sm:block hidden mr-10",
+              { "text-red-500": showShopping, "text-black": !showShopping }
+            )}
+          />
         </Link>
 
         {/* Giỏ hàng */}

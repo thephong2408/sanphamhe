@@ -91,13 +91,6 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
           </Swiper>
         </div>
       </div>
-      {/* {show && (
-        <Link href={"/sale"}>
-          <button className="w-[150px] py-2 text-red-600 hover:text-white border-[1px] hover:border-[red] bg-white hover:bg-[red] m-auto rounded-md">
-            Xem Tất cả
-          </button>
-        </Link>
-      )} */}
     </div>
   );
 };
