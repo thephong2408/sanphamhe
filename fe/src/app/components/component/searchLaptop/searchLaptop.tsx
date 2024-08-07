@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Card from "../card/card";
 import {
   Select,
   SelectContent,
@@ -18,7 +17,9 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import APILAPTOP from "@/app/API/APILAPTOP";
+import { useSelector } from "react-redux";
+
+import Card from "../card/card";
 
 // Define a type for laptop data
 interface Laptop {
@@ -28,6 +29,10 @@ interface Laptop {
 }
 
 export default function SearchLaptop() {
+  const dataList = useSelector((state: any) => state.dataDispart.dataDispart);
+  console.log(dataList, "dataList");
+
+  // Các lựa chọn lọc
   const laptopBrands = ["Apple", "Dell", "HP", "Lenovo", "Asus"];
   const priceRanges = [
     "Dưới 5tr",
@@ -37,33 +42,52 @@ export default function SearchLaptop() {
   ];
   const demands = ["Văn phòng", "Gaming", "Đồ họa"];
 
-  const [data, setData] = useState<Laptop[]>(APILAPTOP);
-  const [filteredData, setFilteredData] = useState<Laptop[]>(APILAPTOP);
+  // Trạng thái
+  const [data, setData] = useState<Laptop[]>([]);
+  const [filteredData, setFilteredData] = useState<Laptop[]>([]);
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
   const [selectedDemand, setSelectedDemand] = useState<string | null>(null);
 
   useEffect(() => {
+    setData(dataList);
+  }, [dataList]);
+
+  useEffect(() => {
+    //lọc theo hãng
+    const filterByBrand = (item: Laptop) =>
+      selectedBrand ? item.brand === selectedBrand : true;
+
+    //lọc theo tiền
+    const filterByPrice = (item: Laptop) => {
+      if (!selectedPrice) return true;
+
+      switch (selectedPrice) {
+        case "Dưới 5tr":
+          return item.price < 5000000;
+        case "Từ 5 đến 10tr":
+          return item.price >= 5000000 && item.price <= 10000000;
+        case "Từ 10 - 15tr":
+          return item.price > 10000000 && item.price <= 15000000;
+        case "Trên 15tr":
+          return item.price > 15000000;
+        default:
+          return true;
+      }
+    };
+    // lọc theo nhu cầu
+    const filterByDemand = (item: Laptop) =>
+      selectedDemand ? item.category === selectedDemand : true;
+
     const filtered = data
-      .filter((item) => (selectedBrand ? item.brand === selectedBrand : true))
-      .filter((item) =>
-        selectedPrice
-          ? selectedPrice === "Dưới 5tr"
-            ? item.price < 5000000
-            : selectedPrice === "Từ 5 đến 10tr"
-              ? item.price >= 5000000 && item.price <= 10000000
-              : selectedPrice === "Từ 10 - 15tr"
-                ? item.price > 10000000 && item.price <= 15000000
-                : item.price > 15000000
-          : true
-      )
-      .filter((item) =>
-        selectedDemand ? item.category === selectedDemand : true
-      );
+      .filter(filterByBrand)
+      .filter(filterByPrice)
+      .filter(filterByDemand);
 
     setFilteredData(filtered);
-  }, [selectedBrand, selectedPrice, selectedDemand, data]);
+  }, [data, selectedBrand, selectedPrice, selectedDemand]);
 
+  console.log(filteredData, "filteredData");
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageEnd: number = Math.ceil(filteredData.length / 10);
@@ -163,7 +187,7 @@ export default function SearchLaptop() {
                 <Card key={index} data={item} />
               ))}
             </div>
-            <Pagination className="mt-10">
+            <Pagination className="mt-10 cursor-pointer">
               <PaginationContent>
                 <PaginationItem>
                   <PaginationPrevious

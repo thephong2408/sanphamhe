@@ -20,6 +20,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { PiSealFill } from "react-icons/pi";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
@@ -134,8 +135,8 @@ const User: React.FC<UserProps> = ({
       ? "Vui lòng chọn quận huyện."
       : null;
     const newWardError = !selectedWard ? "Vui lòng chọn xã." : null;
-    const newHouseNumberError =
-      houseNumber.trim() === "" ? "Vui lòng nhập số nhà." : null;
+    // const newHouseNumberError =
+    //   houseNumber.trim() === "" ? "Vui lòng nhập số nhà." : null;
 
     setNameError(newNameError);
     setPhoneError(newPhoneError);
@@ -143,7 +144,7 @@ const User: React.FC<UserProps> = ({
     setCityError(newCityError);
     setDistrictError(newDistrictError);
     setWardError(newWardError);
-    setHouseNumberError(newHouseNumberError);
+    // setHouseNumberError(newHouseNumberError);
 
     // Nếu không có lỗi, tiến hành xử lý dữ liệu
     if (
@@ -153,37 +154,77 @@ const User: React.FC<UserProps> = ({
       !newCityError &&
       !newDistrictError &&
       !newWardError &&
-      !newHouseNumberError &&
+      // !newHouseNumberError &&
       totalPrice !== "0"
     ) {
-      const formData = {
-        name: name,
-        phone: phone,
-        email: email,
-        city: selectedCity,
-        district: selectedDistrict,
-        ward: selectedWard,
-        houseNumber,
-      };
-      const laptop = {
-        name: "Laptop",
-      };
-      const formDataSubmitted = {
-        userInfo: formData,
-        totalAmount: totalPrice,
-        products: productDetails,
-        paymentTime: currentTime,
-      };
-      console.log("Form Data Submitted:", formDataSubmitted);
-      const payload = {
-        formData,
-        totalPrice,
-        productDetails,
-        currentTime,
-      };
+      // Xuất lý dữ liệu thông tin người dùng
+      if (houseNumber === "") {
+        // Nếu houseNumber là chuỗi rỗng, cập nhật nó thành "Không có"
+        const updatedHouseNumber = "Không có";
 
-      // Xử lý thanh toán
-      dispatch(addToBill(payload));
+        // Tạo formData với giá trị houseNumber đã được cập nhật
+        const formData = {
+          name: name,
+          phone: phone,
+          email: email,
+          city: selectedCity,
+          district: selectedDistrict,
+          ward: selectedWard,
+          houseNumber: updatedHouseNumber, // Sử dụng giá trị đã cập nhật
+        };
+
+        // Tạo formDataSubmitted với formData đã cập nhật
+        const formDataSubmitted = {
+          userInfo: formData,
+          totalAmount: totalPrice,
+          products: productDetails,
+          paymentTime: currentTime,
+        };
+
+        console.log("Form Data Submitted:", formDataSubmitted);
+
+        // Tạo payload để gửi tới redux
+        const payload = {
+          formData,
+          totalPrice,
+          productDetails,
+          currentTime,
+        };
+
+        // Xử lý thanh toán
+        dispatch(addToBill(payload));
+      } else {
+        // Nếu houseNumber không phải là chuỗi rỗng
+        const formData = {
+          name: name,
+          phone: phone,
+          email: email,
+          city: selectedCity,
+          district: selectedDistrict,
+          ward: selectedWard,
+          houseNumber: houseNumber, // Sử dụng giá trị hiện tại của houseNumber
+        };
+
+        const formDataSubmitted = {
+          userInfo: formData,
+          totalAmount: totalPrice,
+          products: productDetails,
+          paymentTime: currentTime,
+        };
+
+        console.log("Form Data Submitted:", formDataSubmitted);
+
+        const payload = {
+          formData,
+          totalPrice,
+          productDetails,
+          currentTime,
+        };
+
+        dispatch(addToBill(payload));
+      }
+
+      // dữ liệu chuyền đi cho API
       // dispatch(clearCart());
       const qrCodeData = `https://your-payment-gateway.com/pay?amount=${encodeURIComponent(totalPrice)}`;
 
@@ -214,14 +255,20 @@ const User: React.FC<UserProps> = ({
       onSubmit={handleSubmit}
       className="sm:space-y-10 space-y-5 mt-10 mb-10"
     >
+      {/* Thong tin nguoi mua hang */}
       <div className="relative">
         <label
           htmlFor="name"
-          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
+          className="block font-medium text-gray-700 sm:text-[18px] text-[15px] "
         >
-          Tên
+          <span className="relative">
+            Tên
+            <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
+              *
+            </span>
+          </span>
         </label>
-        <div className="p-3 border-[1px] shadow-sm rounded-lg bg-white">
+        <div className="p-3 border-[1px] shadow-sm rounded-lg bg-white ">
           <input
             type="text"
             id="name"
@@ -238,12 +285,19 @@ const User: React.FC<UserProps> = ({
         )}
       </div>
 
+      {/* SDT người mua hàng */}
+
       <div className="relative">
         <label
           htmlFor="phone"
           className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
-          Số điện thoại
+          <span className="relative">
+            Số điện thoại
+            <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
+              *
+            </span>
+          </span>
         </label>
         <div className="p-3 border-[1px] shadow-sm rounded-lg bg-white">
           <input
@@ -262,12 +316,18 @@ const User: React.FC<UserProps> = ({
         )}
       </div>
 
+      {/* Email */}
       <div className="relative">
         <label
           htmlFor="email"
           className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
-          Email
+          <span className="relative">
+            Email
+            <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
+              *
+            </span>
+          </span>
         </label>
         <div className="p-3 border-[1px] shadow-sm rounded-lg bg-white">
           <input
@@ -286,12 +346,18 @@ const User: React.FC<UserProps> = ({
         )}
       </div>
 
+      {/* Địa chỉ người mua hàng */}
       <div className="relative">
         <label
           htmlFor="city"
           className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
-          Thành phố
+          <span className="relative">
+            Thành phố
+            <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
+              *
+            </span>
+          </span>
         </label>
         <Select onValueChange={handleCityChange}>
           <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-none focus-visible:ring-offset-0 focus-visible:ring-0">
@@ -323,7 +389,12 @@ const User: React.FC<UserProps> = ({
           htmlFor="district"
           className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
-          Quận huyện
+          <span className="relative">
+            Quận huyện
+            <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
+              *
+            </span>
+          </span>
         </label>
         <Select onValueChange={handleDistrictChange} disabled={!selectedCity}>
           <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-none focus-visible:ring-offset-0 focus-visible:ring-0">
@@ -355,7 +426,12 @@ const User: React.FC<UserProps> = ({
           htmlFor="ward"
           className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
         >
-          Xã
+          <span className="relative">
+            Xã
+            <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
+              *
+            </span>
+          </span>
         </label>
         <Select
           onValueChange={(value) => setSelectedWard(value)}
@@ -408,6 +484,7 @@ const User: React.FC<UserProps> = ({
           </span>
         )}
       </div>
+      {/* Tổng giá trị đơn hàng */}
       <div className="w-full border-[1px] rounded-lg shadow-sm h-[50px] bg-white flex justify-center items-center text-2xl  ">
         Tổng hóa đơn : {totalPrice} VND
       </div>
@@ -456,12 +533,12 @@ const User: React.FC<UserProps> = ({
               Thanh toán
             </Button>
           </AlertDialogTrigger>
-          {/* {isPaymentMethodOpen && (
+          {isPaymentMethodOpen && (
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Quét mã QR thanh toán</AlertDialogTitle>
                 <AlertDialogDescription>
-                  <span className="w-full h-[300px] bg-slate-400 flex items-center justify-center">
+                  <span className="w-full h-[300px] bg-white flex items-center justify-center">
                     {qrData && (
                       <QRCode
                         className="size-[200px] object-contain"
@@ -475,7 +552,7 @@ const User: React.FC<UserProps> = ({
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
               </AlertDialogFooter>
             </AlertDialogContent>
-          )} */}
+          )}
         </AlertDialog>
       )}
 
@@ -494,10 +571,11 @@ const User: React.FC<UserProps> = ({
           {isPaymentMethodOpen && (
             <AlertDialogContent>
               <AlertDialogHeader>
+                <AlertDialogTitle>Xác nhận thanh toán</AlertDialogTitle>
                 <AlertDialogDescription>
-                  <div className="w-full h-[300px] bg-emerald-400 text-white font-bold text-3xl flex justify-center items-center">
+                  <span className="w-full h-[300px] bg-emerald-400 text-white font-bold text-3xl flex justify-center items-center">
                     Xác nhận thành công
-                  </div>
+                  </span>
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

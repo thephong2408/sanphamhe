@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-} from "@/components/ui/breadcrumb";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { Breadcrumb, BreadcrumbList } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 
 export const Logo = () => {
@@ -24,20 +17,7 @@ export const Logo = () => {
         </div>
         {/* breadcrumb */}
         <Breadcrumb className="xl:block hidden ml-10 ">
-          <BreadcrumbList className="text-white lg:text-[15px] text-[12px]">
-            {/* <BreadcrumbItem>
-                            <BreadcrumbLink
-                                className=" flex items-center hover:bg-[#a8a8a8] p-4 rounded-sm"
-                                href="/"
-                            >
-                                <FontAwesomeIcon
-                                    className="size-[20px] mr-2 mb-3"
-                                    icon={faHouse}
-                                />
-                                Trang chủ
-                            </BreadcrumbLink>
-                        </BreadcrumbItem> */}
-          </BreadcrumbList>
+          <BreadcrumbList className="text-white lg:text-[15px] text-[12px]"></BreadcrumbList>
         </Breadcrumb>
       </span>
     </div>

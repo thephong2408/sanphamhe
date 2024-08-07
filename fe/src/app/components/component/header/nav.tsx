@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { FaChevronRight } from "react-icons/fa";
+
 export default function Nav() {
   return (
     <div className="text-black sm:h-[50px] xl:mr-3 h-[30px] hidden sm:flex items-center mt-2 sm:text-[20px] text-[15px] font-medium ">

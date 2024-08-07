@@ -4,6 +4,7 @@ import dataSearchReducer from "./slices/dataSearch";
 import dataCardReducer from "./slices/dataCard";
 import dataCartReducer from "./slices/dataCart";
 import dataBillReducer from "./slices/dataBill";
+import dataDispartReducer from "./slices/dataDispart";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     dataCard: dataCardReducer,
     dataCart: dataCartReducer,
     dataBill: dataBillReducer,
+    dataDispart: dataDispartReducer,
   },
 });
 

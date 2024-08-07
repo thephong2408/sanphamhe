@@ -1,8 +1,7 @@
 "use client";
+
 import React from "react";
 import Link from "next/link";
-import { BsCpuFill } from "react-icons/bs";
-import classNames from "classnames";
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setDataCard } from "@/app/redux/slices/dataCard";
@@ -39,20 +38,14 @@ export default function Card({
   const handleClick = () => {
     dispatch(setDataCard(data));
   };
-  // console.log("data nhận được", data);
+
   return (
     <Link href={`/card/${data.name}`}>
       <div
         onClick={handleClick}
-        className="min-w-[130px] max-w-[300px] sm:p-5  hover:shadow-md border-[1px] cursor-pointer relative overflow-hidden rounded-xl  mb-2"
+        className="min-w-[130px] max-w-[300px] sm:p-5 p-3  hover:shadow-md border-[1px] cursor-pointer relative overflow-hidden rounded-xl  mb-2"
       >
-        <div
-          className="w-full  bg-cover bg-center flex items-center justify-center sm:h-[200px] h-[150px] rounded-xl overflow-hidden "
-          // style={{
-          //   backgroundImage:
-          //     "url('https://laptop88.vn/media/product/pro_poster_8977.jpg')",
-          // }}
-        >
+        <div className="w-full  bg-cover bg-center flex items-center justify-center sm:h-[200px] h-[150px] rounded-xl overflow-hidden ">
           <img
             className="hover:scale-110 transition-all duration-300"
             alt="img"
@@ -74,7 +67,8 @@ export default function Card({
         <div className=" mt-3 ">
           <span className="block overflow-hidden h-[70px] text-ellipsis w-full sm:mb-5  line-clamp-3">
             {data.name} : {data.CPU} {data.RAM} {data.Storage} {data.Screen}{" "}
-            {/* {data.Battery} {data.Weight} {data.category} */}
+            {data.Battery} {data.Weight}
+            {/* {data.category} */}
           </span>
 
           {/* <ul className="space-y-10 mt-3 w-full h-[100px]">
