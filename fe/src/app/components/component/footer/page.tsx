@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="bg-slate-900  xl:space-x-[30px] xl:flex justify-between xl:px-[150px] lg:px-[40px] px-[5px] py-[20px] text-white sm:text-[15px] text-[12px]">
+    <div className="bg-[#191919]  xl:space-x-[30px] xl:flex justify-between xl:px-[150px] lg:px-[40px] px-[5px] py-[20px] text-white sm:text-[15px] text-[12px]">
       <ul className="space-y-[10px] flex-1">
         <li className="font-bold border-b-2">THÔNG TIN LIÊN HỆ</li>
         <li>Địa chỉ: Số 19, Ngõ 453, Đường Nguyễn Trãi, Thành Phố Hà Nội</li>

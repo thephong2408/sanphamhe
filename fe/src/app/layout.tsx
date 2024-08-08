@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import classNames from "classnames";
+import Providers from "./redux/Provider";
+import { useDispatch } from "react-redux";
+
 import "./globals.css";
 import Header from "./components/component/header/page";
 import Footer from "./components/component/footer/page";
-import Providers from "./redux/Provider";
-import classNames from "classnames";
 
 const inter = Inter({ subsets: ["latin"] });
 

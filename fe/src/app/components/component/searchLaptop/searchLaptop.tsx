@@ -118,7 +118,7 @@ export default function SearchLaptop() {
     <div className=" mb-10">
       <div className="sm:py-10 ">
         {/* <h2 className="text-4xl font-bold mb-10">Lọc sản phẩm</h2> */}
-        <div className="w-full sm:border-[1px] flex items-center space-x-5 sm:pl-10 pl-0 sm:py-[20px] py-[10px] sm:bg-[#c3c7d0] rounded-xl">
+        <div className="w-full sm:border-[1px] flex items-center space-x-5 sm:pl-10 pl-0 sm:py-[20px] py-[10px] sm:bg-[#191919] rounded-xl">
           {/* Filter by brand */}
           <Select onValueChange={(value) => setSelectedBrand(value)}>
             <SelectTrigger className="sm:w-[250px] w-[145px] sm:h-[40px] h-[30px] sm:text-[15px] text-[12px] ring-0 focus:ring-0 sm:border-none border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
