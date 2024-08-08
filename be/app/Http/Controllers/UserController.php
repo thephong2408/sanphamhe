@@ -81,7 +81,7 @@ class UserController extends Controller
             'name' => 'required|string',
         ]);
         if ($validator1->fails()) {
-            return response()->json(['success' => false, 'msg' => 'Tên đăng nhập không được để trống']);
+            return response()->json(['success' => false, 'msg' => 'Tên đăng nhập hợp lệ']);
         }
         $validator2 = Validator::make($request->all(), [
             'password' => 'required|string|min:6',
@@ -91,18 +91,18 @@ class UserController extends Controller
             return response()->json(['success' => false, 'msg' => 'Mật khẩu phải có ít nhất 6 kí tự']);
         }
         $validator3 = Validator::make($request->all(), [
-            'phone' => 'required|string',
+            'phone' => 'required|number',
         ]);
         // Nếu dữ liệu password không hợp lệ, trả về thông báo lỗi
         if ($validator3->fails()) {
-            return response()->json(['success' => false, 'msg' => 'Số điện thoại không được để trống']);
+            return response()->json(['success' => false, 'msg' => 'Số điện thoại không hợp lệ']);
         }
         $validator4 = Validator::make($request->all(), [
             'email' => 'required|email',
         ]);
         // Nếu dữ liệu password không hợp lệ, trả về thông báo lỗi
         if ($validator4->fails()) {
-            return response()->json(['success' => false, 'msg' => 'Email không được để trống']);
+            return response()->json(['success' => false, 'msg' => 'Email không hợp lệ']);
         }
         $id = DB::table('users')->insertGetId([
             'name' => $request->input('name'),
