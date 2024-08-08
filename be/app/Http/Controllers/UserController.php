@@ -91,7 +91,7 @@ class UserController extends Controller
             return response()->json(['success' => false, 'msg' => 'Mật khẩu phải có ít nhất 6 kí tự']);
         }
         $validator3 = Validator::make($request->all(), [
-            'phone' => 'required|number',
+            'phone' => 'required|string',
         ]);
         // Nếu dữ liệu password không hợp lệ, trả về thông báo lỗi
         if ($validator3->fails()) {
