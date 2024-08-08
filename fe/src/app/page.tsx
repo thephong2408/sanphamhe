@@ -6,6 +6,9 @@ import APILAPTOP from "./API/APILAPTOP";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setDataDispart } from "./redux/slices/dataDispart";
+
+import axios from "axios";
+
 function Home() {
   const dispatch = useDispatch();
   const [data, setData] = useState<any>([]);
