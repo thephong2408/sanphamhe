@@ -1,18 +1,23 @@
 "use client";
 
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
-import { setDataSearch } from "@/app/redux/slices/dataSearch";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { setDataSearch } from "@/app/redux/slices/dataSearch";
+import { setDataCard } from "@/app/redux/slices/dataCard";
 
 import APILAPTOP from "@/app/API/APILAPTOP";
+import dataDispart from "@/app/redux/slices/dataDispart";
 function Search() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const dataList = useSelector((state: any) => state.dataDispart.dataDispart);
   const [value, setValue] = useState<string>("");
   const [showResults, setShowResults] = useState<boolean>(false);
   const [showInput, setShowInput] = useState<boolean>(false);
@@ -22,8 +27,11 @@ function Search() {
     setValue(event.target.value);
   };
 
-  const handleItemClick = (item: any) => {
+  const handleItemClick = () => {
     setValue("");
+  };
+  const handleClickCard = (item: any) => {
+    dispatch(setDataCard(item));
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -44,7 +52,7 @@ function Search() {
       }
     }
 
-    const filtered = APILAPTOP.filter((item) =>
+    const filtered = dataList.filter((item: any) =>
       item.name.toLowerCase().includes(value.toLowerCase())
     );
 
@@ -92,7 +100,7 @@ function Search() {
         {/* <Link href={`/listsearch/${value}`}> */}
         <button
           onClick={handleItemClick}
-          className=" sm:w-[55px] w-[30px] md:h-[45px] h-[30px] bg-[#070707] border-[1px] text-white rounded-r-full force:text-[#ccc]"
+          className=" sm:w-[55px] w-[30px] md:h-[45px] h-[30px] bg-[#191919] border-[1px] text-white rounded-r-full force:text-[#ccc]"
         >
           <FontAwesomeIcon
             className="sm:size-[25px] size-[15px]"
@@ -113,7 +121,10 @@ function Search() {
               data.map((item: any, index: number) => (
                 <div key={index}>
                   <Link href={`/card/${item.name}`}>
-                    <div className="w-full sm:h-[100px] h-[60px] py-2 flex justify-between hover:bg-[#ccc]">
+                    <div
+                      onClick={() => handleClickCard(item)}
+                      className="w-full sm:h-[100px] h-[60px] py-2 flex justify-between hover:bg-[#ccc]"
+                    >
                       <div className="h-full sm:w-[80px] w-[50px]">
                         <img
                           src="https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/08/Hinh-nen-anime-cute-5-1.jpg.webp"
@@ -125,10 +136,13 @@ function Search() {
                           {item.name}
                         </span>
                         <span className="w-full break-words">
-                          Thông số cơ bản: {item.CPU}, {item.RAM}, {item.ROM},{" "}
+                          Thông số cơ bản: {item.CPU} {item.RAM} {item.Storage}{" "}
+                          {item.Screen} {item.Battery} {item.Weight}
                           {item.screen}
                         </span>
-                        <span className="w-full break-words">{item.price}</span>
+                        <span className="w-full break-words font-medium">
+                          {item.price}
+                        </span>
                       </div>
                     </div>
                   </Link>

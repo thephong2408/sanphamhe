@@ -26,7 +26,7 @@ const Time: React.FC = () => {
   }, []);
 
   return (
-    <div className="text-white bg-[#020202] sm:py-5 py-3 xl:px-[150px] lg:px-[40px] px-[5px] ">
+    <div className="text-white bg-[#191919] sm:py-5 py-3 xl:px-[150px] lg:px-[40px] px-[5px] ">
       <ul className="flex justify-between w-full">
         <li>{` ${currentTime}`}</li>
         <li className="sm:block hidden">

@@ -29,6 +29,7 @@ import {
   faKey,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import { PiShoppingCart } from "react-icons/pi";
 
 import Link from "next/link";
 import { useDispatch } from "react-redux";
@@ -68,14 +69,19 @@ function Avt() {
         onMouseLeave={() => setShowShopping(false)}
         className="relative"
       >
-        <Link href={"/cart"}>
-          <FiShoppingCart
-            className={classNames(
-              "sm:size-[40px] size-[25px] ml-5 sm:block hidden mr-10",
-              { "text-red-500": showShopping, "text-black": !showShopping }
-            )}
-          />
-        </Link>
+        <span className="relative">
+          <Link href={"/cart"}>
+            <PiShoppingCart
+              className={classNames(
+                "sm:size-[35px] size-[25px] ml-5 sm:block hidden mr-10",
+                { "text-red-500": showShopping, "text-black": !showShopping }
+              )}
+            />
+          </Link>
+          <div className="w-[20px] text-white h-[20px] bg-red-500 rounded-full absolute top-[-2px] font-medium right-[17px] flex items-center justify-center">
+            {dataCart.length}
+          </div>
+        </span>
 
         {/* Giỏ hàng */}
         {showShopping && (
@@ -146,11 +152,16 @@ function Avt() {
         className="relative flex items-center h-full"
       >
         {/* khi có user */}
-        <Avatar className="size-[40px] rounded-full overflow-hidden">
+        <Avatar className="size-[35px] rounded-full overflow-hidden">
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
         </Avatar>
         {/* khi không có user */}
-        {/* <FaUserPlus className="size-[40px] " /> */}
+        {/* <FaUserPlus
+          className={classNames("size-[35px]", {
+            "text-red-500": showUser,
+            "text-black": !showUser,
+          })}
+        /> */}
 
         {/* Menu người dùng */}
         {showUser && (
@@ -170,23 +181,27 @@ function Avt() {
                         </span>
                       </AlertDialogTrigger>
                       <AlertDialogContent className="p-0 m-0 overflow-hidden shadow-sm  rounded-lg bg-[#111828] text-white">
-                        <h1 className="p-5 text-3xl   font-semibold rounded-t-lg">
-                          Thông tin cá nhân
-                        </h1>
-                        <ul className="p-5 space-y-4">
-                          <li className=" border-b-2 border-gray-300 ">
-                            <span className="font-medium w-[80px]">Tên:</span>{" "}
-                            Phạm Thế Phong
-                          </li>
-                          <li className="p-4 border-b-2 border-gray-300 ">
-                            <span className="font-medium w-[80px]">Gmail:</span>{" "}
-                            phong@gmail.com
-                          </li>
-                          <li className="p-4  border-b-2 border-gray-300 ">
-                            <span className="font-medium w-[80px]">SDT:</span>{" "}
-                            0869039628
-                          </li>
-                        </ul>
+                        <span className="w-full flex flex-col">
+                          <h1 className="p-5 text-3xl border-b-[1px] font-semibold ">
+                            Thông tin cá nhân
+                          </h1>
+                          <ul className="p-0 m-0 ">
+                            <li className=" border-b-2 p-5 border-gray-300 ">
+                              <span className="font-medium w-[80px]">Tên:</span>{" "}
+                              Phạm Thế Phong
+                            </li>
+                            <li className=" border-b-2 p-5 border-gray-300 ">
+                              <span className="font-medium w-[80px]">
+                                Gmail:
+                              </span>{" "}
+                              phong@gmail.com
+                            </li>
+                            <li className="  border-b-2 p-5 border-gray-300 ">
+                              <span className="font-medium w-[80px]">SDT:</span>{" "}
+                              0869039628
+                            </li>
+                          </ul>
+                        </span>
                         <AlertDialogFooter className="p-5">
                           <AlertDialogCancel>
                             <button className=" p-6 text-[14px] text-black">
