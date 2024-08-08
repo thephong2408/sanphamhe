@@ -51,10 +51,10 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $validator1 = Validator::make($request->all(), [
-            'id' => 'required|integer|regex:/^\d+$/',
+            'email' => 'required|email',
         ]);
         if ($validator1->fails()) {
-            return response()->json(['success' => false, 'msg' => 'Tên đăng nhập phải có độ dài từ 5-17 kí tự (không được có dấu cách)']);
+            return response()->json(['success' => false, 'msg' => 'Email không hợp lệ']);
         }
         $validator2 = Validator::make($request->all(), [
             'password' => 'required|string|min:6',
@@ -64,14 +64,10 @@ class UserController extends Controller
             return response()->json(['success' => false, 'msg' => 'Mật khẩu có ít nhất 6 kí tự']);
         }
         $user = DB::table('user')
-            ->where('id', $request->input('id'))
+            ->where('id', $request->input('email'))
             ->first();
         if ($user && Hash::check($request->input('password'), $user->password)) {
-            $username = DB::table('user')
-                ->where('id', $request->input('id'))
-                ->pluck('username')
-                ->first();
-            return response()->json(['success' => true, 'id' => $request->input('id'), 'username' => $username]);
+            return response()->json(['success' => true, 'username' => $user->name, 'phone' => $user->phone]);
         }
         return response()->json(['success' => false, 'msg' => 'Tên người dùng hoặc mật khẩu không chính xác',]);
     }
