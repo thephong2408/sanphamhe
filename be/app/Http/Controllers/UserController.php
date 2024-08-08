@@ -63,8 +63,8 @@ class UserController extends Controller
         if ($validator2->fails()) {
             return response()->json(['success' => false, 'msg' => 'Mật khẩu có ít nhất 6 kí tự']);
         }
-        $user = DB::table('user')
-            ->where('id', $request->input('email'))
+        $user = DB::table('users')
+            ->where('email', $request->input('email'))
             ->first();
         if ($user && Hash::check($request->input('password'), $user->password)) {
             return response()->json(['success' => true, 'username' => $user->name, 'phone' => $user->phone]);
