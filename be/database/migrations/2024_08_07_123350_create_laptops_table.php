@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id(); // ID tự động tăng
             $table->string('name'); // Tên laptop
             $table->string('img'); // Ảnh có nền trắng
-            $table->decimal('price', 8, 2); // Giá tiền, với tối đa 8 chữ số và 2 chữ số thập phân
+            $table->integer('price'); // Giá tiền
             $table->string('brand'); // Thương hiệu
             $table->string('CPU'); // CPU
             $table->string('RAM'); // RAM
@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('Weight'); // Cân nặng
             $table->string('category'); // Loại: Văn phòng, Gaming, hoặc Đồ họa
             $table->timestamp('time'); // Thời gian nhập hàng
-            $table->timestamps(); // Timestamps created_at và updated_at
         });
     }
 
