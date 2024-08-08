@@ -91,14 +91,23 @@ class UserController extends Controller
             return response()->json(['success' => false, 'msg' => 'Mật khẩu phải có ít nhất 6 kí tự']);
         }
         $validator3 = Validator::make($request->all(), [
-            'company' => 'required|string',
+            'phone' => 'required|string',
         ]);
         // Nếu dữ liệu password không hợp lệ, trả về thông báo lỗi
         if ($validator3->fails()) {
-            return response()->json(['success' => false, 'msg' => 'Tên công ty không được để trống']);
+            return response()->json(['success' => false, 'msg' => 'Số điện thoại không được để trống']);
+        }
+        $validator4 = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+        // Nếu dữ liệu password không hợp lệ, trả về thông báo lỗi
+        if ($validator4->fails()) {
+            return response()->json(['success' => false, 'msg' => 'Email không được để trống']);
         }
         $id = DB::table('users')->insertGetId([
-            'nam' => $request->input('nam'),
+            'name' => $request->input('name'),
+            'phone' => $request->input('phone'),
+            'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
         ]);
         return response()->json(['success' => true]);
