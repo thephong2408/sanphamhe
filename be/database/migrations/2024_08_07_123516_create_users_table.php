@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('email')->unique(); // Email, duy nhất
             $table->string('phone'); // Số điện thoại
             $table->string('password'); // Mật khẩu
-            $table->timestamps(); // Timestamps created_at và updated_at
         });
     }
 
