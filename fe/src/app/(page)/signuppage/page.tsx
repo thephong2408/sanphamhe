@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import { FaUser, FaPhone, FaEnvelope, FaLock, FaKey } from "react-icons/fa";
 import LayoutCard from "@/app/Layouts/LayoutCard";
+import axios from "axios";
 
 interface SignUpFormData {
-  username: string;
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -13,11 +14,11 @@ interface SignUpFormData {
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState<SignUpFormData>({
-    username: "",
+    name: "",
     email: "",
+    phoneNumber: "",
     password: "",
     confirmPassword: "",
-    phoneNumber: "",
   });
 
   const [errors, setErrors] = useState<
@@ -43,16 +44,16 @@ const SignUp: React.FC = () => {
     return re.test(phoneNumber);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
     setSuccess(null);
 
     const newErrors: Partial<Record<keyof SignUpFormData, string>> = {};
 
-    // Basic validation
-    if (!formData.username.trim()) {
-      newErrors.username = "Tên không được để trống!";
+    // Kiểm tra dữ liệu đầu vào
+    if (!formData.name.trim()) {
+      newErrors.name = "Tên không được để trống!";
     }
     if (!validateEmail(formData.email)) {
       newErrors.email = "Email không hợp lệ!";
@@ -74,15 +75,23 @@ const SignUp: React.FC = () => {
       setErrors(newErrors);
       return;
     }
-    // / If no errors, send data to API
+
+    // Nếu không có lỗi, gửi dữ liệu đến API
     const { confirmPassword, ...dataToSend } = formData;
+    console.log(dataToSend);
 
-    console.log("dữ liệu chuyền đi", dataToSend);
-
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      // Gửi dữ liệu đến API
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/register",
+        dataToSend
+      );
+      console.log("Phản hồi từ API:", response.data);
       setSuccess("Đăng ký thành công!");
-    }, 1000);
+    } catch (error) {
+      console.error("Lỗi trong quá trình đăng ký:", error);
+      alert("Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại!");
+    }
   };
 
   return (
@@ -95,22 +104,22 @@ const SignUp: React.FC = () => {
           <form onSubmit={handleSubmit}>
             <div className="mb-4 flex flex-col">
               <label
-                htmlFor="username"
+                htmlFor="name"
                 className="flex items-center border-[1px] rounded-md shadow-sm bg-white"
               >
                 <FaUser className="text-gray-500 ml-3" />
                 <input
                   type="text"
-                  id="username"
-                  name="username"
-                  value={formData.username}
+                  id="name"
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
-                  placeholder="Enter your username"
+                  placeholder="Enter your name"
                   className="block w-full sm:p-5 p-3 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
                 />
               </label>
-              {errors.username && (
-                <p className="text-red-500 mt-1">{errors.username}</p>
+              {errors.name && (
+                <p className="text-red-500 mt-1">{errors.name}</p>
               )}
             </div>
 
@@ -142,7 +151,7 @@ const SignUp: React.FC = () => {
               >
                 <FaEnvelope className="text-gray-500 ml-3" />
                 <input
-                  type="email"
+                  type="text"
                   id="email"
                   name="email"
                   value={formData.email}
