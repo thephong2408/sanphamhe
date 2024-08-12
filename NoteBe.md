@@ -1,0 +1,24 @@
+- api khi người dùng thêm sản phẩm vào giỏ hàng
+    - method post, url /api/add-cart
+    - key: id_user(id người dùng), id_product(id sản phẩm được thêm), quantity(số lượng)
+    - respone.data.success (true/false)
+- api danh sách giỏ hàng (khi ấn vào xem giỏ hàng)
+    - method post, url /api/get-cart
+    - key: id
+    - respone.data (mảng object sản phẩm, mỗi object sản phẩm gồm các thuộc tính: id_user, id_product, quantity, timestamp)
+- api thêm sản phẩm (khi ấn dấu cộng thêm 1 sản phẩm)
+    - method post, url /api/add-one
+    - key: id_user(id người dùng), id_product(id sản phẩm được thêm)
+    - respone.data.success (true/false)
+- api xóa sản phẩm (khi ấn dấu trừ xóa 1 sản phẩm)
+    - method post, url /api/delete-one
+    - key: id_user(id người dùng), id_product(id sản phẩm được thêm)
+    - respone.data.success (true/false)
+- api chỉnh sửa số lượng (khi người dùng nhập số lượng sản phẩm bất kì)
+    - method post, url /api/adjust-cart
+    - key: id_user(id người dùng), id_product(id sản phẩm được thêm)
+    - respone.data.success (true/false)
+- api xóa sản phẩm (khi ấn vào nút xóa sản phẩm, sẽ xóa hết sản phẩm)
+    - method post, url /api/delete-cart
+    - key: id_user(id người dùng), id_product(id sản phẩm được thêm)
+    - respone.data.success (true/false)
