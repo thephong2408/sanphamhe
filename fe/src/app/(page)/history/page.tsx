@@ -2,18 +2,31 @@
 import React from "react";
 import LayoutCard from "@/app/Layouts/LayoutCard";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
 export default function History() {
   const dataBill = useSelector((state: any) => state.dataBill.dataBill);
 
-  console.log(dataBill, "dataBill");
+  // console.log(dataBill, "dataBill");
 
   return (
-    <div className="flex items-center justify-center mb-10">
+    <div className="flex items-center justify-center mb-10 border-[1px] rounded-xl dark:border-white">
       <LayoutCard>
         {dataBill.length === 0 ? (
-          <div className="flex-1 flex sm:h-auto h-[400px] items-center md:text-4xl text-2xl sm:mt-[100px] justify-center">
-            <h1>Bạn chưa thực hiện bất kì giao dịch nào</h1>
+          <div className="flex-1 py-36 text-center  flex flex-col justify-center items-center  rounded-lg fade-out space-y-5">
+            <div className="size-[150px] border-none bg-transparent">
+              {" "}
+              <img
+                src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/checkout_cart/ico_emptycart.svg"
+                alt=""
+              />
+            </div>
+            <span className="text-2xl ">Bạn chưa thực hiện giao dịch nào </span>
+            <Link href={"/"}>
+              <button className="bg-[#b80000] text-white rounded-lg w-[200px] py-3">
+                Mua sắm ngay
+              </button>
+            </Link>
           </div>
         ) : (
           <div className="p-4">

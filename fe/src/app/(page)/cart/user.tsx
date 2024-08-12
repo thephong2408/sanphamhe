@@ -253,22 +253,22 @@ const User: React.FC<UserProps> = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className="sm:space-y-10 space-y-5 mt-10 mb-10"
+      className="sm:space-y-10 space-y-5 mt-10 mb-10 dark:text-white"
     >
       {/* Thong tin nguoi mua hang */}
       <div className="relative">
         <label
           htmlFor="name"
-          className="block font-medium text-gray-700 sm:text-[18px] text-[15px] "
+          className="block font-medium  sm:text-[18px] text-[15px] "
         >
-          <span className="relative">
+          <span className="relative ">
             Tên
             <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
               *
             </span>
           </span>
         </label>
-        <div className="p-3 border-[1px] shadow-sm rounded-lg bg-white ">
+        <div className="p-3 border-[1px] shadow-sm rounded-lg  ">
           <input
             type="text"
             id="name"
@@ -290,16 +290,16 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="phone"
-          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
+          className="block font-medium  sm:text-[18px] text-[15px]"
         >
-          <span className="relative">
+          <span className="relative ">
             Số điện thoại
             <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
               *
             </span>
           </span>
         </label>
-        <div className="p-3 border-[1px] shadow-sm rounded-lg bg-white">
+        <div className="p-3 border-[1px] shadow-sm rounded-lg ">
           <input
             type="tel"
             id="phone"
@@ -320,16 +320,16 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="email"
-          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
+          className="block font-medium  sm:text-[18px] text-[15px]"
         >
-          <span className="relative">
+          <span className="relative ">
             Email
             <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
               *
             </span>
           </span>
         </label>
-        <div className="p-3 border-[1px] shadow-sm rounded-lg bg-white">
+        <div className="p-3 border-[1px] shadow-sm rounded-lg ">
           <input
             type="text"
             id="email"
@@ -350,9 +350,9 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="city"
-          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
+          className="block font-medium  sm:text-[18px] text-[15px]"
         >
-          <span className="relative">
+          <span className="relative ">
             Thành phố
             <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
               *
@@ -360,7 +360,7 @@ const User: React.FC<UserProps> = ({
           </span>
         </label>
         <Select onValueChange={handleCityChange}>
-          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-none focus-visible:ring-offset-0 focus-visible:ring-0">
+          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
             <SelectValue placeholder="Chọn thành phố" />
           </SelectTrigger>
           <SelectContent>
@@ -387,9 +387,9 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="district"
-          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
+          className="block font-medium  sm:text-[18px] text-[15px]"
         >
-          <span className="relative">
+          <span className="relative ">
             Quận huyện
             <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
               *
@@ -397,7 +397,7 @@ const User: React.FC<UserProps> = ({
           </span>
         </label>
         <Select onValueChange={handleDistrictChange} disabled={!selectedCity}>
-          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-none focus-visible:ring-offset-0 focus-visible:ring-0">
+          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
             <SelectValue placeholder="Chọn quận huyện" />
           </SelectTrigger>
           <SelectContent>
@@ -424,9 +424,9 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="ward"
-          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
+          className="block font-medium  sm:text-[18px] text-[15px]"
         >
-          <span className="relative">
+          <span className="relative ">
             Xã
             <span className="text-[#a41919] size-[8px] absolute top-[-4x] right-[-10px]">
               *
@@ -437,7 +437,7 @@ const User: React.FC<UserProps> = ({
           onValueChange={(value) => setSelectedWard(value)}
           disabled={!selectedDistrict}
         >
-          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-none focus-visible:ring-offset-0 focus-visible:ring-0">
+          <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
             <SelectValue placeholder="Chọn xã" />
           </SelectTrigger>
           <SelectContent>
@@ -464,11 +464,11 @@ const User: React.FC<UserProps> = ({
       <div className="relative">
         <label
           htmlFor="houseNumber"
-          className="block font-medium text-gray-700 sm:text-[18px] text-[15px]"
+          className="block font-medium  sm:text-[18px] text-[15px]"
         >
           Số nhà
         </label>
-        <div className="px-3 py-2 sm:p-5 border-[1px] shadow-sm rounded-lg bg-white">
+        <div className="px-3 py-2 sm:p-5 border-[1px] shadow-sm rounded-lg ">
           <input
             type="text"
             id="houseNumber"
@@ -485,7 +485,7 @@ const User: React.FC<UserProps> = ({
         )}
       </div>
       {/* Tổng giá trị đơn hàng */}
-      <div className="w-full border-[1px] rounded-lg shadow-sm h-[50px] bg-white flex justify-center items-center text-2xl  ">
+      <div className="w-full border-[1px] rounded-lg shadow-sm h-[50px]  flex justify-center items-center text-2xl  ">
         Tổng hóa đơn : {totalPrice} VND
       </div>
       {/* phương thức thanh toán */}
@@ -498,7 +498,7 @@ const User: React.FC<UserProps> = ({
             value="online"
             checked={paymentMethod === "online"}
             onChange={handlePaymentMethodChange}
-            className="size-[15px] bg-white border-none"
+            className="size-[15px]  border-none"
           />
           <label
             htmlFor="onlinePayment"
@@ -515,7 +515,7 @@ const User: React.FC<UserProps> = ({
             value="cod"
             checked={paymentMethod === "cod"}
             onChange={handlePaymentMethodChange}
-            className="size-[15px] bg-white border-none"
+            className="size-[15px]  border-none"
           />
           <label htmlFor="cod" className="text-[12px] font-medium leading-none">
             Nhận hàng rồi thanh toán
@@ -538,7 +538,7 @@ const User: React.FC<UserProps> = ({
               <AlertDialogHeader>
                 <AlertDialogTitle>Quét mã QR thanh toán</AlertDialogTitle>
                 <AlertDialogDescription>
-                  <span className="w-full h-[300px] bg-white flex items-center justify-center">
+                  <span className="w-full h-[300px]  flex items-center justify-center">
                     {qrData && (
                       <QRCode
                         className="size-[200px] object-contain"

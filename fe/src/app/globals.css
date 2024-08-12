@@ -153,6 +153,26 @@ html *::-webkit-scrollbar-track {
   box-shadow: none;
 }
 
+/* Define custom fade-in effect with delay */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  80% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.fade-in-delay {
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
 @layer base {
   * {
     @apply border-border;

@@ -12,19 +12,40 @@ import axios from "axios";
 function Home() {
   const dispatch = useDispatch();
   const [data, setData] = useState<any>([]);
+  const [data1, setData1] = useState<any>([]);
+  const [data2, setData2] = useState<any>([]);
 
+  // useEffect(() => {
+  //   setData(APILAPTOP);
+  //   // dispatch(setDataDispart(APILAPTOP));
+  // }, []);
   useEffect(() => {
-    setData(APILAPTOP);
-    dispatch(setDataDispart(APILAPTOP));
+    const fetchData1 = async () => {
+      try {
+        const response1 = await axios.get(
+          "http://127.0.0.1:8000/api/get-laptops"
+        );
+
+        dispatch(setDataDispart(response1.data));
+
+        setData1(response1.data);
+        console.log(response1.data), "data API";
+      } catch (error) {
+        console.error("Có lỗi xảy ra!", error);
+      }
+    };
+
+    fetchData1();
   }, []);
+  console.log("dữ liệu nhận đc", data1);
+
+  // lấy data từ be
 
   return (
     <div>
       <Layout1>
         <SwiperLaptop
           text="SẢN PHẨM KHUYẾN MÃI"
-          text_white="white"
-          bgood="#d0011b"
           widthCard="full"
           slidesPerView={2}
           slidesPerView2={2}
@@ -34,7 +55,7 @@ function Home() {
           width="100%"
           show={true}
           sale={true}
-          data={data.slice(0, 10)}
+          data={data1.slice(0, 10)}
         />
         {/* <div className="sm:flex justify-between">
           <div className="sm:w-[49%] w-full">

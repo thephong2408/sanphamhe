@@ -1,20 +1,42 @@
 // store.ts
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { PersistConfig, persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // Local storage
 import dataSearchReducer from "./slices/dataSearch";
 import dataCardReducer from "./slices/dataCard";
 import dataCartReducer from "./slices/dataCart";
 import dataBillReducer from "./slices/dataBill";
 import dataDispartReducer from "./slices/dataDispart";
+import paginationDataReducer from "./slices/paginationData";
 
-export const store = configureStore({
-  reducer: {
-    dataSearch: dataSearchReducer,
-    dataCard: dataCardReducer,
-    dataCart: dataCartReducer,
-    dataBill: dataBillReducer,
-    dataDispart: dataDispartReducer,
-  },
+// Kết hợp các reducers thành một rootReducer
+const rootReducer = combineReducers({
+  dataSearch: dataSearchReducer,
+  dataCard: dataCardReducer,
+  dataCart: dataCartReducer,
+  dataBill: dataBillReducer,
+  dataDispart: dataDispartReducer,
+  paginationData: paginationDataReducer,
 });
 
+// Cấu hình Redux Persist
+const getPersistConfig = (): PersistConfig<RootState> => ({
+  key: "root",
+  storage,
+});
+
+// Tạo persistedReducer
+const persistedReducer = persistReducer(getPersistConfig(), rootReducer);
+
+// Cấu hình store
+export const store = configureStore({
+  reducer: persistedReducer,
+  // Nếu bạn không có middleware tùy chỉnh, không cần thêm `middleware`
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+});
+
+// Tạo persistor
+export const persistor = persistStore(store);
+
 // Định nghĩa kiểu RootState
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
