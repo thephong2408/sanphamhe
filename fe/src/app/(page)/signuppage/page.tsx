@@ -2,22 +2,25 @@
 import React, { useState } from "react";
 import { FaUser, FaPhone, FaEnvelope, FaLock, FaKey } from "react-icons/fa";
 import LayoutCard from "@/app/Layouts/LayoutCard";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 interface SignUpFormData {
-  username: string;
+  name: string;
   email: string;
+  phone: string;
   password: string;
   confirmPassword: string;
-  phoneNumber: string;
 }
 
 const SignUp: React.FC = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState<SignUpFormData>({
-    username: "",
+    name: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
-    phoneNumber: "",
   });
 
   const [errors, setErrors] = useState<
@@ -38,12 +41,12 @@ const SignUp: React.FC = () => {
     return re.test(email);
   };
 
-  const validatePhoneNumber = (phoneNumber: string): boolean => {
+  const validatePhone = (phone: string): boolean => {
     const re = /^[0-9]{10,}$/; // Ví dụ kiểm tra số điện thoại có ít nhất 10 ký tự số
-    return re.test(phoneNumber);
+    return re.test(phone);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
     setSuccess(null);
@@ -51,14 +54,14 @@ const SignUp: React.FC = () => {
     const newErrors: Partial<Record<keyof SignUpFormData, string>> = {};
 
     // Basic validation
-    if (!formData.username.trim()) {
-      newErrors.username = "Tên không được để trống!";
+    if (!formData.name.trim()) {
+      newErrors.name = "Tên không được để trống!";
     }
     if (!validateEmail(formData.email)) {
       newErrors.email = "Email không hợp lệ!";
     }
-    if (!validatePhoneNumber(formData.phoneNumber)) {
-      newErrors.phoneNumber = "Số điện thoại không hợp lệ!";
+    if (!validatePhone(formData.phone)) {
+      newErrors.phone = "Số điện thoại không hợp lệ!";
     }
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = "Mật khẩu nhập lại không chính xác!";
@@ -66,81 +69,89 @@ const SignUp: React.FC = () => {
     if (formData.password.length < 6) {
       newErrors.password = "Mật khẩu phải có ít nhất 6 ký tự";
     }
-    if (formData.phoneNumber.length < 10) {
-      newErrors.phoneNumber = "Số điện thoại phải có ít nhất 10 ký tự";
+    if (formData.phone.length < 10) {
+      newErrors.phone = "Số điện thoại phải có ít nhất 10 ký tự";
     }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    // / If no errors, send data to API
+    // If no errors, send data to API
     const { confirmPassword, ...dataToSend } = formData;
-
-    console.log("dữ liệu chuyền đi", dataToSend);
-
-    // Simulate API call
-    setTimeout(() => {
+    console.log("Data to send:", dataToSend);
+    try {
+      // Simulate API call
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/register",
+        dataToSend
+      );
+      router.push("/login");
+      console.log("Response from API:", response.data);
       setSuccess("Đăng ký thành công!");
-    }, 1000);
+
+      // Redirect to login page
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
 
   return (
     <LayoutCard>
       <div className="flex items-center justify-center sm:mt-0 mt-5">
-        <div className="sm:max-w-[600px] sm:w-[600px] w-[350px] mx-auto p-8 border border-gray-300 bg-[#f4f7fe] rounded-lg shadow-md mb-10">
+        <div className="sm:max-w-[600px] sm:w-[600px] w-[350px] mx-auto p-8 border border-gray-300  rounded-lg shadow-md mb-10">
           <h1 className="sm:text-4xl text-3xl font-bold mb-6">Đăng ký</h1>
 
           {success && <p className="text-green-500 mb-4">{success}</p>}
           <form onSubmit={handleSubmit}>
             <div className="mb-4 flex flex-col">
               <label
-                htmlFor="username"
-                className="flex items-center border-[1px] rounded-md shadow-sm bg-white"
+                htmlFor="name"
+                className="flex items-center border-[1px] rounded-md shadow-sm "
               >
-                <FaUser className="text-gray-500 ml-3" />
+                <FaUser className=" ml-3" />
                 <input
                   type="text"
-                  id="username"
-                  name="username"
-                  value={formData.username}
+                  id="name"
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
-                  placeholder="Enter your username"
-                  className="block w-full sm:p-5 p-3 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
+                  placeholder="Enter your name"
+                  className="block w-full sm:p-5 p-3 ml-4 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
                 />
               </label>
-              {errors.username && (
-                <p className="text-red-500 mt-1">{errors.username}</p>
+              {errors.name && (
+                <p className="text-red-500 mt-1">{errors.name}</p>
               )}
             </div>
 
             <div className="mb-4 flex flex-col">
               <label
-                htmlFor="phoneNumber"
-                className="flex items-center border-[1px] rounded-md shadow-sm bg-white"
+                htmlFor="phone"
+                className="flex items-center border-[1px] rounded-md shadow-sm "
               >
-                <FaPhone className="text-gray-500 ml-3" />
+                <FaPhone className=" ml-3" />
                 <input
                   type="text"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
                   onChange={handleChange}
                   placeholder="Enter your phone number"
-                  className="block w-full sm:p-5 p-3 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
+                  className="block w-full sm:p-5 p-3 ml-4 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
                 />
               </label>
-              {errors.phoneNumber && (
-                <p className="text-red-500 mt-1">{errors.phoneNumber}</p>
+              {errors.phone && (
+                <p className="text-red-500 mt-1">{errors.phone}</p>
               )}
             </div>
 
             <div className="mb-4 flex flex-col">
               <label
                 htmlFor="email"
-                className="flex items-center border-[1px] rounded-md shadow-sm bg-white"
+                className="flex items-center border-[1px] rounded-md shadow-sm "
               >
-                <FaEnvelope className="text-gray-500 ml-3" />
+                <FaEnvelope className=" ml-3" />
                 <input
                   type="email"
                   id="email"
@@ -148,7 +159,7 @@ const SignUp: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
-                  className="block w-full sm:p-5 p-3 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
+                  className="block w-full sm:p-5 p-3 ml-4 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
                 />
               </label>
               {errors.email && (
@@ -159,9 +170,9 @@ const SignUp: React.FC = () => {
             <div className="mb-4 flex flex-col">
               <label
                 htmlFor="password"
-                className="flex items-center border-[1px] rounded-md shadow-sm bg-white"
+                className="flex items-center border-[1px] rounded-md shadow-sm "
               >
-                <FaLock className="text-gray-500 ml-3" />
+                <FaLock className=" ml-3" />
                 <input
                   type="password"
                   id="password"
@@ -169,7 +180,7 @@ const SignUp: React.FC = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Enter your password"
-                  className="block w-full sm:p-5 p-3 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
+                  className="block w-full sm:p-5 p-3 ml-4 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
                 />
               </label>
               {errors.password && (
@@ -180,9 +191,9 @@ const SignUp: React.FC = () => {
             <div className="mb-4 flex flex-col">
               <label
                 htmlFor="confirmPassword"
-                className="flex items-center border-[1px] rounded-md shadow-sm bg-white"
+                className="flex items-center border-[1px] rounded-md shadow-sm "
               >
-                <FaKey className="text-gray-500 ml-3" />
+                <FaKey className=" ml-3" />
                 <input
                   type="password"
                   id="confirmPassword"
@@ -190,7 +201,7 @@ const SignUp: React.FC = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   placeholder="Confirm your password"
-                  className="block w-full sm:p-5 p-3 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
+                  className="block w-full sm:p-5 p-3 ml-4 border-none focus:outline-none focus:bg-slate-200 sm:text-[18px] text-[12px]"
                 />
               </label>
               {errors.confirmPassword && (

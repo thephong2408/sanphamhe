@@ -12,12 +12,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { ImFrustrated } from "react-icons/im";
 
 import { FiShoppingCart } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { FaUserPlus } from "react-icons/fa";
 
 import { useState, useEffect } from "react";
+
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -36,8 +38,48 @@ import { useDispatch } from "react-redux";
 import { removeFromCart } from "@/app/redux/slices/dataCart";
 import { setDataCard } from "@/app/redux/slices/dataCard";
 import classNames from "classnames";
+import { useRouter } from "next/navigation";
+import { clearDataPhone } from "@/app/redux/slices/dataDispart";
+import { clearCart } from "@/app/redux/slices/dataCart";
 
 function Avt() {
+  // dữ liệu nhận được khi đã đăng nhập
+  const dataPhone = useSelector((state: any) => state.dataDispart.dataPhone);
+
+  const [showLogin, setShowLogin] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [storedPhone, setStoredPhone] = useState<string>("");
+
+  const router = useRouter();
+
+  // Kiểm tra nếu mã chạy trên client-side
+  useEffect(() => {
+    setStoredPhone(dataPhone);
+  }, [dataPhone]); // Chạy chỉ một lần sau khi component mount
+  // Chạy một lần khi component mount
+
+  useEffect(() => {
+    setShowLogin(storedPhone.length > 0);
+    setLoading(true);
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [storedPhone]);
+  // Xử lý đăng xuất
+  const handleLogout = () => {
+    setStoredPhone("");
+    setShowLogin(false);
+    dispatch(setDataCard([]));
+    dispatch(clearDataPhone());
+    dispatch(clearCart());
+    localStorage.removeItem("phone");
+    router.push("/login");
+  };
+
+  // chuyền dữ liệu
   const dispatch = useDispatch();
   const dataCart = useSelector((state: any) => state.dataCart.dataCart);
   const [data, setData] = useState<any>(dataCart);
@@ -45,7 +87,7 @@ function Avt() {
     setData(dataCart);
   }, [dataCart]);
 
-  console.log("dataCart", dataCart);
+  // console.log("dataCart", dataCart);
   const [showShopping, setShowShopping] = useState<boolean>(false);
   const [showUser, setShowUser] = useState<boolean>(false);
   const formatPrice = (price: number | undefined) => {
@@ -62,6 +104,8 @@ function Avt() {
     setData(dataCart);
   };
 
+  // đăng xuất thì xóa biến toàn cục
+
   return (
     <span className="items-center xl:flex hidden z-50 h-full">
       <span
@@ -74,7 +118,7 @@ function Avt() {
             <PiShoppingCart
               className={classNames(
                 "sm:size-[35px] size-[25px] ml-5 sm:block hidden mr-10",
-                { "text-red-500": showShopping, "text-black": !showShopping }
+                { "text-red-500": showShopping, "": !showShopping }
               )}
             />
           </Link>
@@ -87,7 +131,7 @@ function Avt() {
         {showShopping && (
           <div className="absolute sm:bottom-[0px] top-[35px] z-50 right-0 pt-5">
             {data.length > 0 ? (
-              <div className="rounded-lg overflow-hidden shadow-md bg-[#1a243d]  text-white p-5">
+              <div className="rounded-lg overflow-hidden shadow-md dark:bg-[#1a243d] bg-white  dark:text-white p-5">
                 <Link href={"/cart"}>
                   <div
                     onClick={() => setShowShopping(false)}
@@ -138,13 +182,39 @@ function Avt() {
                 </div>
               </div>
             ) : (
-              <div className="bg-[#1a243d]  text-white p-5 flex justify-center items-center w-[300px] h-[300px] rounded-xl">
-                không có sản phẩm nào
+              <div className="bg-[#1a243d]   text-white p-5 flex flex-col justify-center items-center w-[300px] h-[300px] rounded-xl">
+                <div className="size-[100px] border-none bg-transparent">
+                  {" "}
+                  <img
+                    src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/checkout_cart/ico_emptycart.svg"
+                    alt=""
+                  />
+                </div>
+                <span className="w-full text-center mt-5 ">
+                  Không có sản phẩm nào
+                </span>
               </div>
             )}
           </div>
         )}
       </span>
+      {/* khi không có user */}
+      {dataPhone == 0 && (
+        <span className="flex items-center h-full">
+          <div className="flex space-x-5 ">
+            <Link href={"/login"}>
+              <button className="border-[1px] py-3 text-white  bg-[#3e94d4] font-normal rounded-xl w-[100px]">
+                Đăng nhâp
+              </button>{" "}
+            </Link>
+            <Link href={"/signuppage"}>
+              <button className="border-[1px] py-3 text-white  bg-[#3e94d4] font-normal rounded-xl w-[100px]">
+                Đăng Kí
+              </button>
+            </Link>
+          </div>
+        </span>
+      )}
 
       <span
         onMouseEnter={() => setShowUser(true)}
@@ -152,107 +222,60 @@ function Avt() {
         className="relative flex items-center h-full"
       >
         {/* khi có user */}
-        <Avatar className="size-[35px] rounded-full overflow-hidden">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-        </Avatar>
-        {/* khi không có user */}
-        {/* <FaUserPlus
-          className={classNames("size-[35px]", {
-            "text-red-500": showUser,
-            "text-black": !showUser,
-          })}
-        /> */}
+        {showLogin && (
+          <Avatar className="size-[35px] rounded-full flex justify-center items-center overflow-hidden">
+            {!loading ? (
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            ) : (
+              <ImFrustrated className="size-[30px]" />
+            )}
+          </Avatar>
+        )}
 
         {/* Menu người dùng */}
+
         {showUser && (
           <div className="absolute sm:bottom-[0px] top-[35px] right-1/2 translate-x-1/2 pt-5 text-[18px]">
-            <div className="bg-white w-[270px] sm:max-h-[400px] max-h-[200px] overflow-y-auto text-[#2f2f2f] rounded-lg overflow-hidden border-[1px] shadow-md ">
-              <div className="relative w-full flex flex-col p-5">
-                <ul className="w-full">
-                  <li className="p-4 rounded-lg border-[#fff] hover:shadow-md hover:border-[#e5e5e5] hover:bg-[#e5e5e5] flex items-center space-x-2">
-                    <FontAwesomeIcon
-                      icon={faUser}
-                      className="text-[18px] p-4 border-[1px] bg-[#ccc] rounded-full mr-3"
-                    />
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <span className=" cursor-pointer">
-                          Thông tin cá nhân
-                        </span>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent className="p-0 m-0 overflow-hidden shadow-sm  rounded-lg bg-[#111828] text-white">
-                        <span className="w-full flex flex-col">
-                          <h1 className="p-5 text-3xl border-b-[1px] font-semibold ">
-                            Thông tin cá nhân
-                          </h1>
-                          <ul className="p-0 m-0 ">
-                            <li className=" border-b-2 p-5 border-gray-300 ">
-                              <span className="font-medium w-[80px]">Tên:</span>{" "}
-                              Phạm Thế Phong
-                            </li>
-                            <li className=" border-b-2 p-5 border-gray-300 ">
-                              <span className="font-medium w-[80px]">
-                                Gmail:
-                              </span>{" "}
-                              phong@gmail.com
-                            </li>
-                            <li className="  border-b-2 p-5 border-gray-300 ">
-                              <span className="font-medium w-[80px]">SDT:</span>{" "}
-                              0869039628
-                            </li>
-                          </ul>
-                        </span>
-                        <AlertDialogFooter className="p-5">
-                          <AlertDialogCancel>
-                            <button className=" p-6 text-[14px] text-black">
-                              Đóng
-                            </button>
-                          </AlertDialogCancel>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </li>
+            <div className="bg-white dark:bg-[#1a243d] w-[270px] border-[1px] overflow-y-auto p-3 rounded-lg shadow-md">
+              <div className="flex flex-col items-center">
+                <Avatar className="size-[80px] rounded-full flex justify-center items-center overflow-hidden">
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
+                </Avatar>
+                <span className="text-xl font-semibold mt-3">
+                  {storedPhone}
+                </span>
+              </div>
 
-                  <Link href={"/login"}>
-                    <li className="p-4 rounded-lg hover:shadow-md hover:border-[#e5e5e5] border-[#fff] hover:bg-[#e5e5e5] flex items-center space-x-2">
-                      <FontAwesomeIcon
-                        icon={faSignInAlt}
-                        className="text-[18px] p-4 border-[1px] bg-[#ccc] rounded-full mr-3"
-                      />
-                      <span>Đăng nhập</span>
-                    </li>
-                  </Link>
+              <div className="flex flex-col mt-5 text-[18px]">
+                <Link href={"/myorder"}>
+                  <button
+                    className="mb-2 text-[15px] p-3 border-[1px] rounded-2xl dark:border-white"
+                    onClick={() => setShowUser(false)}
+                  >
+                    <FontAwesomeIcon className="mr-2" icon={faCartShopping} />
+                    Đơn hàng của tôi
+                  </button>
+                </Link>
 
-                  <Link href={"/signuppage"}>
-                    <li className="p-4 rounded-lg hover:shadow-md hover:border-[#e5e5e5] border-[#fff] hover:bg-[#e5e5e5] flex items-center space-x-2">
-                      <FontAwesomeIcon
-                        icon={faUserPlus}
-                        className="text-[18px] p-4 border-[1px] bg-[#ccc] rounded-full mr-3"
-                      />
-                      <span>Đăng ký</span>
-                    </li>
-                  </Link>
-
+                <button
+                  className="mb-2 text-[15px] p-3 border-[1px] rounded-2xl dark:border-white"
+                  onClick={() => setShowUser(false)}
+                >
                   <Link href={"/changepassword"}>
-                    <li className="p-4 rounded-lg hover:shadow-md hover:border-[#e5e5e5] border-[#fff] hover:bg-[#e5e5e5] flex items-center space-x-2">
-                      <FontAwesomeIcon
-                        icon={faKey}
-                        className="text-[18px] p-4 border-[1px] bg-[#ccc] rounded-full mr-3"
-                      />
-
-                      <span>Đổi mật khẩu</span>
-                    </li>
+                    <FontAwesomeIcon icon={faKey} className=" mr-2" />
+                    Đổi mật khẩu
                   </Link>
-                  <Link href={"/"}>
-                    <li className="p-4 rounded-lg hover:shadow-md hover:border-[#e5e5e5] border-[#fff] hover:bg-[#e5e5e5] flex items-center space-x-2">
-                      <FontAwesomeIcon
-                        icon={faSignOutAlt}
-                        className="text-[18px] p-4 border-[1px] bg-[#ccc] rounded-full mr-3"
-                      />
-                      <span>Đăng xuất</span>
-                    </li>
-                  </Link>
-                </ul>
+                </button>
+                <button
+                  className="mb-2 text-[15px] p-3 border-[1px] rounded-2xl dark:border-white"
+                  onClick={handleLogout}
+                >
+                  <FontAwesomeIcon className="mr-2" icon={faSignOutAlt} />
+                  Đăng xuất
+                </button>
               </div>
             </div>
           </div>

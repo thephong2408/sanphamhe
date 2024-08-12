@@ -32,7 +32,7 @@ export default function Cart() {
   //xóa sản phẩm khỏi giở hàng
   const handleRemove = (item: any) => {
     dispatch(removeFromCart(item.id));
-    console.log("id", item);
+    // console.log("id", item);
   };
 
   // tăng số lượng sản phẩm
@@ -88,19 +88,22 @@ export default function Cart() {
   };
 
   const currentTime = getCurrentTime();
-  console.log(currentTime);
+  // console.log(currentTime);
 
   return (
     <LayoutCard>
       <div className="lg:flex justify-between lg:space-x-10 sm:text-[15px] text-[10px] mb-10">
         {/* giỏ hàng và các sant phẩm , điều chỉnh số lượng */}
-        <div className="mb-10 xl:w-[70%] w-full ">
-          <div className="border-[1px]  rounded-xl">
-            <h1 className="sm:text-[25px] text-[20px] font-medium py-4 border-b-[1px] pl-5 ">
-              Giỏ hàng
-            </h1>
+        <div className="mb-10 xl:w-[70%] w-full  ">
+          <div className=" rounded-xl space-y-10 mt-10">
+            <span className="sm:text-[25px] text-[20px] font-normal py-4  ">
+              Giỏ hàng{" "}
+              <span className=" sm:text-[18px] text-[12px] ">
+                ({data.length} sản phẩm)
+              </span>
+            </span>
             {/* overflow-y-auto max-h-[300px] sm:max-h-[800px] */}
-            <div className=" w-full">
+            <div className=" w-full border-[1px] rounded-xl   p-5">
               {data.length > 0 &&
                 data.map((item: any) => (
                   <div key={item.id}>
@@ -114,13 +117,12 @@ export default function Cart() {
                         </div>
                       </Link>
                       <div className=" h-full px-5 flex justify-between items-center  flex-1  ">
-                        <span className="font-medium sm:w-[280px] w-[120px] ">
-                          {item.name} {item.brand} {item.CPU} {item.RAM}
-                          {item.GPU} {item.Storage} {item.Screen}
-                          {item.Resolution} {item.Battery} {item.Weight}
-                        </span>
+                        <div className="font-medium text-[18px] sm-[text-15] sm:w-[280px] h-full w-[120px] flex flex-col justify-between items-center ">
+                          <span>{item.name}</span>
+                          <span className="font-medium">20.0000.000</span>
+                        </div>
 
-                        <div className=" font-bold xl:text-3xl md:text-2xl  flex justify-center md:w-[150px] w-[60px]">
+                        <div className=" font-bold text-[18px] sm-[text-15]  flex justify-center md:w-[150px] w-[60px]">
                           {formatPrice(item.price * quantities[item.id])}
                         </div>
                         {/* bg-[#f5f5fd] */}
@@ -133,13 +135,13 @@ export default function Cart() {
                               onClick={() => handleIncrease(item.id)}
                               className=""
                             >
-                              <i className="bx text-[#191919] sm:text-[25px] hover:text-[#979797] bxs-chevron-up-square"></i>
+                              <i className="bx  sm:text-[25px] hover:text-[#979797] bxs-chevron-up-square"></i>
                             </button>
                             <button
                               className=""
                               onClick={() => handleDecrease(item.id)}
                             >
-                              <i className="bx text-[#191919] sm:text-[25px] hover:text-[#979797] bxs-chevron-down-square"></i>
+                              <i className="bx  sm:text-[25px] hover:text-[#979797] bxs-chevron-down-square"></i>
                             </button>
                           </div>
                         </div>
@@ -150,7 +152,7 @@ export default function Cart() {
                             className=""
                           >
                             {/* <i className="bx bx-trash sm:text-[30px] text-[20px] text-[#191919] hover:text-red-500 "></i> */}
-                            <FaTrash className="sm:text-[25px] text-[20px] text-[#191919] hover:text-red-500" />
+                            <FaTrash className="sm:text-[25px] text-[20px]  hover:text-red-500" />
                           </button>
                         </div>
                       </div>
@@ -158,8 +160,20 @@ export default function Cart() {
                   </div>
                 ))}
               {data.length === 0 && (
-                <div className="flex-1 py-36 text-center border border-gray-300 rounded-lg fade-out">
-                  <span className="text-2xl">Không có sản phẩm</span>
+                <div className="flex-1 py-36 text-center  flex flex-col justify-center items-center  rounded-lg fade-out space-y-5">
+                  <div className="size-[150px] border-none bg-transparent">
+                    {" "}
+                    <img
+                      src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/checkout_cart/ico_emptycart.svg"
+                      alt=""
+                    />
+                  </div>
+                  <span className="text-2xl ">Không có sản phẩm</span>
+                  <Link href={"/"}>
+                    <button className="bg-[#b80000] text-white rounded-lg w-[200px] py-3">
+                      Mua sắm ngay
+                    </button>
+                  </Link>
                 </div>
               )}
             </div>

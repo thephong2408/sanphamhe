@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import classNames from "classnames";
 import Providers from "./redux/Provider";
 import { useDispatch } from "react-redux";
+import DarkModeToggle from "./components/darkShape/button";
 
 import "./globals.css";
 import Header from "./components/component/header/page";
@@ -27,7 +28,7 @@ export default function RootLayout({
       >
         <div className="">
           <Providers>
-            <div className="flex flex-col min-h-[100vh] bg-white sm:text-[15px] text-[12px]">
+            <div className="flex flex-col min-h-[100vh] bg-white text-black dark:bg-[#18191b] dark:text-white  sm:text-[15px] text-[12px]">
               <header>
                 <Header />
               </header>
