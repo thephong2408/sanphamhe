@@ -32,7 +32,7 @@ const Header: React.FC = () => {
         ""
       )}
     >
-      <Time />
+      {/* <Time /> */}
       <div className="sm:h-[70px] h-[60px] mr-2 flex justify-between items-center xl:px-[150px] lg:px-[40px] px-[5px] sm:text-[15px] text-[12px]">
         <div className="flex items-center">
           <Logo />

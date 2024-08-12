@@ -75,7 +75,7 @@ function Search() {
 
         <button className="sm:w-[55px] w-[30px] h-full text-white border-none rounded-xl m-2 bg-[#00011f] force:text-[#ccc]">
           <FontAwesomeIcon
-            className="sm:size-[30px] size-[15px]"
+            className="sm:size-[20px] size-[15px]"
             icon={faMagnifyingGlass}
           />
         </button>

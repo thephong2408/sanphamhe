@@ -20,19 +20,24 @@ const rootReducer = combineReducers({
 });
 
 // Cấu hình Redux Persist
-const getPersistConfig = (): PersistConfig<RootState> => ({
+const persistConfig: PersistConfig<RootState> = {
   key: "root",
   storage,
-});
+  // whitelist hoặc blacklist nếu cần
+};
 
 // Tạo persistedReducer
-const persistedReducer = persistReducer(getPersistConfig(), rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // Cấu hình store
 export const store = configureStore({
   reducer: persistedReducer,
-  // Nếu bạn không có middleware tùy chỉnh, không cần thêm `middleware`
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
+      },
+    }),
 });
 
 // Tạo persistor
