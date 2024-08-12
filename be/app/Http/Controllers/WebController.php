@@ -134,7 +134,7 @@ class WebController extends Controller
             ->where('email', $request->input('email'))
             ->first();
         if ($user && Hash::check($request->input('password'), $user->password)) {
-            return response()->json(['success' => true, 'username' => $user->name, 'phone' => $user->phone]);
+            return response()->json(['success' => true, 'username' => $user->name, 'id' => $user->id]);
         }
         return response()->json(['success' => false, 'msg' => 'Tên người dùng hoặc mật khẩu không chính xác',]);
     }
