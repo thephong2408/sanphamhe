@@ -1,5 +1,4 @@
 import React from "react";
-import { Breadcrumb, BreadcrumbList } from "@/components/ui/breadcrumb";
 import DarkModeToggle from "../../darkShape/button";
 
 export const Logo = () => {
@@ -22,9 +21,6 @@ export const Logo = () => {
         {/* Dark Mode Toggle */}
         <DarkModeToggle />
         {/* Breadcrumb */}
-        <Breadcrumb className="xl:block hidden sm:ml-10">
-          <BreadcrumbList className="text-white lg:text-[15px] text-[12px]"></BreadcrumbList>
-        </Breadcrumb>
       </span>
     </div>
   );

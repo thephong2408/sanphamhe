@@ -26,7 +26,6 @@ import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { addToBill } from "@/app/redux/slices/dataBill";
 import { clearCart } from "@/app/redux/slices/dataCart";
-import QRCode from "qrcode.react";
 
 interface UserProps {
   totalPrice: string;
@@ -226,7 +225,9 @@ const User: React.FC<UserProps> = ({
 
       // dữ liệu chuyền đi cho API
       // dispatch(clearCart());
-      const qrCodeData = `https://your-payment-gateway.com/pay?amount=${encodeURIComponent(totalPrice)}`;
+      const qrCodeData = `https://your-payment-gateway.com/pay?amount=${encodeURIComponent(
+        totalPrice
+      )}`;
 
       // Xử lý QRCode
       setQrData(qrCodeData);
@@ -539,12 +540,7 @@ const User: React.FC<UserProps> = ({
                 <AlertDialogTitle>Quét mã QR thanh toán</AlertDialogTitle>
                 <AlertDialogDescription>
                   <span className="w-full h-[300px]  flex items-center justify-center">
-                    {qrData && (
-                      <QRCode
-                        className="size-[200px] object-contain"
-                        value={qrData}
-                      />
-                    )}
+                    ok
                   </span>
                 </AlertDialogDescription>
               </AlertDialogHeader>
