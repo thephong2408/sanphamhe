@@ -66,7 +66,7 @@ class WebController extends Controller
         if (!$request->input('id_user')) {
             return response()->json(['success' => false]);
         }
-        $quantity = $request->input('quantity') || 1;
+        $quantity = $request->input('quantity');
         $cart = DB::table('cart')
             ->where('id_user', $request->input('id_user'))
             ->where('id_product', $request->input('id_product'))
