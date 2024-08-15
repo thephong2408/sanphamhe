@@ -6,41 +6,12 @@ import APILAPTOP from "./API/APILAPTOP";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setDataDispart } from "./redux/slices/dataDispart";
-
-import axios from "axios";
+import useDispartData from "./useDispartData";
 
 function Home() {
-  const dispatch = useDispatch();
-  const [data, setData] = useState<any>([]);
-  const [data1, setData1] = useState<any>([]);
-  const [data2, setData2] = useState<any>([]);
-
-  // useEffect(() => {
-  //   setData(APILAPTOP);
-  //   // dispatch(setDataDispart(APILAPTOP));
-  // }, []);
-  useEffect(() => {
-    const fetchData1 = async () => {
-      try {
-        const response1 = await axios.get(
-          "http://127.0.0.1:8000/api/get-laptops"
-        );
-
-        dispatch(setDataDispart(response1.data));
-
-        setData1(response1.data);
-        console.log(response1.data), "data API";
-      } catch (error) {
-        console.error("Có lỗi xảy ra!", error);
-      }
-    };
-
-    fetchData1();
-  }, []);
-  console.log("dữ liệu nhận đc", data1);
-
-  // lấy data từ be
-
+  const { data, loading, error } = useDispartData();
+  if (loading) return <p>Đang tải dữ liệu...</p>;
+  if (error) return <p>{error}</p>;
   return (
     <div>
       <Layout1>
@@ -55,7 +26,7 @@ function Home() {
           width="100%"
           show={true}
           sale={true}
-          data={data1.slice(0, 10)}
+          data={data.slice(0, 10)}
         />
         {/* <div className="sm:flex justify-between">
           <div className="sm:w-[49%] w-full">

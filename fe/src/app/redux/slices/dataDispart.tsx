@@ -1,14 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// Định nghĩa kiểu dữ liệu cho state
+// Define the state type
 interface DataDispartState {
-  dataDispart: any[]; // Thay đổi kiểu này thành kiểu dữ liệu chính xác nếu có
-  dataPhone: string; // Đổi thành string thay vì array
+  dataDispart: any[]; // Change this to the correct type if possible
+  dataUsername: string;
+  dataId: string;
+  dataCartAPI: any[];
+  dataListCart: any[];
 }
 
 const initialState: DataDispartState = {
   dataDispart: [],
-  dataPhone: "",
+  dataUsername: "",
+  dataId: "",
+  dataCartAPI: [],
+  dataListCart: [],
 };
 
 const dataDispartSlice = createSlice({
@@ -18,17 +24,35 @@ const dataDispartSlice = createSlice({
     setDataDispart: (state, action: PayloadAction<any[]>) => {
       state.dataDispart = action.payload;
     },
-    setDataPhone: (state, action: PayloadAction<string>) => {
-      // Thay đổi kiểu dữ liệu từ any[] thành string
-      state.dataPhone = action.payload;
+    setDataUsername: (state, action: PayloadAction<string>) => {
+      state.dataUsername = action.payload;
     },
-    clearDataPhone: (state) => {
-      state.dataPhone = ""; // Xóa dữ liệu dataPhone
+    clearDataUsername: (state) => {
+      state.dataUsername = ""; // Clear dataUsername
+    },
+    setDataId: (state, action: PayloadAction<string>) => {
+      state.dataId = action.payload;
+    },
+    clearDataId: (state) => {
+      state.dataId = ""; // Clear dataId
+    },
+    setDataCartAPI: (state, action: PayloadAction<any[]>) => {
+      state.dataCartAPI = action.payload;
+    },
+    setDataListCart: (state, action: PayloadAction<any[]>) => {
+      state.dataListCart = action.payload;
     },
   },
 });
 
-export const { setDataDispart, setDataPhone, clearDataPhone } =
-  dataDispartSlice.actions;
+export const {
+  setDataDispart,
+  setDataUsername,
+  clearDataUsername,
+  setDataId,
+  clearDataId,
+  setDataCartAPI,
+  setDataListCart,
+} = dataDispartSlice.actions;
 
 export default dataDispartSlice.reducer;

@@ -88,14 +88,14 @@ export default function SearchLaptop() {
             value={selectedBrand || ""}
             onValueChange={(value) => setSelectedBrand(value)}
           >
-            <SelectTrigger className="sm:w-[200px] w-[145px] dark:border-[#ccc] sm:h-[40px] h-[30px] sm:text-[15px] text-[12px] ring-0 focus:ring-0  border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
+            <SelectTrigger className="sm:w-[200px] w-[145px] dark:border-[#ccc] border-[1px] sm:h-[40px] h-[30px] sm:text-[15px] text-[12px] ring-0 focus-visible:ring-offset-0 focus-visible:ring-0">
               <SelectValue placeholder="HÃNG LAPTOP" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
+            <SelectContent className="sm:w-[200px] w-[145px]">
+              <SelectGroup className="w-full">
                 {laptopBrands.map((item, index) => (
                   <SelectItem
-                    className="sm:text-[15px] text-[12px]"
+                    className="sm:text-[15px] text-[12px] "
                     key={index}
                     value={item}
                   >
@@ -110,11 +110,11 @@ export default function SearchLaptop() {
             value={selectedPrice || ""}
             onValueChange={(value) => setSelectedPrice(value)}
           >
-            <SelectTrigger className="sm:w-[200px] w-[145px] dark:border-[#ccc] sm:h-[40px] h-[30px] sm:text-[15px] text-[12px] ring-0 focus:ring-0  border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
+            <SelectTrigger className="sm:w-[200px] w-[145px] dark:border-[#ccc] border-[1px] sm:h-[40px] h-[30px] sm:text-[15px] text-[12px] ring-0 focus-visible:ring-offset-0 focus-visible:ring-0">
               <SelectValue placeholder="GIÁ" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
+            <SelectContent className="sm:w-[200px] w-[145px]">
+              <SelectGroup className="w-full">
                 {priceRanges.map((item, index) => (
                   <SelectItem
                     className="sm:text-[15px] text-[12px]"
@@ -132,11 +132,11 @@ export default function SearchLaptop() {
             value={selectedDemand || ""}
             onValueChange={(value) => setSelectedDemand(value)}
           >
-            <SelectTrigger className="sm:w-[200px] w-[145px] dark:border-[#ccc] sm:h-[40px] h-[30px] sm:text-[15px] text-[12px] ring-0 focus:ring-0  border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
+            <SelectTrigger className="sm:w-[200px] w-[145px] dark:border-[#ccc] border-[1px] sm:h-[40px] h-[30px] sm:text-[15px] text-[12px] ring-0 focus-visible:ring-offset-0 focus-visible:ring-0">
               <SelectValue placeholder="NHU CẦU" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
+            <SelectContent className="sm:w-[200px] w-[145px]">
+              <SelectGroup className="w-full">
                 {demands.map((item, index) => (
                   <SelectItem
                     className="sm:text-[15px] text-[12px]"

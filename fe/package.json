@@ -28,6 +28,7 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.1.8",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.427.0",
     "next": "14.2.5",
     "react": "^18",
@@ -40,7 +41,8 @@
     "shadcn-ui": "^0.8.0",
     "swiper": "^11.1.8",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/node": "^20",

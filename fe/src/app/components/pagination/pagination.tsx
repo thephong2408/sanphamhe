@@ -59,7 +59,7 @@ export default function PaginationData({ filteredData }: PaginationProps) {
 
   useEffect(() => {
     dispatch(setPaginationData(currentData));
-    console.log(currentData, "currentData");
+    // console.log(currentData, "currentData");
   }, [currentPage, currentData, dispatch]);
 
   const handlePageChange = (page: number) => {
@@ -83,7 +83,11 @@ export default function PaginationData({ filteredData }: PaginationProps) {
               {pagesToDisplay.map((item) => (
                 <PaginationLink
                   key={item}
-                  className={`sm:text-[18px] text-[12px] ${item === currentPage ? "font-bold border-[1px] bg-black text-white" : ""}`}
+                  className={`sm:text-[18px] text-[12px] ${
+                    item === currentPage
+                      ? "font-bold border-[1px] bg-black text-white"
+                      : ""
+                  }`}
                   onClick={() => handlePageChange(item)}
                 >
                   {item}

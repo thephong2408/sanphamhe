@@ -1,69 +1,168 @@
 "use client";
 import "boxicons/css/boxicons.min.css";
 import classNames from "classnames";
-
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaStar } from "react-icons/fa";
 import { addToCart, removeFromCart } from "@/app/redux/slices/dataCart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import LayoutCard from "@/app/Layouts/LayoutCard";
 import SwiperLaptop from "@/app/components/component/swiper/swipelaptop";
 import { usePathname } from "next/navigation";
-import { FaHeart } from "react-icons/fa";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
+import { setDataListCart } from "@/app/redux/slices/dataDispart";
+import axios from "axios";
 
 function Card() {
   const dispatch = useDispatch();
+  const router1 = useRouter();
 
   const dataCart = useSelector((state: any) => state.dataCart.dataCart);
+  const id = useSelector((state: any) => state.dataDispart.dataId);
   const data = useSelector((state: any) => state.dataDispart.dataDispart);
   const dataCard = useSelector((state: any) => state.dataCard.dataCard);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [data1, setData] = useState<any>([]);
 
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const [prefer, setPrefer] = useState<boolean>(true);
+  const dataListCart = useSelector(
+    (state: any) => state.dataDispart.dataListCart
+  );
+  // console.log("dataListCart", dataListCart);
+
   const [dataLaptop, setDataLaptop] = useState<any>([]);
-  //hover hiện chữ trong button
-  const [hover, setHover] = useState(false);
-  const [secondHover, setSecondHover] = useState(false);
-  //show alert
   const [showAlert, setShowAlert] = useState(false);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [check, setCheck] = useState<boolean>(false);
+  const userId = useSelector((state: any) => state.dataDispart.dataId);
+
+  // Hàm tăng giá trị
+  const increment = () => {
+    if (quantity < 10) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  // Hàm giảm giá trị
+  const decrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   // Lấy và giải mã phần cuối của pathname
   const router = usePathname();
-  // Kiểm tra nếu pathname có giá trị và thực hiện tách và mã hóa
   const getLastPartOfPathname = () => {
     if (router) {
       const pathParts = router.split("/");
       const lastPart = pathParts[pathParts.length - 1];
-      return decodeURIComponent(decodeURIComponent(lastPart)); // Mã hóa phần cuối của URL
+      return decodeURIComponent(decodeURIComponent(lastPart));
     }
     return "";
   };
 
   const encodedPart = getLastPartOfPathname();
-  console.log("encodedPart", encodedPart);
-  useEffect(() => {
-    setIsActive(dataCart.some((item: any) => item.name === encodedPart));
-    setDataLaptop(
-      data.filter((item: any) => item.category === dataCard.category)
-    );
-    console.log("dataLaptop", dataLaptop);
-    console.log("dataCart", dataCart);
-  }, [encodedPart]);
 
-  const handleDispatchCard = () => {
-    if (isActive) {
+  useEffect(() => {
+    // Ensure dataListCart is an array
+    const isProductInCart =
+      Array.isArray(dataListCart) &&
+      dataListCart.some((item: any) => item.id_product === dataCard.id);
+    setCheck(isProductInCart);
+
+    setDataLaptop(
+      Array.isArray(data)
+        ? data.filter((item: any) => item.category === dataCard.category)
+        : []
+    );
+  }, [encodedPart, dataCart, dataCard, dataListCart]);
+
+  const handleDispatchCard = async () => {
+    if (check) {
       dispatch(removeFromCart(dataCard));
     } else {
       dispatch(addToCart(dataCard));
+
       setShowAlert(true);
 
-      // Hide the alert after 1 second
+      const dataDisplayAPI = {
+        id_user: id,
+        id_product: dataCard.id,
+        quantity: quantity,
+      };
+
+      try {
+        // Thêm sản phẩm vào giỏ hàng
+        await axios.post("http://127.0.0.1:8000/api/add-cart", dataDisplayAPI, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        // Lấy danh sách giỏ hàng mới
+        const response = await axios.post(
+          "http://127.0.0.1:8000/api/get-cart",
+          { id: userId }
+        );
+
+        dispatch(setDataListCart(response.data));
+      } catch (error) {
+        console.error("Error sending data:", error);
+      }
+
       setTimeout(() => {
         setShowAlert(false);
       }, 2000);
     }
-    setIsActive(true);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.post(
+          "http://127.0.0.1:8000/api/get-cart",
+          { id: userId }
+        );
+
+        dispatch(setDataListCart(response.data));
+      } catch (error) {
+        console.log("Failed to fetch data", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [dispatch, userId]);
+
+  useEffect(() => {
+    setData(dataCart);
+  }, [dataCart]);
+
+  const handleCart = async () => {
+    const dataDisplayAPI = {
+      id_user: id,
+      id_product: dataCard.id,
+      quantity: quantity,
+    };
+    try {
+      // Thêm sản phẩm vào giỏ hàng
+      await axios.post("http://127.0.0.1:8000/api/add-cart", dataDisplayAPI, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // Lấy danh sách giỏ hàng mới
+      const response = await axios.post("http://127.0.0.1:8000/api/get-cart", {
+        id: userId,
+      });
+
+      dispatch(setDataListCart(response.data));
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
+    router1.push("/cart");
   };
 
   const formatPrice = (price: number) => {
@@ -84,22 +183,21 @@ function Card() {
           </span>
         </div>
       )}
-
       <div className="w-full lg:flex flex-row sm:mt-10 transition-all duration-300">
         {/* ảnh laptop */}
         <div className="lg:w-[30%] w-full lg:mb-0 mb-5  border-[1px] rounded-xl overflow-hidden">
-          <div className="w-full flex justify-center items-center sm:max-h-[380px] overflow-hidden">
+          <div className="w-full h-full flex justify-center items-center  overflow-hidden">
             <img
               src="https://laptop88.vn/media/product/pro_poster_8982.jpg"
               alt="Laptop"
             />
           </div>
         </div>
-        <div className="flex-1 lg:ml-10 ml-0 flex-col justify-between sm:text-3xl text-xl">
-          <div className="h-full flex flex-col justify-between xl:space-y-0 space-y-5">
-            <span className="sm:text-5xl text-3xl font-medium">
-              {dataCard.name}
-            </span>
+        <div className="flex-1 lg:ml-10 ml-0  flex-col justify-between sm:text-3xl text-xl">
+          <span className="sm:text-5xl text-3xl font-medium">
+            {dataCard.name}
+          </span>
+          <div className="h-full mt-10 flex flex-col justify-start xl:space-y-5 space-y-5">
             <h1 className="sm:text-3xl text-2xl">
               Thương hiệu: {dataCard.brand}
             </h1>
@@ -109,79 +207,85 @@ function Card() {
               <FaStar className="sm:size-[25px] text-[15px] text-[#e4a43e]" />
               <FaStar className="sm:size-[25px] text-[15px] text-[#e4a43e]" />
               <FaStar className="sm:size-[25px] text-[15px] text-[#e4a43e]" />
-              <span className=" sm:text-2xl text-xl mt-1">Review</span>
+              <span className=" sm:text-2xl text-xl mt-1 text-[#919191] ">
+                (Review)
+              </span>
             </div>
             <h1 className="sm:text-4xl text-2xl font-medium">
               <span className="sm:text-3xl text-xl font-normal">Giá : </span>{" "}
               {formatPrice(dataCard.price)} VND
             </h1>
-            <div className="flex justify-start items-center space-x-10">
-              <button
-                onClick={handleDispatchCard}
-                onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}
-                className={classNames(
-                  "border-[1px] px-4 w-[180px] sm:h-[45px] h-[35px] rounded-xl sm:text-[18px] text-[12px] border-[#006aff] bg-[#006aff] text-white transition-all duration-1000 ease-in-out transform flex justify-center items-center overflow-hidden"
-                  // Adjusted the width for non-hover state to show the icon properly
-                )}
-              >
-                <span className="flex items-center">
-                  {/* Icon is always visible */}
-                  {isActive ? (
-                    <i className="bx bx-cart sm:text-[25px] text-[20px] "></i>
-                  ) : (
-                    <i className="bx bxs-cart-add sm:text-[25px] text-[20px] "></i>
-                  )}
-                  {/* Text visibility with delay */}
-                  <span
-                    className={classNames(
-                      "transition-opacity duration-1000 ease-in-out ml-4"
-                    )}
-                  >
-                    {isActive ? "Đã thêm" : "Thêm ngay"}
-                  </span>
-                </span>
-              </button>
 
-              <button
-                onClick={() => setPrefer(!prefer)}
-                onMouseEnter={() => {
-                  setSecondHover(true);
-                }}
-                onMouseLeave={() => {
-                  setSecondHover(false);
-                }}
-                className={classNames(
-                  "border-[1px] px-4 sm:h-[45px] h-[35px] w-[180px] rounded-xl sm:text-[18px] text-[12px] transition-all duration-1000 ease-in-out transform flex justify-center items-center overflow-hidden bg-[#e64062] text-white"
+            {/* button và hàm tăng giá trị */}
 
-                  // Adjusted width for hover state
-                )}
-              >
-                <span className="flex items-center">
-                  {prefer ? (
-                    <FaHeart className="sm:text-[25px] text-[20px]" />
-                  ) : (
-                    <FontAwesomeIcon
-                      icon={faXmark}
-                      className="sm:text-[25px] text-[20px]"
-                    />
-                  )}
-                  <span
-                    className={classNames(
-                      "transition-opacity duration-1000 ease-in-out ml-4"
-                      // Example text opacity change
-                    )}
+            <div className="flex flex-col space-y-5 sm:w-[400px] text-black ">
+              <div className="flex h-[40px] justify-between items-center  sm:text-[18px]">
+                <span className="text-[#919191]">Số lượng</span>
+                <span className="flex h-full border-[1px]">
+                  <button
+                    className="sm:w-[40px] w-[30px] h-full border-r-[1px] bg-gray-200 sm:text-[18px]"
+                    onClick={increment}
                   >
-                    {prefer ? "Yêu thích" : "Bỏ yêu thích"}
-                  </span>
+                    +
+                  </button>
+                  <button
+                    className="sm:w-[70px] w-[50px] h-full bg-gray-100 text-[20px]"
+                    disabled
+                  >
+                    {quantity}
+                  </button>
+                  <button
+                    className="sm:w-[40px] w-[30px] h-full border-l-[1px] bg-gray-200 sm:text-[18px]"
+                    onClick={decrement}
+                  >
+                    -
+                  </button>
                 </span>
-              </button>
+                <span className="text-[#919191]">8898 sản phẩm</span>
+              </div>
+              <div className="flex justify-between items-center  ">
+                <button
+                  onClick={handleDispatchCard}
+                  className={classNames(
+                    "border-[1px] px-4 sm:w-[180px] w-[120px] sm:h-[45px] h-[35px] rounded-md sm:text-[18px] text-[12px] border-[#ff6739] bg-[#f8ebe2] text-[#ff6739] "
+                    // Adjusted the width for non-hover state to show the icon properly
+                  )}
+                >
+                  <span className="flex items-center">
+                    {/* Icon is always visible */}
+                    {check ? (
+                      <i className="bx bx-cart sm:text-[25px] text-[20px] "></i>
+                    ) : (
+                      <i className="bx bxs-cart-add sm:text-[25px] text-[20px] "></i>
+                    )}
+                    {/* Text visibility with delay */}
+                    <span
+                      className={classNames(
+                        "transition-opacity duration-1000 ease-in-out ml-4"
+                      )}
+                    >
+                      {check ? "Đã thêm" : "Thêm ngay"}
+                    </span>
+                  </span>
+                </button>
+
+                <button
+                  onClick={handleCart}
+                  className={classNames(
+                    "border-[1px] px-4 sm:h-[45px] h-[35px] sm:w-[180px] w-[120px] rounded-md sm:text-[18px] text-[12px]  bg-[#ff481f] text-[#ffffff] border-[#e64062]"
+
+                    // Adjusted width for hover state
+                  )}
+                >
+                  Mua ngay
+                </button>
+              </div>
             </div>
-            <div className="xl:mt-0 mt-10 sm:space-y-0 space-y-5">
-              <div className="w-full p-4 border rounded-lg shadow-lg bg-gray-100 text-gray-800">
+            <div className="xl:mt-0 mt-10 sm:space-y-0">
+              <div className="w-full p-4 border rounded-lg shadow-lg bg-gray-100 text-gray-800  space-y-5">
                 {/* bảng thông số kỹ thuật laptop */}
                 <h1 className="font-bold mb-5">Bảng thông số kỹ thuật</h1>
-                <span className="flex flex-wrap gap-x-6 gap-y-2">
+                <div className="flex flex-wrap gap-x-6 gap-y-2">
                   <span className="font-normal">
                     <strong>CPU:</strong> {dataCard.CPU}
                   </span>
@@ -209,16 +313,16 @@ function Card() {
                   <span className="font-normal">
                     <strong>Nhu cầu:</strong> {dataCard.category}
                   </span>
-                </span>
+                </div>
               </div>
             </div>
-            <div className="sm:text-2xl p-4 rounded-xl dark:bg-[#423e3d] bg-[#3e94d4] text-white text-xl">
-              Cam kết được bảo hành 12 tháng, đổi 1 - 1 nếu phát lỗi trong vòng
-              3 tháng test máy
-            </div>{" "}
           </div>
         </div>
       </div>
+      <div className="sm:text-2xl p-4 mt-10 rounded-xl dark:bg-[#423e3d] bg-[#3e94d4] text-white text-xl">
+        Cam kết được bảo hành 12 tháng, đổi 1 - 1 nếu phát lỗi trong vòng 3
+        tháng test máy
+      </div>{" "}
       {/* gợi ý */}
       <div>
         <SwiperLaptop

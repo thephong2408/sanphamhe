@@ -5,7 +5,7 @@ import LayoutCard from "@/app/Layouts/LayoutCard"; // Ensure this import is corr
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setDataPhone } from "@/app/redux/slices/dataDispart";
+import { setDataUsername, setDataId } from "@/app/redux/slices/dataDispart";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
@@ -29,17 +29,13 @@ const Login: React.FC = () => {
         dataToSend
       );
       const userData = response.data;
-
-      // Save user data to localStorage
-      // localStorage.setItem("email", email);
-      localStorage.setItem("phone", userData.phone);
-
-      dispatch(setDataPhone(userData.phone));
+      dispatch(setDataId(userData.id));
+      dispatch(setDataUsername(userData.username));
 
       // Redirect to home page
 
-      console.log("email:", email);
-      console.log("phone:", userData.phone);
+      console.log("id:", userData.id);
+      console.log("name:", userData.username);
       router.push("/"); // Adjust the path if necessary
     } catch (error) {
       setError("Có lỗi xảy ra khi đăng nhập. Vui lòng thử lại.");

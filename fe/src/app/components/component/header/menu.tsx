@@ -26,27 +26,28 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 
 function Menu() {
-  const [phone, setPhone] = useState<string | null>(null);
-  const dataPhone = useSelector((state: any) => state.dataDispart.dataPhone);
+  const [username, setUsername] = useState<string | null>(null);
+  const usernames = useSelector((state: any) => state.dataDispart.dataUsername);
   const [showLogin, setShowLogin] = useState<boolean>(false);
 
   const router = useRouter();
 
   useEffect(() => {
-    setPhone(dataPhone);
-  }, [dataPhone]);
-  // có đăng nhận được khi đăng nhập
+    setUsername(usernames);
+  }, [usernames]);
+
   useEffect(() => {
-    setShowLogin(phone !== null && phone.trim() !== "");
-  }, [phone]);
+    setShowLogin(username ? username.trim() !== "" : false);
+  }, [username]);
+
   const handleLogout = () => {
     // Xóa dữ liệu khỏi localStorage
     localStorage.removeItem("email");
-    localStorage.removeItem("phone");
+    localStorage.removeItem("Id");
 
     // Cập nhật trạng thái
 
-    setPhone(null);
+    setUsername(null);
     setShowLogin(false);
 
     // Chuyển hướng người dùng về trang đăng nhập

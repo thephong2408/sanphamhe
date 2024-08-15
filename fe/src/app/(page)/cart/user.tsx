@@ -38,7 +38,7 @@ const User: React.FC<UserProps> = ({
   productDetails,
   currentTime,
 }) => {
-  console.log(totalPrice, productDetails, "tổng tiền cần thanh toán");
+  // console.log(totalPrice, productDetails, "tổng tiền cần thanh toán");
 
   const dispatch = useDispatch();
   // dữ liệu QRCode
@@ -180,7 +180,7 @@ const User: React.FC<UserProps> = ({
           paymentTime: currentTime,
         };
 
-        console.log("Form Data Submitted:", formDataSubmitted);
+        // console.log("Form Data Submitted:", formDataSubmitted);
 
         // Tạo payload để gửi tới redux
         const payload = {
@@ -211,7 +211,7 @@ const User: React.FC<UserProps> = ({
           paymentTime: currentTime,
         };
 
-        console.log("Form Data Submitted:", formDataSubmitted);
+        // console.log("Form Data Submitted:", formDataSubmitted);
 
         const payload = {
           formData,

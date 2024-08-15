@@ -37,9 +37,9 @@ export default function Card({
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(setDataCard(data));
-    const dataCard = JSON.stringify(data);
-    console.log("data", data);
-    localStorage.setItem("dataCard", dataCard);
+    // const dataCard = JSON.stringify(data);
+    // // console.log("data", data);
+    // localStorage.setItem("dataCard", dataCard);
   };
 
   return (
