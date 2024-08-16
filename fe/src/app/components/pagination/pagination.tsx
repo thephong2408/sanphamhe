@@ -11,6 +11,10 @@ import {
 } from "@/components/ui/pagination";
 import { useDispatch } from "react-redux";
 import { setPaginationData } from "@/app/redux/slices/paginationData";
+import { FiChevronsRight } from "react-icons/fi";
+import { FiChevronsLeft } from "react-icons/fi";
+import { FiChevronLeft } from "react-icons/fi";
+import { FiChevronRight } from "react-icons/fi";
 
 // Define props interface
 interface PaginationProps {
@@ -71,19 +75,25 @@ export default function PaginationData({ filteredData }: PaginationProps) {
       <div className="sm:py-10">
         <PaginationComponent className="mt-10 cursor-pointer">
           <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                className="sm:text-[18px] text-[12px]"
-                onClick={() =>
-                  currentPage > 1 && handlePageChange(currentPage - 1)
-                }
-              />
-            </PaginationItem>
+            <span
+              className="sm:text-[28px] text-[20px] "
+              onClick={() => handlePageChange(1)}
+            >
+              <FiChevronsLeft />
+            </span>
+            <span
+              className="sm:text-[28px] text-[20px] mr-4"
+              onClick={() =>
+                currentPage > 1 && handlePageChange(currentPage - 1)
+              }
+            >
+              <FiChevronLeft />
+            </span>
             <PaginationItem>
               {pagesToDisplay.map((item) => (
                 <PaginationLink
                   key={item}
-                  className={`sm:text-[18px] text-[12px] ${
+                  className={`sm:text-[18px] text-[15px] ${
                     item === currentPage
                       ? "font-bold border-[1px] bg-black text-white"
                       : ""
@@ -99,14 +109,21 @@ export default function PaginationData({ filteredData }: PaginationProps) {
                 <PaginationEllipsis className="sm:text-[18px] text-[12px]" />
               </PaginationItem>
             )}
-            <PaginationItem>
-              <PaginationNext
-                className="sm:text-[18px] text-[12px]"
+            <span>
+              <FiChevronRight
+                className="sm:text-[28px] text-[20px] ml-4"
                 onClick={() =>
                   currentPage < pageEnd && handlePageChange(currentPage + 1)
                 }
               />
-            </PaginationItem>
+            </span>
+            <span>
+              {" "}
+              <FiChevronsRight
+                className="sm:size-[28px] size-[20px] "
+                onClick={() => handlePageChange(pageEnd)}
+              />
+            </span>
           </PaginationContent>
         </PaginationComponent>
       </div>

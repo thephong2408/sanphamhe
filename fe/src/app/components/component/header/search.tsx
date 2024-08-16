@@ -29,7 +29,7 @@ function Search() {
         item.name.toLowerCase().includes(value.toLowerCase())
       );
       setData(filtered);
-      console.log(filtered, "filtered");
+      // console.log(filtered, "filtered");
     } else {
       setData([]);
     }
@@ -61,7 +61,7 @@ function Search() {
 
   return (
     <div className="flex items-center">
-      <div className="relative md:h-[45px] h-[30px] f-full flex justify-between items-center border-[1px] border-[#ccc] bg-white rounded-xl py-2">
+      <div className="relative md:h-[45px] h-[30px] f-full flex justify-between items-center border-[1px] border-[#ccc] dark:border-[#000] bg-white rounded-xl py-2">
         <div className="border-none h-full flex items-center rounded-l-full overflow-hidden">
           <input
             className="px-10 md:text-[15px] text-[12px] border-none md:w-[400px] w-[180px] block border-[1px] border-[#ccc] transition-all duration-300"
@@ -73,7 +73,7 @@ function Search() {
           />
         </div>
 
-        <button className="sm:w-[55px] w-[30px] h-full text-white border-none rounded-xl m-2 bg-[#00011f] force:text-[#ccc]">
+        <button className="sm:w-[55px] w-[30px] md:h-[45px] h-[30px] text-white border-none rounded-r-xl ml-2 bg-[#fc5b31] force:text-[#ccc]">
           <FontAwesomeIcon
             className="sm:size-[20px] size-[15px]"
             icon={faMagnifyingGlass}

@@ -79,7 +79,7 @@ const SignUp: React.FC = () => {
     }
     // If no errors, send data to API
     const { confirmPassword, ...dataToSend } = formData;
-    console.log("Data to send:", dataToSend);
+    // console.log("Data to send:", dataToSend);
     try {
       // Simulate API call
       const response = await axios.post(

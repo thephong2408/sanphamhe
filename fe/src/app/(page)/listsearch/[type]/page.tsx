@@ -14,7 +14,7 @@ function ListSearch() {
     (state: RootState) => state.paginationData.dataPaginationData
   );
 
-  console.log("redux", data);
+  // console.log("redux", data);
   // Giải mã URL
   const params = useParams();
   const encodedType = params.type as string;

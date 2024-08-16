@@ -66,62 +66,42 @@ function Menu() {
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="sm:w-[200px] w-[150px] sm:text-[18px] sm:py-3 mr-2">
-          <DropdownMenuGroup>
-            <Link href={"/"}>
-              <DropdownMenuItem className="sm:text-[18px] sm:py-3 ">
-                <FontAwesomeIcon
-                  className="text-[#ccc] text-[12px] mr-2"
-                  icon={faHouse}
-                />{" "}
-                Trang chủ
-              </DropdownMenuItem>
-            </Link>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <Link href={"/cart"}>
-              <DropdownMenuItem className="sm:text-[18px] sm:py-3 ">
-                <FontAwesomeIcon
-                  className="text-[#ccc] text-[12px] mr-2"
-                  icon={faCartShopping}
-                />{" "}
-                Giỏ hàng
-              </DropdownMenuItem>
-            </Link>
-          </DropdownMenuGroup>
           {showLogin && (
             <DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <Link href={"/history"}>
+              <Link href={"/cart"}>
                 <DropdownMenuItem className="sm:text-[18px] sm:py-3 ">
                   <FontAwesomeIcon
                     className="text-[#ccc] text-[12px] mr-2"
-                    icon={faHistory}
+                    icon={faCartShopping}
                   />{" "}
-                  Lịch sử
+                  Giỏ hàng
                 </DropdownMenuItem>
+                <DropdownMenuSeparator />
               </Link>
             </DropdownMenuGroup>
           )}
 
           <DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <Link href={"/signuppage"}>
-              <DropdownMenuItem className="sm:text-[18px] sm:py-3 ">
-                <i className="bx bx-user-plus text-[#ccc] text-[12px] mr-2"></i>{" "}
-                Đăng kí
-              </DropdownMenuItem>
-            </Link>
-            <DropdownMenuSeparator />
-            <Link href={"/login"}>
-              <DropdownMenuItem className="sm:text-[18px] sm:py-3 ">
-                <FontAwesomeIcon
-                  className="text-[#ccc] text-[12px] mr-2"
-                  icon={faSignInAlt}
-                />
-                Đăng Nhập
-              </DropdownMenuItem>
-            </Link>
+            {!showLogin && (
+              <Link href={"/signuppage"}>
+                <DropdownMenuItem className="sm:text-[18px] sm:py-3 ">
+                  <i className="bx bx-user-plus text-[#ccc] text-[12px] mr-2"></i>{" "}
+                  Đăng kí
+                </DropdownMenuItem>
+              </Link>
+            )}
+            {!showLogin && (
+              <Link href={"/login"}>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="sm:text-[18px] sm:py-3 ">
+                  <FontAwesomeIcon
+                    className="text-[#ccc] text-[12px] mr-2"
+                    icon={faSignInAlt}
+                  />
+                  Đăng Nhập
+                </DropdownMenuItem>
+              </Link>
+            )}
             {showLogin && (
               <Link href={"/changepassword"}>
                 <DropdownMenuSeparator />
@@ -132,10 +112,10 @@ function Menu() {
                   />
                   Đổi mật khẩu
                 </DropdownMenuItem>
+                <DropdownMenuSeparator />
               </Link>
             )}
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
 
           {showLogin && (
             <DropdownMenuItem

@@ -221,6 +221,7 @@ const User: React.FC<UserProps> = ({
         };
 
         dispatch(addToBill(payload));
+        console.log("Form Data Submitted:", formDataSubmitted);
       }
 
       // dữ liệu chuyền đi cho API
@@ -364,13 +365,13 @@ const User: React.FC<UserProps> = ({
           <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
             <SelectValue placeholder="Chọn thành phố" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
+          <SelectContent className="w-full">
+            <SelectGroup className="w-full">
               {cities.map((city) => (
                 <SelectItem
                   key={city}
                   value={city}
-                  className="sm:text-[15px] text-[12px]"
+                  className="sm:text-[15px] text-[12px] w-[100%]"
                 >
                   {city}
                 </SelectItem>
@@ -401,13 +402,13 @@ const User: React.FC<UserProps> = ({
           <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
             <SelectValue placeholder="Chọn quận huyện" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
+          <SelectContent className="w-full">
+            <SelectGroup className="w-full">
               {districts.map((district) => (
                 <SelectItem
                   key={district}
                   value={district}
-                  className="sm:text-[15px] text-[12px]"
+                  className="sm:text-[15px] text-[12px] w-full"
                 >
                   {district}
                 </SelectItem>
@@ -441,13 +442,13 @@ const User: React.FC<UserProps> = ({
           <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
             <SelectValue placeholder="Chọn xã" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
+          <SelectContent className="w-full">
+            <SelectGroup className="w-full">
               {wards.map((ward) => (
                 <SelectItem
                   key={ward}
                   value={ward}
-                  className="sm:text-[15px] text-[12px]"
+                  className="sm:text-[15px] text-[12px] w-full"
                 >
                   {ward}
                 </SelectItem>

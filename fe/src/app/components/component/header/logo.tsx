@@ -7,7 +7,7 @@ export const Logo = () => {
   };
 
   return (
-    <div>
+    <div className="sm:pr-0 pr-2">
       <span className="sm:h-[65px] h-[50px] flex items-center">
         {/* Logo */}
         <div className=" h-[50px] dark:bg-white">

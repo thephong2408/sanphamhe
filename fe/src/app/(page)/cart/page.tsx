@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
 import LayoutCard from "@/app/Layouts/LayoutCard";
+import classNames from "classnames";
 import Link from "next/link";
 import User from "./user";
 import { useSelector } from "react-redux";
@@ -10,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { removeFromCart } from "@/app/redux/slices/dataCart";
 import useDispartData from "@/app/useDispartData";
 import useDataCart from "@/app/useDataCart";
+import { setDataCard } from "@/app/redux/slices/dataCard";
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -21,9 +23,11 @@ export default function Cart() {
   const [cartData, setCartData] = useState<any>([]);
   // Lấy dữ liệu giỏ hàng từ API
   const { data1, loading1, error1 } = useDataCart(Id);
+  const [loadingCartData, setLoadingCartData] = useState<boolean>(true);
 
   useEffect(() => {
     if (Array.isArray(data1)) {
+      setLoadingCartData(true);
       // Kiểm tra xem data1 có phải là mảng không
       setCartData(data1);
       const newQuantities: { [key: number]: number } = {};
@@ -37,6 +41,7 @@ export default function Cart() {
     } else {
       console.error("Dữ liệu không phải là mảng:", data1);
     }
+    setLoadingCartData(false);
   }, [data1, Id]);
 
   // xóa dữ liệu từ giỏ hàng
@@ -183,9 +188,12 @@ export default function Cart() {
     };
     return now.toLocaleDateString("en-GB", options).replace(",", "");
   };
+  const handleCard = (item: any) => {
+    dispatch(setDataCard(item));
+  };
 
   const currentTime = getCurrentTime();
-  if (loading && loading1)
+  if (loading || loading1 || loadingCartData)
     return (
       <div className="w-full flex-1 flex items-center justify-center">
         Đang tải dữ liệu...
@@ -212,9 +220,15 @@ export default function Cart() {
             {/* overflow-y-auto max-h-[300px] sm:max-h-[800px] */}
             <div className=" w-full border-[1px] rounded-xl   p-5">
               {filteredData.length > 0 &&
-                filteredData.map((item: any) => (
+                filteredData.map((item: any, index: number) => (
                   <div key={item.id}>
-                    <div className="w-full sm:h-[180px] h-auto flex py-10 pl-5 border-b-[1px] ">
+                    <div
+                      onClick={() => handleCard(item)}
+                      className={classNames(
+                        "w-full sm:h-[180px] h-auto flex py-10 pl-5 ",
+                        { "border-b-[1px]": index < filteredData.length - 1 }
+                      )}
+                    >
                       <Link href={`/card/${item.name}`}>
                         <div className="sm:w-[150px] h-full flex items-center justify-center w-[60px]  ">
                           <img
@@ -226,12 +240,12 @@ export default function Cart() {
                       <div className="  px-5 flex justify-between items-center  flex-1  ">
                         <div className="font-medium text-[12px] sm:text-[20px] sm:w-[280px] h-full w-[50px] flex flex-col justify-between items-center ">
                           <span>{item.name}</span>
-                          <span className="font-medium ">
+                          <span className="font-medium text-[#909090]">
                             {formatPrice(item.price)}
                           </span>
                         </div>
 
-                        <div className=" font-bold text-[12px] sm:text-[20px]  flex justify-center md:w-[150px] w-[60px]">
+                        <div className=" font-bold text-[12px] sm:text-[20px]  flex justify-center md:w-[150px] w-[60px] text-[red] dark:text-white">
                           {formatPrice(item.price * quantities[item.id])}
                         </div>
                         {/* bg-[#f5f5fd] */}
@@ -245,13 +259,13 @@ export default function Cart() {
                               onClick={() => handleIncrease(item.id)}
                               className=""
                             >
-                              <i className="bx  sm:text-[25px] text-[15px] hover:text-[#979797] bxs-chevron-up-square"></i>
+                              <i className="bx  sm:text-[25px] text-[15px] text-[#979797] hover:text-[#ccc] dark:hover:text-white bxs-chevron-up-square"></i>
                             </button>
                             <button
                               className=""
                               onClick={() => handleDecrease(item.id)}
                             >
-                              <i className="bx  sm:text-[25px] text-[15px] hover:text-[#979797] bxs-chevron-down-square"></i>
+                              <i className="bx  sm:text-[25px] text-[15px] text-[#979797] hover:text-[#ccc] dark:hover:text-white bxs-chevron-down-square"></i>
                             </button>
                           </div>
                         </div>
@@ -262,7 +276,7 @@ export default function Cart() {
                             className=""
                           >
                             {/* <i className="bx bx-trash sm:text-[30px] text-[20px] text-[#191919] hover:text-red-500 "></i> */}
-                            <FaTrash className="sm:text-[25px] text-[15px]  hover:text-red-500" />
+                            <FaTrash className="sm:text-[25px] text-[#909090] text-[15px]  hover:text-red-500" />
                           </button>
                         </div>
                       </div>

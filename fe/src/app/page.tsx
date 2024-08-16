@@ -10,7 +10,12 @@ import useDispartData from "./useDispartData";
 
 function Home() {
   const { data, loading, error } = useDispartData();
-  if (loading) return <p>Đang tải dữ liệu...</p>;
+  if (loading)
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        Đang tải dữ liệu...
+      </div>
+    );
   if (error) return <p>{error}</p>;
   return (
     <div>

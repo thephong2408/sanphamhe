@@ -8,15 +8,43 @@ import Link from "next/link";
 import { setDataCard } from "@/app/redux/slices/dataCard";
 import classNames from "classnames";
 import useCartData from "@/app/useData";
+import useDataCart from "@/app/useDataCart";
+import useDispartData from "@/app/useDispartData";
+import { addToCart } from "@/app/redux/slices/dataCart";
 
 function Cart() {
   const userId = useSelector((state: any) => state.dataDispart.dataId);
-  const dataCart = useSelector((state: any) => state.dataCart.dataCart);
-
   const dispatch = useDispatch();
 
-  // Sử dụng hook useCartData
-  const { cartData, fetchCartData } = useCartData(userId);
+  const { data1, loading1, error1 } = useDataCart(userId);
+  const { data, loading, error } = useDispartData();
+
+  // Tạo một map chứa quantity của các sản phẩm từ data1 chỉ một lần
+  const productQuantityMap = useMemo(() => {
+    return data1.reduce<Record<number, number>>((acc, item) => {
+      acc[item.id_product] = item.quantity;
+      return acc;
+    }, {});
+  }, [data1]);
+
+  // Lọc và thêm quantity vào sản phẩm, chỉ khi data và productQuantityMap thay đổi
+  const filteredData = useMemo(() => {
+    return data
+      .filter((product) => productQuantityMap[product.id] !== undefined)
+      .map((product) => ({
+        ...product,
+        quantity: productQuantityMap[product.id],
+      }));
+  }, [data, productQuantityMap]);
+
+  // Dispatch sản phẩm với quantity chỉ một lần khi filteredData thay đổi
+  useEffect(() => {
+    filteredData.forEach((productWithQuantity) => {
+      dispatch(addToCart(productWithQuantity));
+    });
+  }, [filteredData, dispatch]);
+
+  const dataCart = useSelector((state: any) => state.dataCart.dataCart);
 
   // Format giá tiền
   const formatPrice = (price: number | undefined) => {
@@ -44,7 +72,7 @@ function Cart() {
             <PiShoppingCart
               className={classNames(
                 "sm:size-[35px] size-[25px] ml-5 sm:block hidden mr-10",
-                { "text-red-500": showShopping, "": !showShopping }
+                { "text-red-500": showShopping }
               )}
             />
           </Link>
@@ -98,7 +126,7 @@ function Cart() {
                 </div>
               </div>
             ) : (
-              <div className="bg-[#1a243d] text-white p-5 flex flex-col justify-center items-center w-[300px] h-[300px] rounded-xl">
+              <div className="border-[1px] bg-white dark:bg-[#1a243d] shadow-xl  p-5 flex flex-col justify-center items-center w-[300px] h-[300px] rounded-xl">
                 <div className="size-[100px] border-none bg-transparent">
                   <img
                     src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/checkout_cart/ico_emptycart.svg"

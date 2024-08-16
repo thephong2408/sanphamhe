@@ -36,7 +36,7 @@ const Login: React.FC = () => {
 
       console.log("id:", userData.id);
       console.log("name:", userData.username);
-      router.push("/"); // Adjust the path if necessary
+      router.push("/");
     } catch (error) {
       setError("Có lỗi xảy ra khi đăng nhập. Vui lòng thử lại.");
       console.error("Error during login:", error);

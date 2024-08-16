@@ -1,7 +1,7 @@
 "use client";
 import "boxicons/css/boxicons.min.css";
 import classNames from "classnames";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaStar } from "react-icons/fa";
 import { addToCart, removeFromCart } from "@/app/redux/slices/dataCart";
@@ -16,13 +16,27 @@ import axios from "axios";
 function Card() {
   const dispatch = useDispatch();
   const router1 = useRouter();
-
+  const usernames = useSelector((state: any) => state.dataDispart.dataUsername);
+  const [showTrue, setTrue] = useState<boolean>(false);
+  const [username, setUsername] = useState<string | null>(null);
   const dataCart = useSelector((state: any) => state.dataCart.dataCart);
   const id = useSelector((state: any) => state.dataDispart.dataId);
   const data = useSelector((state: any) => state.dataDispart.dataDispart);
   const dataCard = useSelector((state: any) => state.dataCard.dataCard);
   const [loading, setLoading] = useState<boolean>(true);
   const [data1, setData] = useState<any>([]);
+
+  useEffect(() => {
+    setUsername(usernames);
+  });
+  useEffect(() => {
+    // Kiểm tra nếu username là chuỗi và không rỗng
+    if (typeof username === "string" && username.trim().length > 0) {
+      setTrue(true);
+    } else {
+      setTrue(false);
+    }
+  }, [username]);
 
   const dataListCart = useSelector(
     (state: any) => state.dataDispart.dataListCart
@@ -36,18 +50,17 @@ function Card() {
   const userId = useSelector((state: any) => state.dataDispart.dataId);
 
   // Hàm tăng giá trị
-  const increment = () => {
+  const increment = useCallback(() => {
     if (quantity < 10) {
       setQuantity(quantity + 1);
     }
-  };
+  }, [quantity]);
 
-  // Hàm giảm giá trị
-  const decrement = () => {
+  const decrement = useCallback(() => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
-  };
+  }, [quantity]);
 
   // Lấy và giải mã phần cuối của pathname
   const router = usePathname();
@@ -77,44 +90,51 @@ function Card() {
   }, [encodedPart, dataCart, dataCard, dataListCart]);
 
   const handleDispatchCard = async () => {
-    if (check) {
-      dispatch(removeFromCart(dataCard));
-    } else {
-      dispatch(addToCart(dataCard));
+    if (showTrue) {
+      if (check) {
+        dispatch(removeFromCart(dataCard));
+      } else {
+        dispatch(addToCart(dataCard));
 
-      setShowAlert(true);
+        setShowAlert(true);
 
-      const dataDisplayAPI = {
-        id_user: id,
-        id_product: dataCard.id,
-        quantity: quantity,
-      };
+        const dataDisplayAPI = {
+          id_user: id,
+          id_product: dataCard.id,
+          quantity: quantity,
+        };
 
-      try {
-        // Thêm sản phẩm vào giỏ hàng
-        await axios.post("http://127.0.0.1:8000/api/add-cart", dataDisplayAPI, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        try {
+          // Thêm sản phẩm vào giỏ hàng
+          await axios.post(
+            "http://127.0.0.1:8000/api/add-cart",
+            dataDisplayAPI,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
 
-        // Lấy danh sách giỏ hàng mới
-        const response = await axios.post(
-          "http://127.0.0.1:8000/api/get-cart",
-          { id: userId }
-        );
+          // Lấy danh sách giỏ hàng mới
+          const response = await axios.post(
+            "http://127.0.0.1:8000/api/get-cart",
+            { id: userId }
+          );
 
-        dispatch(setDataListCart(response.data));
-      } catch (error) {
-        console.error("Error sending data:", error);
+          dispatch(setDataListCart(response.data));
+        } catch (error) {
+          console.error("Error sending data:", error);
+        }
+
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 1000);
       }
-
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 2000);
+    } else {
+      router1.push("/login"); // Chuyển hướng đến trang đăng nhập
     }
   };
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -140,29 +160,36 @@ function Card() {
   }, [dataCart]);
 
   const handleCart = async () => {
-    const dataDisplayAPI = {
-      id_user: id,
-      id_product: dataCard.id,
-      quantity: quantity,
-    };
-    try {
-      // Thêm sản phẩm vào giỏ hàng
-      await axios.post("http://127.0.0.1:8000/api/add-cart", dataDisplayAPI, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+    if (showTrue) {
+      const dataDisplayAPI = {
+        id_user: id,
+        id_product: dataCard.id,
+        quantity: quantity,
+      };
+      try {
+        // Thêm sản phẩm vào giỏ hàng
+        await axios.post("http://127.0.0.1:8000/api/add-cart", dataDisplayAPI, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-      // Lấy danh sách giỏ hàng mới
-      const response = await axios.post("http://127.0.0.1:8000/api/get-cart", {
-        id: userId,
-      });
+        // Lấy danh sách giỏ hàng mới
+        const response = await axios.post(
+          "http://127.0.0.1:8000/api/get-cart",
+          {
+            id: userId,
+          }
+        );
 
-      dispatch(setDataListCart(response.data));
-    } catch (error) {
-      console.error("Error sending data:", error);
+        dispatch(setDataListCart(response.data));
+      } catch (error) {
+        console.error("Error sending data:", error);
+      }
+      router1.push("/cart");
+    } else {
+      router1.push("/login");
     }
-    router1.push("/cart");
   };
 
   const formatPrice = (price: number) => {
@@ -185,7 +212,7 @@ function Card() {
       )}
       <div className="w-full lg:flex flex-row sm:mt-10 transition-all duration-300">
         {/* ảnh laptop */}
-        <div className="lg:w-[30%] w-full lg:mb-0 mb-5  border-[1px] rounded-xl overflow-hidden">
+        <div className="lg:w-[30%] w-full lg:mb-0 mb-5 border-[1px]   rounded-xl overflow-hidden">
           <div className="w-full h-full flex justify-center items-center  overflow-hidden">
             <img
               src="https://laptop88.vn/media/product/pro_poster_8982.jpg"
@@ -202,11 +229,11 @@ function Card() {
               Thương hiệu: {dataCard.brand}
             </h1>
             <div className="flex space-x-2 items-center">
-              <FaStar className="sm:size-[25px] text-[15px] text-[#e4a43e]" />
-              <FaStar className="sm:size-[25px] text-[15px] text-[#e4a43e]" />
-              <FaStar className="sm:size-[25px] text-[15px] text-[#e4a43e]" />
-              <FaStar className="sm:size-[25px] text-[15px] text-[#e4a43e]" />
-              <FaStar className="sm:size-[25px] text-[15px] text-[#e4a43e]" />
+              <FaStar className="sm:size-[20px] text-[15px] text-[#e4a43e]" />
+              <FaStar className="sm:size-[20px] text-[15px] text-[#e4a43e]" />
+              <FaStar className="sm:size-[20px] text-[15px] text-[#e4a43e]" />
+              <FaStar className="sm:size-[20px] text-[15px] text-[#e4a43e]" />
+              <FaStar className="sm:size-[20px] text-[15px] text-[#e4a43e]" />
               <span className=" sm:text-2xl text-xl mt-1 text-[#919191] ">
                 (Review)
               </span>
@@ -223,20 +250,30 @@ function Card() {
                 <span className="text-[#919191]">Số lượng</span>
                 <span className="flex h-full border-[1px]">
                   <button
-                    className="sm:w-[40px] w-[30px] h-full border-r-[1px] bg-gray-200 sm:text-[18px]"
+                    className={classNames(
+                      "sm:w-[40px] w-[30px] h-full border-r-[1px] bg-gray-200 sm:text-[30px]",
+                      {
+                        "text-[#b6b6b6] ": check, // Điều kiện kiểm tra `check`
+                      }
+                    )}
                     onClick={increment}
+                    disabled={check}
                   >
                     +
                   </button>
-                  <button
-                    className="sm:w-[70px] w-[50px] h-full bg-gray-100 text-[20px]"
-                    disabled
-                  >
-                    {quantity}
+
+                  <button className="sm:w-[70px] w-[50px] h-full bg-gray-100 text-[20px]">
+                    {check ? "" : quantity}
                   </button>
                   <button
-                    className="sm:w-[40px] w-[30px] h-full border-l-[1px] bg-gray-200 sm:text-[18px]"
+                    className={classNames(
+                      "sm:w-[40px] w-[30px] h-full border-r-[1px] bg-gray-200 sm:text-[30px]",
+                      {
+                        "text-[#b6b6b6] ": check, // Điều kiện kiểm tra `check`
+                      }
+                    )}
                     onClick={decrement}
+                    disabled={check}
                   >
                     -
                   </button>
