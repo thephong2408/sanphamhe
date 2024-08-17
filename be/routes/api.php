@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/user', function () {
 //     return view('help');
 // });
+Route::post('/history', [WebController::class, 'history']);
+Route::post('/submit', [WebController::class, 'submit']);
 Route::post('/get-cart', [WebController::class, 'getCart']);
 Route::post('/add-cart', [WebController::class, 'addCart']);
 Route::post('/delete-cart', [WebController::class, 'deleteCart']);

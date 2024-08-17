@@ -10,6 +10,69 @@ use Illuminate\Support\Facades\Validator;
 class WebController extends Controller
 {
     //
+    public function history(Request $request)
+    {
+        $IdUserName = $request->input('IdUserName');
+        if (!$IdUserName) {
+            return response()->json(['success' => false]);
+        }
+        $infos = DB::table('info')->where('IdUserName', $IdUserName)->get();
+        $history = [];
+        foreach ($infos as $info) {
+            $orders = DB::table('orders')
+                ->where('info_id', $info->id)
+                ->get();
+            $history[] = [
+                "info" => $info,
+                "orders" => $orders,
+            ];
+        }
+        return response()->json(['success' => true, 'history' => $history]);    
+    }
+    public function submit(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'IdUserName' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|string',
+            'name' => 'required|string',
+            'city' => 'required|string',
+            'district' => 'required|string',
+            'ward' => 'required|string',
+            'houseNumber' => 'required|string',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => false]);
+        }
+        $IdUserName = $request->input('IdUserName');
+        $email = $request->input('email');
+        $phone = $request->input('phone');
+        $name = $request->input('name');
+        $city = $request->input('city');
+        $district = $request->input('district');
+        $ward = $request->input('ward');
+        $houseNumber = $request->input('houseNumber');
+        $id = DB::table('info')->insertGetId([
+            'IdUserName' => $IdUserName,
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'city' => $city,
+            'district' => $district,
+            'ward' => $ward,
+            'houseNumber' => $houseNumber
+        ]);
+        $products = $request->input('products');
+        foreach ($products as $product) {
+            DB::table('orders')->insert([
+                'info_id' => $id,
+                'name' => $product['name'],
+                'quantity' => $product['quantity'],
+                'price' => $product['price'],
+            ]);
+        }
+        return response()->json(['success' => true]);
+    }
     public function adjustCart(Request $request)
     {
         if (!$request->input('id_user')) {
