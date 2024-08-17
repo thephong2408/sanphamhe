@@ -16,7 +16,7 @@
   - api lấy danh sách đã thanh toán
     - method post, url history
     - key:
-      - - "IdUseName" : "IdUseName" cái này m gửi t lúc đăng nhập ấy
+      - "IdUseName" : "IdUseName" cái này m gửi t lúc đăng nhập ấy
     - return:
       - 'success' (true/false)
       - 'history' (history là một object, để hiểu rõ hơn về output, xem code bên dưới)
