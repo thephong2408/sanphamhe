@@ -26,6 +26,8 @@ import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { addToBill } from "@/app/redux/slices/dataBill";
 import { clearCart } from "@/app/redux/slices/dataCart";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 interface UserProps {
   totalPrice: string;
@@ -68,6 +70,8 @@ const User: React.FC<UserProps> = ({
   const [districtError, setDistrictError] = useState<string | null>(null);
   const [wardError, setWardError] = useState<string | null>(null);
   const [houseNumberError, setHouseNumberError] = useState<string | null>(null);
+  // lấy ra id name
+  const userId = useSelector((state: any) => state.dataDispart.dataId);
 
   // Thanh toán
 
@@ -120,7 +124,7 @@ const User: React.FC<UserProps> = ({
   };
 
   // Xử lý sự kiện submit
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     // Xác thực và thiết lập lỗi cho từng trường
@@ -157,72 +161,41 @@ const User: React.FC<UserProps> = ({
       totalPrice !== "0"
     ) {
       // Xuất lý dữ liệu thông tin người dùng
-      if (houseNumber === "") {
-        // Nếu houseNumber là chuỗi rỗng, cập nhật nó thành "Không có"
-        const updatedHouseNumber = "Không có";
 
-        // Tạo formData với giá trị houseNumber đã được cập nhật
-        const formData = {
-          name: name,
-          phone: phone,
-          email: email,
-          city: selectedCity,
-          district: selectedDistrict,
-          ward: selectedWard,
-          houseNumber: updatedHouseNumber, // Sử dụng giá trị đã cập nhật
-        };
+      // Nếu houseNumber là chuỗi rỗng, cập nhật nó thành "Không có"
 
-        // Tạo formDataSubmitted với formData đã cập nhật
-        const formDataSubmitted = {
-          userInfo: formData,
-          totalAmount: totalPrice,
-          products: productDetails,
-          paymentTime: currentTime,
-        };
-
-        // console.log("Form Data Submitted:", formDataSubmitted);
-
-        // Tạo payload để gửi tới redux
-        const payload = {
-          formData,
-          totalPrice,
-          productDetails,
-          currentTime,
-        };
-
-        // Xử lý thanh toán
-        dispatch(addToBill(payload));
-      } else {
-        // Nếu houseNumber không phải là chuỗi rỗng
-        const formData = {
-          name: name,
-          phone: phone,
-          email: email,
-          city: selectedCity,
-          district: selectedDistrict,
-          ward: selectedWard,
-          houseNumber: houseNumber, // Sử dụng giá trị hiện tại của houseNumber
-        };
-
-        const formDataSubmitted = {
-          userInfo: formData,
-          totalAmount: totalPrice,
-          products: productDetails,
-          paymentTime: currentTime,
-        };
-
-        // console.log("Form Data Submitted:", formDataSubmitted);
-
-        const payload = {
-          formData,
-          totalPrice,
-          productDetails,
-          currentTime,
-        };
-
-        dispatch(addToBill(payload));
-        console.log("Form Data Submitted:", formDataSubmitted);
+      // Tạo formData với giá trị houseNumber đã được cập nhật
+      const formData = {
+        userId: userId,
+        name: name,
+        phone: phone,
+        email: email,
+        city: selectedCity,
+        district: selectedDistrict,
+        ward: selectedWard,
+        houseNumber: houseNumber === "" ? "Không có" : houseNumber, // Sử dụng giá trị đã cập nhật
+      };
+      console.log("Thanh toán:", formData);
+      try {
+        await axios.post("http://127.0.0.1:8000/api/submit", formData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (error) {
+        console.error("Lỗi khi gửi dữ liệu:", error);
       }
+
+      // Tạo payload để gửi tới redux
+      const payload = {
+        formData,
+        totalPrice,
+        productDetails,
+        currentTime,
+      };
+
+      // Xử lý thanh toán
+      dispatch(addToBill(payload));
 
       // dữ liệu chuyền đi cho API
       // dispatch(clearCart());
