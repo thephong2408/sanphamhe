@@ -10,6 +10,8 @@ interface CardProps {
   sale?: boolean;
   data?: any;
   price?: number;
+  text?: string;
+  nosale?: boolean;
 }
 const formatPrice = (price: number) => {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -17,6 +19,8 @@ const formatPrice = (price: number) => {
 
 export default function Card({
   sale = false,
+  nosale = false,
+  text = "HOT",
   data = [
     {
       name: "Dell XPS 15",
@@ -46,9 +50,15 @@ export default function Card({
     <Link href={`/card/${data.name}`}>
       <div
         onClick={handleClick}
-        className="min-w-[130px] max-w-[300px] sm:p-5 p-3  hover:shadow-inner dark:hover:shadow-white border-[1px] cursor-pointer relative overflow-hidden rounded-xl  mb-2"
+        className="min-w-[130px] relative max-w-[300px] sm:p-5 p-3  hover:shadow-inner dark:hover:shadow-white border-[1px] cursor-pointer overflow-hidden rounded-xl  mb-2"
       >
-        <div className="w-full  bg-cover bg-center flex items-center justify-center sm:h-[180px] h-[150px] rounded-xl overflow-hidden ">
+        {sale && (
+          <div className="absolute right-0 top-0 bg-[#ff1414] z-50 text-white text-xl p-3 rounded-bl-xl">
+            {" "}
+            {text}
+          </div>
+        )}
+        <div className=" w-full  bg-cover bg-center flex items-center justify-center sm:h-[180px] h-[150px] rounded-xl overflow-hidden ">
           <img
             className="hover:scale-110 transition-all duration-300"
             alt="img"
@@ -75,10 +85,10 @@ export default function Card({
           </span>
 
           <div className="space-y-3 sm:text-3xl text-xl">
-            {sale && (
+            {sale && nosale && (
               <h1>
                 <span className="sm:text-3xl text-xl font-extralight relative text-[#ccc] h-full">
-                  {formatPrice(data.price)}
+                  {formatPrice(data.price - data.price * 0.15)}
                   <div className="absolute w-full inset-x-0 top-1/2 h-px bg-[#ccc] transform -translate-y-1/2"></div>
                 </span>
               </h1>

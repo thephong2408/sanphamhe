@@ -32,10 +32,10 @@ export default function Nav() {
           </li>
         </Link>
 
-        <Link href={"/sale"}>
+        <Link href={"/newarrivals"}>
           <li
             className={`h-full flex justify-center items-center px-5  ${
-              currentPath === "/sale"
+              currentPath === "/newarrivals"
                 ? "bg-[#f3903a] dark:text-white " // Thay màu đỏ bằng màu cam
                 : "hover:bg-[#f3903a] dark:hover:bg-[#ccc]"
             }`}
@@ -44,10 +44,10 @@ export default function Nav() {
           </li>
         </Link>
 
-        <Link href={"/sale"}>
+        <Link href={"/bestsellers"}>
           <li
             className={`h-full flex justify-center items-center px-5  ${
-              currentPath === "/sale"
+              currentPath === "/bestsellers"
                 ? " bg-[#f3903a] dark:text-white " // Thay màu đỏ bằng màu cam
                 : "hover:bg-[#f3903a] dark:hover:bg-[#ccc]"
             }`}

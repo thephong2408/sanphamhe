@@ -2,10 +2,41 @@
 import React from "react";
 import LayoutCard from "@/app/Layouts/LayoutCard";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import axios from "axios";
 
 export default function History() {
   const dataBill = useSelector((state: any) => state.dataBill.dataBill);
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const userId = useSelector((state: any) => state.dataDispart.dataId);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post("http://127.0.0.1:8000/api/history", {
+          IdUseName: "4", // Thay "4" bằng giá trị thực tế
+        });
+
+        setData(response.data);
+        console.log(response.data, "response.data");
+      } catch (err) {
+        setError("Đã xảy ra lỗi khi lấy dữ liệu.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+  if (loading)
+    return (
+      <div className="w-full flex-1 flex items-center justify-center">
+        Đang tải dữ liệu...
+      </div>
+    );
+  if (error) return <p>{error}</p>;
 
   // console.log(dataBill, "dataBill");
 

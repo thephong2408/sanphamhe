@@ -77,12 +77,12 @@ const SwiperLaptop: React.FC<SwiperLaptopProps> = ({
             modules={[Navigation, Autoplay]}
             className="mySwiper h-full"
           >
-            {dataList.slice(0, 20).map((item, index) => (
+            {dataList.slice(0, 20).map((item: any, index: number) => (
               <SwiperSlide
                 key={index}
                 className="pl-0 min-w-[130px] max-w-[350px]"
               >
-                <Card sale={sale} data={item} />
+                <Card sale={sale} data={item} text="-15%" nosale={true} />
               </SwiperSlide>
             ))}
           </Swiper>

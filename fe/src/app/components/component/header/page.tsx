@@ -8,6 +8,7 @@ import Menu from "./menu";
 import { Logo } from "./logo";
 import Nav from "./nav";
 import Time from "./time";
+import Admin from "./admin";
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -45,6 +46,8 @@ const Header: React.FC = () => {
         </div>
       </div>
       <Nav />
+
+      <Admin />
     </div>
   );
 };

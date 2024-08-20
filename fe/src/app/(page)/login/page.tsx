@@ -28,18 +28,31 @@ const Login: React.FC = () => {
         "http://127.0.0.1:8000/api/login",
         dataToSend
       );
-      const userData = response.data;
-      dispatch(setDataId(userData.id));
-      dispatch(setDataUsername(userData.username));
 
-      // Redirect to home page
-
-      console.log("id:", userData.id);
-      console.log("name:", userData.username);
-      router.push("/");
-    } catch (error) {
-      setError("Có lỗi xảy ra khi đăng nhập. Vui lòng thử lại.");
-      console.error("Error during login:", error);
+      // Kiểm tra dữ liệu phản hồi
+      if (response.data && response.data.id && response.data.username) {
+        const userData = response.data;
+        dispatch(setDataId(userData.id));
+        dispatch(setDataUsername(userData.username));
+        console.log("id:", userData.id);
+        console.log("name:", userData.username);
+        router.push("/");
+      } else {
+        // Nếu dữ liệu phản hồi không hợp lệ, đặt lỗi
+        const errorMessage =
+          response.data.msg || "Dữ liệu phản hồi không hợp lệ.";
+        setError(errorMessage);
+        console.error("Invalid response data:", response.data);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.msg ||
+        "Có lỗi xảy ra khi đăng nhập. Vui lòng thử lại.";
+      setError(errorMessage);
+      console.error(
+        "Error during login:",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -75,6 +88,7 @@ const Login: React.FC = () => {
                 />
               </div>
             </div>
+            {error && <p className="text-red-500">{error}</p>}
             <div className="flex items-center justify-between">
               <button
                 type="submit"

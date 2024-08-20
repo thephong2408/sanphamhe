@@ -182,6 +182,7 @@ const User: React.FC<UserProps> = ({
             "Content-Type": "application/json",
           },
         });
+        console.log("Dữ liệu đã được gửi đi");
       } catch (error) {
         console.error("Lỗi khi gửi dữ liệu:", error);
       }
@@ -500,13 +501,12 @@ const User: React.FC<UserProps> = ({
       {paymentMethod === "online" && (
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button
+            <button
               type="submit"
-              className="p-8 text-2xl text-blue-600 border-[1px] border-blue-600 hover:text-white hover:bg-blue-600"
-              variant="outline"
+              className="p-4 rounded-md text-2xl text-blue-600 border-[1px] border-blue-600 hover:text-white hover:bg-blue-600"
             >
               Thanh toán
-            </Button>
+            </button>
           </AlertDialogTrigger>
           {isPaymentMethodOpen && (
             <AlertDialogContent>
@@ -530,13 +530,12 @@ const User: React.FC<UserProps> = ({
       {paymentMethod === "cod" && (
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button
+            <button
               type="submit"
-              className="p-8 text-2xl text-blue-600 border-[1px] border-blue-600 hover:text-white hover:bg-blue-600"
-              variant="outline"
+              className="p-4 rounded-md text-2xl text-blue-600 border-[1px] border-blue-600 hover:text-white hover:bg-blue-600"
             >
               Xác nhận
-            </Button>
+            </button>
           </AlertDialogTrigger>
           {isPaymentMethodOpen && (
             <AlertDialogContent>

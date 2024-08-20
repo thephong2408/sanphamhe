@@ -9,14 +9,14 @@ import PaginationData from "@/app/components/pagination/pagination";
 import { RootState } from "@/app/redux/store";
 import useDispartData from "@/app/useDispartData";
 
-export default function Sale() {
+export default function NewArrivals() {
   const [data1, setData] = useState<any>([]);
   const { data, loading, error } = useDispartData();
   const dataPagination = useSelector(
     (state: RootState) => state.paginationData.dataPaginationData
   );
   useEffect(() => {
-    setData(data);
+    setData(data.slice(0, 30));
   }, [data]);
   if (loading)
     return (
@@ -30,16 +30,16 @@ export default function Sale() {
     <LayoutCard>
       <div className="w-full mb-10">
         <div className="w-full flex justify-between items-center sm:text-4xl text-2xl">
-          <span className="py-5 font-medium">Sản phẩm khuyến mãi</span>
+          <span className="py-5 font-medium">Sản phẩm mới nhất</span>
         </div>
         <div className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
           {dataPagination.map((item: any, index: number) => (
             <Card
               key={index}
               sale={true}
-              nosale={true}
+              nosale={false}
               data={item}
-              text="-15%"
+              text="Mới"
             />
           ))}
         </div>
