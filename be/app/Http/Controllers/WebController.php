@@ -10,6 +10,21 @@ use Illuminate\Support\Facades\Validator;
 class WebController extends Controller
 {
     //
+    public function adminPage(Request $request)
+    {
+        if (!$request->input('id')) {
+            return response()->json(['success' => false]);
+        }else{
+            $user = DB::table('users')->where('id', $request->input('id'))->first();
+            if(!$user || $user->is_admin != 1){
+                return response()->json(['success' => false]);
+            }
+            $users = DB::table('users')->get();
+            $laptops = DB::table('laptops')->get();
+            return response()->json(['success' => true, 'users' => $users, 'laptops' => $laptops]);
+        }
+
+    }
     public function history(Request $request)
     {
         $IdUserName = $request->input('IdUserName');
@@ -230,12 +245,28 @@ class WebController extends Controller
         if ($validator4->fails()) {
             return response()->json(['success' => false, 'msg' => 'Email không hợp lệ']);
         }
-        $id = DB::table('users')->insertGetId([
-            'name' => $request->input('name'),
-            'phone' => $request->input('phone'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-        ]);
+
+        $user = DB::table('users')
+            ->where('email', $request->input('email'))
+            ->first();
+        if ($user) {
+            return response()->json(['success' => false, 'msg' => 'Email đã đăng trên he thống']);
+        } else {
+            $user = DB::table('users')
+                ->where('name', $request->input('name'))
+                ->first();
+            if ($user) {
+                return response()->json(['success' => false, 'msg' => 'Tên đã đăng trên he thống']);
+            } else {
+                DB::table('users')->insert([
+                    'name' => $request->input('name'),
+                    'phone' => $request->input('phone'),
+                    'email' => $request->input('email'),
+                    'password' => Hash::make($request->input('password')),
+                    'is_admin' => 0,
+                ]);
+            }
+        }
         return response()->json(['success' => true]);
     }
 }
