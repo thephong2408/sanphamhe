@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id(); // ID tự động tăng
-            $table->string('name'); // Tên người dùng
+            $table->string('name')->unique(); // Email, duy nhất
             $table->string('email')->unique(); // Email, duy nhất
             $table->string('phone'); // Số điện thoại
             $table->string('password'); // Mật khẩu
+            $table->integer('is_admin'); // qtv
         });
     }
 
