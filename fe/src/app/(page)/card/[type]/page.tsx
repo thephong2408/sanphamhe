@@ -12,6 +12,8 @@ import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import { setDataListCart } from "@/app/redux/slices/dataDispart";
 import axios from "axios";
+import { decryptData } from "@/components/ui/cryptoUtils";
+import Money from "@/app/components/money/money";
 
 function Card() {
   const dispatch = useDispatch();
@@ -20,11 +22,16 @@ function Card() {
   const [showTrue, setTrue] = useState<boolean>(false);
   const [username, setUsername] = useState<string | null>(null);
   const dataCart = useSelector((state: any) => state.dataCart.dataCart);
-  const id = useSelector((state: any) => state.dataDispart.dataId);
   const data = useSelector((state: any) => state.dataDispart.dataDispart);
   const dataCard = useSelector((state: any) => state.dataCard.dataCard);
   const [loading, setLoading] = useState<boolean>(true);
   const [data1, setData] = useState<any>([]);
+  const [dataLaptop, setDataLaptop] = useState<any>([]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [check, setCheck] = useState<boolean>(false);
+  const userId = useSelector((state: any) => state.dataDispart.dataId);
+  const decryptedUserId = userId ? decryptData(userId) : "";
 
   useEffect(() => {
     setUsername(usernames);
@@ -42,12 +49,6 @@ function Card() {
     (state: any) => state.dataDispart.dataListCart
   );
   // console.log("dataListCart", dataListCart);
-
-  const [dataLaptop, setDataLaptop] = useState<any>([]);
-  const [showAlert, setShowAlert] = useState(false);
-  const [quantity, setQuantity] = useState<number>(1);
-  const [check, setCheck] = useState<boolean>(false);
-  const userId = useSelector((state: any) => state.dataDispart.dataId);
 
   // Hàm tăng giá trị
   const increment = useCallback(() => {
@@ -99,7 +100,7 @@ function Card() {
         setShowAlert(true);
 
         const dataDisplayAPI = {
-          id_user: id,
+          id_user: decryptedUserId,
           id_product: dataCard.id,
           quantity: quantity,
         };
@@ -119,7 +120,7 @@ function Card() {
           // Lấy danh sách giỏ hàng mới
           const response = await axios.post(
             "http://127.0.0.1:8000/api/get-cart",
-            { id: userId }
+            { id: decryptedUserId }
           );
 
           dispatch(setDataListCart(response.data));
@@ -141,7 +142,7 @@ function Card() {
       try {
         const response = await axios.post(
           "http://127.0.0.1:8000/api/get-cart",
-          { id: userId }
+          { id: decryptedUserId }
         );
 
         dispatch(setDataListCart(response.data));
@@ -153,7 +154,7 @@ function Card() {
     };
 
     fetchData();
-  }, [dispatch, userId]);
+  }, [dispatch, decryptedUserId]);
 
   useEffect(() => {
     setData(dataCart);
@@ -162,7 +163,7 @@ function Card() {
   const handleCart = async () => {
     if (showTrue) {
       const dataDisplayAPI = {
-        id_user: id,
+        id_user: decryptedUserId,
         id_product: dataCard.id,
         quantity: quantity,
       };
@@ -178,7 +179,7 @@ function Card() {
         const response = await axios.post(
           "http://127.0.0.1:8000/api/get-cart",
           {
-            id: userId,
+            id: decryptedUserId,
           }
         );
 
@@ -190,13 +191,6 @@ function Card() {
     } else {
       router1.push("/login");
     }
-  };
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-GB", {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
   };
 
   return (
@@ -240,7 +234,7 @@ function Card() {
             </div>
             <h1 className="sm:text-4xl text-2xl font-medium">
               <span className="sm:text-3xl text-xl font-normal">Giá : </span>{" "}
-              {formatPrice(dataCard.price)} VND
+              <Money price={dataCard.price} /> VND
             </h1>
 
             {/* button và hàm tăng giá trị */}

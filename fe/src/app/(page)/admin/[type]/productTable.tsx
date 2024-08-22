@@ -50,10 +50,10 @@ const ProductTable: React.FC = () => {
         />
       </div>
 
-      <div className="flex max-h-[300px] overflow-y-auto">
-        <table className="min-w-full border border-gray-300 bg-white text-black">
+      <div className="flex max-h-[300px] border-[1px] overflow-y-auto">
+        <table className="min-w-full  border-gray-300  ">
           <thead>
-            <tr className="bg-gray-100 border-b">
+            <tr className=" border-b">
               <th className="py-3 px-4 border-b text-center"> ID</th>
               <th className="py-3 px-4 border-b text-center">Tên</th>
               <th className="py-3 px-4 border-b text-center">Thông tin</th>

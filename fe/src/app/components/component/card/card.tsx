@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setDataCard } from "@/app/redux/slices/dataCard";
+import Money from "../../money/money";
 
 interface CardProps {
   sale?: boolean;
@@ -13,9 +14,6 @@ interface CardProps {
   text?: string;
   nosale?: boolean;
 }
-const formatPrice = (price: number) => {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-};
 
 export default function Card({
   sale = false,
@@ -41,9 +39,6 @@ export default function Card({
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(setDataCard(data));
-    // const dataCard = JSON.stringify(data);
-    // // console.log("data", data);
-    // localStorage.setItem("dataCard", dataCard);
   };
 
   return (
@@ -53,7 +48,7 @@ export default function Card({
         className="min-w-[130px] relative max-w-[300px] sm:p-5 p-3  hover:shadow-inner dark:hover:shadow-white border-[1px] cursor-pointer overflow-hidden rounded-xl  mb-2"
       >
         {sale && (
-          <div className="absolute right-0 top-0 bg-[#ff1414] z-50 text-white text-xl p-3 rounded-bl-xl">
+          <div className="absolute right-0 top-0 bg-[#ff1414] z-20 text-white text-xl p-3 rounded-bl-xl">
             {" "}
             {text}
           </div>
@@ -88,12 +83,14 @@ export default function Card({
             {sale && nosale && (
               <h1>
                 <span className="sm:text-3xl text-xl font-extralight relative text-[#ccc] h-full">
-                  {formatPrice(data.price - data.price * 0.15)}
+                  <Money price={data.price - data.price * 0.15} /> VND
                   <div className="absolute w-full inset-x-0 top-1/2 h-px bg-[#ccc] transform -translate-y-1/2"></div>
                 </span>
               </h1>
             )}
-            <span className=" font-bold ">{formatPrice(data.price)}</span>
+            <span className=" font-medium ">
+              <Money price={data.price} /> VND
+            </span>
           </div>
         </div>
       </div>

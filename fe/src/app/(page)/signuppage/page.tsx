@@ -100,7 +100,9 @@ const SignUp: React.FC = () => {
     <LayoutCard>
       <div className="flex items-center justify-center sm:mt-0 mt-5">
         <div className="sm:max-w-[600px] sm:w-[600px] w-[350px] mx-auto p-8 border border-gray-300  rounded-lg shadow-md mb-10">
-          <h1 className="sm:text-4xl text-3xl font-bold mb-6">Đăng ký</h1>
+          <h1 className="sm:text-4xl text-3xl font-medium text-[#5067ff] mb-6">
+            Đăng ký
+          </h1>
 
           {success && <p className="text-green-500 mb-4">{success}</p>}
           <form onSubmit={handleSubmit}>
@@ -109,7 +111,7 @@ const SignUp: React.FC = () => {
                 htmlFor="name"
                 className="flex items-center border-[1px] rounded-md shadow-sm "
               >
-                <FaUser className=" ml-3" />
+                <FaUser className=" ml-3 text-[#ccc]" />
                 <input
                   type="text"
                   id="name"
@@ -130,7 +132,7 @@ const SignUp: React.FC = () => {
                 htmlFor="phone"
                 className="flex items-center border-[1px] rounded-md shadow-sm "
               >
-                <FaPhone className=" ml-3" />
+                <FaPhone className=" ml-3 text-[#ccc]" />
                 <input
                   type="text"
                   id="phone"
@@ -151,7 +153,7 @@ const SignUp: React.FC = () => {
                 htmlFor="email"
                 className="flex items-center border-[1px] rounded-md shadow-sm "
               >
-                <FaEnvelope className=" ml-3" />
+                <FaEnvelope className=" ml-3 text-[#ccc]" />
                 <input
                   type="email"
                   id="email"
@@ -172,7 +174,7 @@ const SignUp: React.FC = () => {
                 htmlFor="password"
                 className="flex items-center border-[1px] rounded-md shadow-sm "
               >
-                <FaLock className=" ml-3" />
+                <FaLock className=" ml-3 text-[#ccc]" />
                 <input
                   type="password"
                   id="password"
@@ -193,7 +195,7 @@ const SignUp: React.FC = () => {
                 htmlFor="confirmPassword"
                 className="flex items-center border-[1px] rounded-md shadow-sm "
               >
-                <FaKey className=" ml-3" />
+                <FaKey className=" ml-3 text-[#ccc]" />
                 <input
                   type="password"
                   id="confirmPassword"
@@ -211,7 +213,7 @@ const SignUp: React.FC = () => {
 
             <button
               type="submit"
-              className="w-[120px] py-5 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700"
+              className="w-full py-5 bg-[#5067ff] text-white font-semibold rounded-md shadow-sm hover:bg-[#5067ff]"
             >
               Đăng Kí
             </button>

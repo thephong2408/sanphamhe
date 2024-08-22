@@ -27,6 +27,7 @@ import { useDispatch } from "react-redux";
 import { addToBill } from "@/app/redux/slices/dataBill";
 import { clearCart } from "@/app/redux/slices/dataCart";
 import { useSelector } from "react-redux";
+import { decryptData } from "@/components/ui/cryptoUtils";
 import axios from "axios";
 
 interface UserProps {
@@ -72,6 +73,7 @@ const User: React.FC<UserProps> = ({
   const [houseNumberError, setHouseNumberError] = useState<string | null>(null);
   // lấy ra id name
   const userId = useSelector((state: any) => state.dataDispart.dataId);
+  const decryptedUserId = userId ? decryptData(userId) : "";
 
   // Thanh toán
 
@@ -166,7 +168,7 @@ const User: React.FC<UserProps> = ({
 
       // Tạo formData với giá trị houseNumber đã được cập nhật
       const formData = {
-        userId: userId,
+        IdUserName: decryptedUserId,
         name: name,
         phone: phone,
         email: email,
@@ -177,12 +179,16 @@ const User: React.FC<UserProps> = ({
       };
       console.log("Thanh toán:", formData);
       try {
-        await axios.post("http://127.0.0.1:8000/api/submit", formData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        console.log("Dữ liệu đã được gửi đi");
+        const dataUser = await axios.post(
+          "http://127.0.0.1:8000/api/submit",
+          formData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("Dữ liệu đã được gửi đi", dataUser.data);
       } catch (error) {
         console.error("Lỗi khi gửi dữ liệu:", error);
       }
@@ -339,7 +345,7 @@ const User: React.FC<UserProps> = ({
           <SelectTrigger className="w-full sm:text-[15px] h-[40px] text-[12px] ring-0 focus:ring-0 border-[1px] focus-visible:ring-offset-0 focus-visible:ring-0">
             <SelectValue placeholder="Chọn thành phố" />
           </SelectTrigger>
-          <SelectContent className="w-full">
+          <SelectContent className="w-full max-h-[100px] overflow-y-auto">
             <SelectGroup className="w-full">
               {cities.map((city) => (
                 <SelectItem

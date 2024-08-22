@@ -7,6 +7,7 @@ interface DataDispartState {
   dataId: string;
   dataCartAPI: any[];
   dataListCart: any[];
+  dataListUser: any[];
 }
 
 const initialState: DataDispartState = {
@@ -15,6 +16,7 @@ const initialState: DataDispartState = {
   dataId: "",
   dataCartAPI: [],
   dataListCart: [],
+  dataListUser: [],
 };
 
 const dataDispartSlice = createSlice({
@@ -42,6 +44,12 @@ const dataDispartSlice = createSlice({
     setDataListCart: (state, action: PayloadAction<any[]>) => {
       state.dataListCart = action.payload;
     },
+    setListUser: (state, action: PayloadAction<any[]>) => {
+      state.dataListUser = action.payload;
+    },
+    clearListUser: (state) => {
+      state.dataListUser = [];
+    },
   },
 });
 
@@ -53,6 +61,8 @@ export const {
   clearDataId,
   setDataCartAPI,
   setDataListCart,
+  setListUser,
+  clearListUser,
 } = dataDispartSlice.actions;
 
 export default dataDispartSlice.reducer;

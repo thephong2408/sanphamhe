@@ -4,6 +4,7 @@ import LayoutCard from "@/app/Layouts/LayoutCard";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { decryptData } from "@/components/ui/cryptoUtils";
 import axios from "axios";
 
 export default function History() {
@@ -12,15 +13,17 @@ export default function History() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const userId = useSelector((state: any) => state.dataDispart.dataId);
+  const decryptedUserId = userId ? decryptData(userId) : "";
+  console.log("decryptedUserId:", decryptedUserId);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.post("http://127.0.0.1:8000/api/history", {
-          IdUseName: "4", // Thay "4" bằng giá trị thực tế
+          IdUseName: decryptedUserId, // Thay "4" bằng giá trị thực tế
         });
 
         setData(response.data);
-        console.log(response.data, "response.data");
+        console.log(response.data.history, "response.data");
       } catch (err) {
         setError("Đã xảy ra lỗi khi lấy dữ liệu.");
       } finally {

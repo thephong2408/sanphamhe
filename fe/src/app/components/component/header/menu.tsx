@@ -24,21 +24,23 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import { decryptData } from "@/components/ui/cryptoUtils";
 
 function Menu() {
   const [username, setUsername] = useState<string | null>(null);
   const usernames = useSelector((state: any) => state.dataDispart.dataUsername);
+  const decryptedUsername = usernames ? decryptData(usernames) : "";
   const [showLogin, setShowLogin] = useState<boolean>(false);
 
   const router = useRouter();
 
   useEffect(() => {
-    setUsername(usernames);
-  }, [usernames]);
+    setUsername(decryptedUsername);
+  }, [decryptedUsername]);
 
   useEffect(() => {
-    setShowLogin(username ? username.trim() !== "" : false);
-  }, [username]);
+    setShowLogin(decryptedUsername ? decryptedUsername.trim() !== "" : false);
+  }, [decryptedUsername]);
 
   const handleLogout = () => {
     // Xóa dữ liệu khỏi localStorage

@@ -11,12 +11,17 @@ import useCartData from "@/app/useData";
 import useDataCart from "@/app/useDataCart";
 import useDispartData from "@/app/useDispartData";
 import { addToCart } from "@/app/redux/slices/dataCart";
+import { decryptData } from "@/components/ui/cryptoUtils";
+import { RootState } from "@/app/redux/store";
+import Money from "../../money/money";
 
 function Cart() {
-  const userId = useSelector((state: any) => state.dataDispart.dataId);
+  const userId = useSelector((state: RootState) => state.dataDispart.dataId);
+  const decryptedUserId = userId ? decryptData(userId) : "";
   const dispatch = useDispatch();
+  const numericUserId = Number(decryptedUserId);
 
-  const { data1, loading1, error1 } = useDataCart(userId);
+  const { data1, loading1, error1 } = useDataCart(numericUserId);
   const { data, loading, error } = useDispartData();
 
   // Tạo một map chứa quantity của các sản phẩm từ data1 chỉ một lần
@@ -47,12 +52,6 @@ function Cart() {
   const dataCart = useSelector((state: any) => state.dataCart.dataCart);
 
   // Format giá tiền
-  const formatPrice = (price: number | undefined) => {
-    if (price === undefined) {
-      return "";
-    }
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
 
   const handleCard = (item: any) => {
     dispatch(setDataCard(item));
@@ -117,7 +116,7 @@ function Cart() {
                             {item.Weight}
                           </span>
                           <span className="w-full font-medium">
-                            {formatPrice(item.price)}
+                            <Money price={item.price} /> VND
                           </span>
                         </div>
                       </div>

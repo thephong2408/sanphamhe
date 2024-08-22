@@ -12,17 +12,27 @@ import { removeFromCart } from "@/app/redux/slices/dataCart";
 import useDispartData from "@/app/useDispartData";
 import useDataCart from "@/app/useDataCart";
 import { setDataCard } from "@/app/redux/slices/dataCard";
+import { decryptData } from "@/components/ui/cryptoUtils";
+import { RootState } from "@/app/redux/store";
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const Id = useSelector((state: any) => state.dataDispart.dataId);
+  const Id = useSelector((state: RootState) => state.dataDispart.dataId);
+  const decryptedUserId = Id ? decryptData(Id) : "";
+
+  // Chuyển đổi decryptedUserId thành số
+  const numericUserId = Number(decryptedUserId);
+
+  console.log("Id1:", decryptedUserId);
+  console.log("Id:", Id);
 
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
 
   const { data, loading, error } = useDispartData();
   const [cartData, setCartData] = useState<any>([]);
+
   // Lấy dữ liệu giỏ hàng từ API
-  const { data1, loading1, error1 } = useDataCart(Id);
+  const { data1, loading1, error1 } = useDataCart(numericUserId);
   const [loadingCartData, setLoadingCartData] = useState<boolean>(true);
 
   useEffect(() => {
@@ -42,7 +52,7 @@ export default function Cart() {
       console.error("Dữ liệu không phải là mảng:", data1);
     }
     setLoadingCartData(false);
-  }, [data1, Id]);
+  }, [data1]);
 
   // xóa dữ liệu từ giỏ hàng
   const handleRemoveCart = async (id: number, item: any) => {
@@ -51,14 +61,14 @@ export default function Cart() {
 
     try {
       await axios.post("http://127.0.0.1:8000/api/delete-cart", {
-        id_user: Id,
+        id_user: decryptedUserId,
         id_product: id,
       });
       console.log("Product removed successfully");
 
       // Fetch updated cart data from API
       const response = await axios.post("http://127.0.0.1:8000/api/get-cart", {
-        id: Id,
+        id: decryptedUserId,
       });
       setCartData(response.data);
 
@@ -84,14 +94,14 @@ export default function Cart() {
   const handleIncrease = async (id: number) => {
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/add-one", {
-        id_user: Id,
+        id_user: decryptedUserId,
         id_product: id,
       });
 
       if (response.data.success) {
         const updatedCartResponse = await axios.post(
           "http://127.0.0.1:8000/api/get-cart",
-          { id: Id }
+          { id: decryptedUserId }
         );
 
         // Kiểm tra xem data1 có phải là mảng không
@@ -133,7 +143,7 @@ export default function Cart() {
 
     try {
       await axios.post("http://127.0.0.1:8000/api/delete-one", {
-        id_user: Id,
+        id_user: decryptedUserId,
         id_product: id,
       });
 
@@ -241,7 +251,7 @@ export default function Cart() {
                         <div className="font-medium text-[12px] sm:text-[20px] sm:w-[280px] h-full w-[50px] flex flex-col justify-between items-center ">
                           <span>{item.name}</span>
                           <span className="font-medium text-[#909090]">
-                            {formatPrice(item.price)}
+                            {formatPrice(item.price)} VND
                           </span>
                         </div>
 

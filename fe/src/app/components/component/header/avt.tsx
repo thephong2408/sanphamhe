@@ -14,6 +14,7 @@ import {
   faKey,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import { clearListUser } from "@/app/redux/slices/dataDispart";
 
 import Link from "next/link";
 import { useDispatch } from "react-redux";
@@ -24,10 +25,13 @@ import { useRouter } from "next/navigation";
 import { clearDataId, clearDataUsername } from "@/app/redux/slices/dataDispart";
 import { clearCart } from "@/app/redux/slices/dataCart";
 import Cart from "./cart";
+import { decryptData } from "@/components/ui/cryptoUtils";
 
 function Avt() {
   // dữ liệu nhận được khi đã đăng nhập
   const usernames = useSelector((state: any) => state.dataDispart.dataUsername);
+
+  const decryptedUsername = usernames ? decryptData(usernames) : "";
 
   const [showLogin, setShowLogin] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -37,8 +41,8 @@ function Avt() {
 
   // Kiểm tra nếu máy tính chạy trên server-side
   useEffect(() => {
-    setUsername(usernames);
-  }, [usernames]);
+    setUsername(decryptedUsername);
+  }, [decryptedUsername]);
 
   useEffect(() => {
     // Kiểm tra nếu username là chuỗi và không rỗng
@@ -69,6 +73,7 @@ function Avt() {
     dispatch(clearDataUsername());
     dispatch(clearCart());
     localStorage.removeItem("phone");
+    dispatch(clearListUser());
     router.push("/login");
   };
 
@@ -84,7 +89,8 @@ function Avt() {
 
   return (
     <div className="items-center xl:flex hidden z-50 h-full">
-      {showLogin && <Cart />}
+      {showLogin && decryptedUsername !== "admin" && <Cart />}
+
       {/* khi không có user */}
       {!showLogin && dataCart.length == 0 && (
         <span className="flex items-center h-full">
@@ -110,13 +116,31 @@ function Avt() {
       >
         {/* khi có user */}
         {showLogin && (
-          <Avatar className="size-[35px] rounded-full flex justify-center items-center overflow-hidden">
-            {!loading ? (
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <>
+            {username !== "admin" ? (
+              <Avatar className="size-[35px] rounded-full flex justify-center items-center overflow-hidden">
+                {!loading ? (
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
+                ) : (
+                  <ImFrustrated className="size-[30px]" />
+                )}
+              </Avatar>
             ) : (
-              <ImFrustrated className="size-[30px]" />
+              <div className="size-[35px] rounded-full flex justify-center items-center overflow-hidden">
+                {loading ? (
+                  <ImFrustrated className="size-[30px]" />
+                ) : (
+                  <img
+                    src="https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2024/05/anh-hacker-ngau-2.jpg.webp"
+                    alt=""
+                  />
+                )}
+              </div>
             )}
-          </Avatar>
+          </>
         )}
 
         {/* Menu người dùng */}
@@ -135,15 +159,27 @@ function Avt() {
               </div>
 
               <div className="flex flex-col mt-5 text-[18px]">
-                <Link href={"/myorder"}>
-                  <button
-                    className="mb-2 text-[15px] p-3 border-[1px] rounded-2xl dark:border-white"
-                    onClick={() => setShowUser(false)}
-                  >
-                    <FontAwesomeIcon className="mr-2" icon={faCartShopping} />
-                    Đơn hàng của tôi
-                  </button>
-                </Link>
+                {username !== "admin" ? (
+                  <Link href={"/myorder"}>
+                    <button
+                      className="mb-2 text-[15px] p-3 border-[1px] rounded-2xl dark:border-white"
+                      onClick={() => setShowUser(false)}
+                    >
+                      <FontAwesomeIcon className="mr-2" icon={faCartShopping} />
+                      Đơn hàng của tôi
+                    </button>
+                  </Link>
+                ) : (
+                  <Link href={"/admin"}>
+                    <button
+                      className="mb-2 text-[15px] p-3 border-[1px] rounded-2xl dark:border-white"
+                      onClick={() => setShowUser(false)}
+                    >
+                      <FontAwesomeIcon className="mr-2" icon={faCartShopping} />
+                      Quản lí
+                    </button>
+                  </Link>
+                )}
 
                 <button
                   className="mb-2 text-[15px] p-3 border-[1px] rounded-2xl dark:border-white"

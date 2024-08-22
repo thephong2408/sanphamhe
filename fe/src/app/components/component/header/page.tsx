@@ -9,9 +9,16 @@ import { Logo } from "./logo";
 import Nav from "./nav";
 import Time from "./time";
 import Admin from "./admin";
+import { useSelector } from "react-redux";
+import { decryptData } from "@/components/ui/cryptoUtils";
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const dataUserName = useSelector(
+    (state: any) => state.dataDispart.dataUsername
+  );
+  console.log("dataUserName kjbejf", dataUserName);
+  const decryptedUsername = dataUserName ? decryptData(dataUserName) : "";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,16 +45,14 @@ const Header: React.FC = () => {
         <div className="flex items-center">
           <Logo />
         </div>
+        {decryptedUsername === "admin" ? "" : <Search />}
 
-        <Search />
         <div className="flex items-center">
           <Avt />
           <Menu />
         </div>
       </div>
-      <Nav />
-
-      <Admin />
+      {decryptedUsername === "admin" ? <Admin /> : <Nav />}
     </div>
   );
 };
