@@ -47,7 +47,7 @@ class WebController extends Controller
     public function submit(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'IdUserName' => 'required|string',
+            'IdUserName' => 'required|integer',
             'email' => 'required|email',
             'phone' => 'required|string',
             'name' => 'required|string',
