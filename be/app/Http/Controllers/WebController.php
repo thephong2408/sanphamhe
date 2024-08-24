@@ -10,6 +10,39 @@ use Illuminate\Support\Facades\Validator;
 class WebController extends Controller
 {
     //
+    public function addLaptop(Request $request)
+    {
+        $name = $request->input('name');
+        $price = $request->input('price');
+        $brand = $request->input('brand');
+        $CPU = $request->input('CPU');
+        $RAM = $request->input('RAM');
+        $GPU = $request->input('GPU');
+        $Storage = $request->input('Storage');
+        $Screen = $request->input('Screen');
+        $Resolution = $request->input('Resolution');
+        $Battery = $request->input('Battery');
+        $Weight = $request->input('Weight');
+        $category = $request->input('category');
+        if (!$name || !$price || !$brand || !$CPU || !$RAM || !$GPU || !$Storage || !$Screen || !$Resolution || !$Battery || !$Weight || !$category) {
+            return response()->json(['success' => false]);
+        }
+        DB::table('laptops')->insert([
+            'name' => $name,
+            'price' => $price,
+            'brand' => $brand,
+            'CPU' => $CPU,
+            'RAM' => $RAM,
+            'GPU' => $GPU,
+            'Storage' => $Storage,
+            'Screen' => $Screen,
+            'Resolution' => $Resolution,
+            'Battery' => $Battery,
+            'Weight' => $Weight,
+            'category' => $category,
+        ]);
+        return response()->json(['success' => true]);
+    }
     public function adminPage(Request $request)
     {
         if (!$request->input('id')) {
