@@ -19,5 +19,5 @@ Route::post('/add-one', [WebController::class, 'addOne']);
 Route::get('/get-laptops', [WebController::class, 'getLaptops']);
 Route::post('/register', [WebController::class, 'register']);
 Route::post('/login', [WebController::class, 'login']);
-Route::post('/add-laptop', [WebController::class, 'addLaptops']);
+Route::post('/add-laptop', [WebController::class, 'addLaptop']);
 
