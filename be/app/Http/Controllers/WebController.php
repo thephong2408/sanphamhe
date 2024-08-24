@@ -10,6 +10,24 @@ use Illuminate\Support\Facades\Validator;
 class WebController extends Controller
 {
     //
+
+    public function deleteUser(Request $request) {
+        $id = $request->input('id');
+        if (!$id) {
+            return response()->json(['success' => false]);
+        }
+        DB::table('users')->where('id', $id)->delete();
+        return response()->json(['success' => true]);
+    }
+    public function deleteLaptop(Request $request)
+    {
+        $id = $request->input('id');
+        if (!$id) {
+            return response()->json(['success' => false]);
+        }
+        DB::table('laptops')->where('id', $id)->delete();
+        return response()->json(['success' => true]);
+    }
     public function addLaptop(Request $request)
     {
         $name = $request->input('name');
@@ -47,16 +65,15 @@ class WebController extends Controller
     {
         if (!$request->input('id')) {
             return response()->json(['success' => false]);
-        }else{
+        } else {
             $user = DB::table('users')->where('id', $request->input('id'))->first();
-            if(!$user || $user->is_admin != 1){
+            if (!$user || $user->is_admin != 1) {
                 return response()->json(['success' => false]);
             }
             $users = DB::table('users')->get();
             $laptops = DB::table('laptops')->get();
             return response()->json(['success' => true, 'users' => $users, 'laptops' => $laptops]);
         }
-
     }
     public function history(Request $request)
     {
@@ -75,7 +92,7 @@ class WebController extends Controller
                 "orders" => $orders,
             ];
         }
-        return response()->json(['success' => true, 'history' => $history]);    
+        return response()->json(['success' => true, 'history' => $history]);
     }
     public function submit(Request $request)
     {
